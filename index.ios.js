@@ -1,24 +1,23 @@
-import { Navigation } from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation'
 
 import { registerScreens } from './src/screens';
 registerScreens(); // this is where you register all of your app's screens
 
-// start the app
-Navigation.startTabBasedApp({
-  tabs: [
-    {
-      label: 'Swipe',
-      screen: 'example.FirstTabScreen', // this is a registered name for a screen
-      //icon: require('../img/one.png'),
-      //selectedIcon: require('../img/one_selected.png'), // iOS only
-      title: 'ONOMA'
+
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: 'example.FirstTabScreen', // unique ID registered with Navigation.registerScreen
+    title: 'ONOMA', // title of the screen as appears in the nav bar (optional)
+    navigatorStyle: {
+      drawUnderNavBar: true,
+      // navBarBlur: true,
+      navBarTextColor: '#fff',
+      navBarButtonColor: '#fff',
+      statusBarTextColorScheme: 'light'
+      // navBarTransparent: true,
     },
-    {
-      label: 'Liste',
-      screen: 'example.SecondTabScreen',
-     // icon: require('../img/two.png'),
-      //selectedIcon: require('../img/two_selected.png'), // iOS only
-      title: 'MATCH'
-    }
-  ]
+  },
+    
+  passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
+  animationType: 'none' // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
 });
