@@ -1,8 +1,11 @@
 import { Navigation } from 'react-native-navigation'
+import { Provider } from 'react-redux'
+import configureStore from './src/config'
+import { registerScreens } from './src/screens'
 
-import { registerScreens } from './src/screens';
-registerScreens(); // this is where you register all of your app's screens
+const store = configureStore();
 
+registerScreens(store, Provider); // this is where you register all of your app's screens
 
 Navigation.startSingleScreenApp({
   screen: {
@@ -17,7 +20,7 @@ Navigation.startSingleScreenApp({
       //navBarTransparent: true,
     },
   },
-    
+
   passProps: {}, // simple serializable object that will pass as props to all top screens (optional)
   animationType: 'none' // optional, add transition animation to root change: 'none', 'slide-down', 'fade'
 });

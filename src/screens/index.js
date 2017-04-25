@@ -4,7 +4,7 @@ import MainTabScreen from './main'
 import LoginTabScreen from './list'
 
 // register all screens of the app (including internal ones)
-export function registerScreens() {
-  Navigation.registerComponent('example.FirstTabScreen', () => MainTabScreen)
-  Navigation.registerComponent('example.SecondTabScreen', () => LoginTabScreen)
+export function registerScreens(store, provider) {
+  Navigation.registerComponent('example.FirstTabScreen', () => MainTabScreen, store, provider)
+  Navigation.registerComponent('example.SecondTabScreen', () => LoginTabScreen, store, provider)
 }

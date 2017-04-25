@@ -16,10 +16,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 export default class onoma extends Component {
   render() {
     return (
-      <View 
-        end={{x: 0.0, y: 0}}
-        start={{x: 1, y: 0}}
-        locations={[0.3,0.7]} colors={['#F8BBD0', '#C5CAE9']} style={styles.container}>
+      <View  style={styles.container}>
         <View style={styles.row}>
          <Icon style={styles.icon} name={'md-female'} size={20} color={'rgb(59,89,152)'} />
           <Text>Alexandre</Text>
@@ -48,4 +45,3 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   }
 });
-
