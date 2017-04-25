@@ -1,95 +1,71 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 
 import Container from '../common/container'
-import SwipeCards from 'react-native-swipe-cards'
 import List from './list'
+import Profil from './profil'
+import SwipeCard from '../component/swipeCards'
 import ScrollableTabView, { DefaultTabBar, } from 'react-native-scrollable-tab-view'
 import FacebookTabBar from '../topbar'
-import Icon from 'react-native-vector-icons/Ionicons'
+import  * as firebase from 'firebase'
 
-const Cards = [
-  {text: 'Alexandre', backgroundColor: 'red', origine: 'France'},
-  {text: 'Julien', backgroundColor: 'purple'},
-  {text: 'Lucien', backgroundColor: 'purple'}
-]
+const config = {
+  apiKey: "AIzaSyCZctzbMpMOmwd4D_auRB_nXYTnB1VShko",
+  authDomain: "name-matcher-26232.firebaseapp.com",
+  databaseURL: "https://name-matcher-26232.firebaseio.com",
+  storageBucket: "name-matcher-26232.appspot.com",
+  messagingSenderId: "266586069715"
+}
 
-const Card = ({ text, origine = 'NC' }) => (
-  <View style={styles.card}>
-    <Icon
-      style={styles.icon}
-      name={'md-female'}
-      size={100}
-      color={'rgb(59,89,152)'}
-    />
-    <Text style={styles.name} >{text}</Text>
-    <Text style={styles.origine} >Origine: {origine}</Text>
-  </View>
-)
-
-const Test = () => 
-  <SwipeCards
-    containerStyle={styles.cardWrapper}
-    cards={Cards}
-    handleYup={() => ({})}
-    handleNope={() => ({})}
-    showYup={false}
-    showNope={false}
-    allowGestureTermination={false}
-    loop={true}
-    renderCard={(cardData) => <Card {...cardData} />}
-  />
-
-const Profil = () => 
-  <View style={stylesProfil.wrapper}>
-    <Image style={stylesProfil.image} source={require('../../assets/profile.jpg')}/>
-    <Text style={stylesProfil.username}>Alexandre Garrec</Text>
-  </View>
-
-var stylesProfil = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent'
-  },
-  username: {
-    color: '#fff',
-    margin: 20,
-    fontSize: 16
-  },
-  image: {
-    height: 100,
-    borderRadius: 50,
-    width: 100
+function shuffle(array) {
+  var tmp, current, top = array.length;
+  if(top) while(--top) {
+    current = Math.floor(Math.random() * (top + 1));
+    tmp = array[current];
+    array[current] = array[top];
+    array[top] = tmp;
   }
-});
+  return array;
+}
+
+const firebaseApp = firebase.initializeApp(config);
 
 export default class onoma extends Component {
-  static navigatorStyle = {
-    navBarHidden: true
-  };
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: []
+    }
+    this.itemsRef = firebaseApp.database().ref('name')
+  }
+  componentDidMount() {
+    this.listenForItems(this.itemsRef);
+  }
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+      // get children as an array
+      var items = [];
+      snap.forEach((child) => {
+        items.push({
+          ...child.val(),
+          id: child.key
+        });
+      });
+      this.setState({
+        data: shuffle(items)
+      })
+    })
+  }
   render() {
     return (
        <Container>
-        <ScrollableTabView 
-        tabBarPosition='bottom'
-          initialPage={1} 
-          locked={true} 
+        <ScrollableTabView
+          tabBarPosition='bottom'
+          initialPage={1}
+          locked={true}
           renderTabBar={() => <FacebookTabBar />} >
           <Profil tabLabel='ios-contact'/>
-          <Test tabLabel='ios-flash' />
+          <SwipeCard names={this.state.data} tabLabel='ios-flash' />
           <List tabLabel='md-heart-outline' />
         </ScrollableTabView>
       </Container>
@@ -103,26 +79,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
-  },
-  cardWrapper : {
-    backgroundColor: 'transparent'
-  },
-  card: {
-    alignItems: 'center',
-    justifyContent: 'center', 
-    width: 300,
-    height: 400,
-    borderRadius: 10,
-    backgroundColor: '#fff'
-  },
-  icon: {
-    padding: 50
-  },
-  name: {
-    fontSize: 40
-  },
-  origine: {
-    marginTop: 20
   }
-});
-
+})

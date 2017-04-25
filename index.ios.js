@@ -10,11 +10,11 @@ Navigation.startSingleScreenApp({
     title: 'ONOMA', // title of the screen as appears in the nav bar (optional)
     navigatorStyle: {
       drawUnderNavBar: true,
-      // navBarBlur: true,
+      navBarBlur: true,
       navBarTextColor: '#fff',
       navBarButtonColor: '#fff',
-      statusBarTextColorScheme: 'light'
-      // navBarTransparent: true,
+      statusBarTextColorScheme: 'light',
+      //navBarTransparent: true,
     },
   },
     
