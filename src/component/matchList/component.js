@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-native'
 
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { SwipeListView } from 'react-native-swipe-list-view'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e5e5e5',
     flexDirection: 'row'
   }
-});
-
+})
 
 export default MatchList

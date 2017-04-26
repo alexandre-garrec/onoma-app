@@ -43,7 +43,6 @@ function* saveMatch({ payload }) {
 }
 
 function* deleteMatch({ payload }) {
-  console.log('deleteMatch', payload)
   try {
     const state = yield select()
     const matchs = getMatchs(state).filter(id => id !== payload)
@@ -58,14 +57,12 @@ function* getLocalState() {
   try {
     const names = yield load('names')
     if (names) yield put({ type: GET_NAME_SUCCESS, payload: names })
-	  else yield put({ type: GET_NAME, payload: names })
+	  else yield put({ type: GET_NAME })
 
     const matchs = yield load('matchs')
     if (matchs) yield put({ type: ADD_MATCH_SUCCESS, payload: matchs })
 
-  } catch (error) {
-    yield put({ type: GET_NAME, payload: names })
-  }
+  } catch (error) {}
 }
 
 function* flow() {
