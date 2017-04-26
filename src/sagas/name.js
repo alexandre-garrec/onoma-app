@@ -1,6 +1,6 @@
 import { fork, call, put, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
-import { GET_NAME, GET_NAME_SUCCESS, ADD_MATCH, ADD_MATCH_SUCCESS, ADD_MATCH_ERROR } from '../actions'
+import { GET_NAME, GET_NAME_SUCCESS, ADD_MATCH, ADD_MATCH_SUCCESS, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_SUCCESS, DELETE_MATCH_ERROR } from '../actions'
 import { save, load } from '../utils/localStorage'
 import { getNamesId, getMatchs } from '../selectors/name'
 import { makeAssociativeTable } from '../utils/reducer'
@@ -31,6 +31,29 @@ function* getAllName() {
   }
 }
 
+function* saveMatch({ payload }) {
+  try {
+    const state = yield select()
+    const matchs = [ ...getMatchs(state), payload ]
+    yield save('matchs', matchs)
+    yield put({ type: ADD_MATCH_SUCCESS, payload: [ payload ] })
+  } catch (error) {
+    yield put({ type: ADD_MATCH_ERROR })
+  }
+}
+
+function* deleteMatch({ payload }) {
+  console.log('deleteMatch', payload)
+  try {
+    const state = yield select()
+    const matchs = getMatchs(state).filter(id => id !== payload)
+    yield save('matchs', matchs)
+    yield put({ type: DELETE_MATCH_SUCCESS, payload: payload })
+  } catch (error) {
+    yield put({ type: DELETE_MATCH_ERROR })
+  }
+}
+
 function* getLocalState() {
   try {
     const names = yield load('names')
@@ -45,22 +68,11 @@ function* getLocalState() {
   }
 }
 
-function* saveMatch({ payload }) {
-  try {
-    const state = yield select()
-    const matchs = [ ...getMatchs(state), payload ]
-    yield save('matchs', matchs)
-    yield put({ type: ADD_MATCH_SUCCESS, payload: [ payload ] })
-  } catch (error) {
-    yield put({ type: ADD_MATCH_ERROR })
-  }
-}
-
-
 function* flow() {
   yield [
     takeEvery(GET_NAME, getAllName),
     takeEvery(ADD_MATCH, saveMatch),
+    takeEvery(DELETE_MATCH, deleteMatch),
     fork(getLocalState)
   ]
 }

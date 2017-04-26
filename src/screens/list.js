@@ -2,6 +2,6 @@ import React, { Component } from 'react'
 
 import MatchList from '../component/matchList'
 
-const List = () =>  <MatchList />
+const List = ({router}) =>  <MatchList router={router}  />
 
 export default List
