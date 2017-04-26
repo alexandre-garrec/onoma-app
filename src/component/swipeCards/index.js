@@ -1,13 +1,22 @@
 import { connect } from 'react-redux'
 import Component from './component'
-import { getNames } from '../../selectors/name'
+import { makeGetNames } from '../../selectors/name'
+import { ADD_MATCH } from '../../actions'
 
 
-const mapStateToProps = (state) => {
-  const names = getNames(state)
-  return {
-    names
+const makeMapStateToProps = () => {
+  const getNames = makeGetNames()
+  const mapStateToProps = (state) => {
+    const names = getNames(state)
+    return {
+      names
+    }
   }
+  return mapStateToProps
 }
 
-export default connect(mapStateToProps)(Component)
+const mapDispatchToProps = (dispatch) => ({
+  match: id => dispatch({ type: ADD_MATCH, payload: id })
+})
+
+export default connect(makeMapStateToProps, mapDispatchToProps)(Component)

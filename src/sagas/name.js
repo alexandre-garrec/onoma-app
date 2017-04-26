@@ -1,30 +1,11 @@
 import { fork, call, put, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
-import { GET_NAME, GET_NAME_SUCCESS } from '../actions'
+import { GET_NAME, GET_NAME_SUCCESS, ADD_MATCH, ADD_MATCH_SUCCESS, ADD_MATCH_ERROR } from '../actions'
 import { save, load } from '../utils/localStorage'
-import { getNames } from '../selectors/name'
+import { getNamesId, getMatchs } from '../selectors/name'
 import { makeAssociativeTable } from '../utils/reducer'
-
+import { isEmpty } from '../utils'
 import Fireonsaga from '../utils/fireonsaga'
-
-function shuffle(array) {
-  var tmp, current, top = array.length;
-  if(top) while(--top) {
-    current = Math.floor(Math.random() * (top + 1));
-    tmp = array[current];
-    array[current] = array[top];
-    array[top] = tmp;
-  }
-  return array;
-}
-
-const isEmpty = obj => {
-  for(var prop in obj) {
-    if(obj.hasOwnProperty(prop))
-      return false;
-  }
-  return JSON.stringify(obj) === JSON.stringify({});
-}
 
 const config = {
   apiKey: "AIzaSyCZctzbMpMOmwd4D_auRB_nXYTnB1VShko",
@@ -39,25 +20,39 @@ const FireSaga = new Fireonsaga(config)
 function* getAllName() {
   try {
     const state = yield select()
-    const localName = getNames(state)
-    if (!localName.length) {
+    const localName = getNamesId(state)
+    if (isEmpty(localName)) {
       const data = yield FireSaga.ref('name').get()
       const names =  makeAssociativeTable(data.val())
       yield put({ type: GET_NAME_SUCCESS, payload: names })
-      save('names', names)
+      yield save('names', names)
     }
   } catch (error) {
   }
 }
 
-function* getLocalNames() {
+function* getLocalState() {
   try {
     const names = yield load('names')
-    if (names) {
-	    yield put({ type: GET_NAME_SUCCESS, payload: names })
-    }
+    if (names) yield put({ type: GET_NAME_SUCCESS, payload: names })
+	  else yield put({ type: GET_NAME, payload: names })
+
+    const matchs = yield load('matchs')
+    if (matchs) yield put({ type: ADD_MATCH_SUCCESS, payload: matchs })
+
   } catch (error) {
-    console.log(error)
+    yield put({ type: GET_NAME, payload: names })
+  }
+}
+
+function* saveMatch({ payload }) {
+  try {
+    const state = yield select()
+    const matchs = [ ...getMatchs(state), payload ]
+    yield save('matchs', matchs)
+    yield put({ type: ADD_MATCH_SUCCESS, payload: [ payload ] })
+  } catch (error) {
+    yield put({ type: ADD_MATCH_ERROR })
   }
 }
 
@@ -65,7 +60,8 @@ function* getLocalNames() {
 function* flow() {
   yield [
     takeEvery(GET_NAME, getAllName),
-    fork(getLocalNames)
+    takeEvery(ADD_MATCH, saveMatch),
+    fork(getLocalState)
   ]
 }
 

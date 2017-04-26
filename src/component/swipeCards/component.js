@@ -4,23 +4,27 @@ import SwipeCards from 'react-native-swipe-cards'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Loading from '../loading'
 
-const SwipeCard = ({ names }) =>
-  <SwipeCards
+const SwipeCard = ({ names, match }) => {
+  return <SwipeCards
     containerStyle={styles.cardWrapper}
     cards={names}
-    handleYup={() => ({})}
-    handleNope={() => ({})}
+    handleYup={name => {
+      match(name.id)
+      return
+    }}
+    handleNope={() => {
+      return
+    }}
     loop={true}
-    // stack={true}
     showYup={true}
     showNope={true}
     renderNoMoreCards={() => <Loading />}
     allowGestureTermination={false}
-    handleYup={this.handleYup}
-    handleNope={this.handleNope}
     handleMaybe={this.handleMaybe}
     renderCard={(cardData) => <Card {...cardData} />}
   />
+}
+
 
 const Card = ({ firstname, genre, origin = 'NC' }) =>
   <View key={firstname} style={styles.card}>

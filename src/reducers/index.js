@@ -1,8 +1,10 @@
 import {combineReducers} from 'redux'
 import name from './name'
+import match from './match'
 
 const applicationReducers = {
-  name
+  name,
+  match
 }
 
 export default () => combineReducers(applicationReducers)

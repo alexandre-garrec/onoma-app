@@ -6,7 +6,6 @@ export const load = (key, id) => {
     key,
     id
   }).then(response => response)
-    .catch(err => err)
 }
 
 export const save = (key, rawData, id) => storage.save({ key, rawData, id })
