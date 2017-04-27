@@ -16,8 +16,8 @@ Navigation.startSingleScreenApp({
       navBarBlur: true,
       navBarTextColor: '#fff',
       navBarButtonColor: '#fff',
-      statusBarTextColorScheme: 'light',
-      //navBarTransparent: true,
+      // statusBarTextColorScheme: 'light',
+      // navBarTransparent: true,
     },
   },
 

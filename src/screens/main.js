@@ -11,18 +11,36 @@ import SwipeCard from '../component/swipeCards'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view'
 import FacebookTabBar from '../component/topbar'
 
-const Onoma = ({ navigator }) =>
-  <Container>
-    {/*<Query action={GET_NAME} />*/}
-    <ScrollableTabView
-      tabBarPosition='bottom'
-      initialPage={1}
-      locked={true}
-      renderTabBar={() => <FacebookTabBar />} >
-      <Profil tabLabel='ios-contact'/>
-      <SwipeCard tabLabel='ios-flash' />
-      <List router={navigator} tabLabel='md-heart-outline' />
-    </ScrollableTabView>
-  </Container>
+class Onoma extends Component {
+  static navigatorStyle = {
+     navBarHidden: true
+  }
+  constructor(props) {
+    super(props)
+    this.state = {
+      locked: true
+    }
+  }
+  setLocked (locked) {
+    this.setState({ locked })
+  }
+  render() {
+    const { id } = this.props
+    return (
+      <Container>
+        {/*<Query action={GET_NAME} />*/}
+        <ScrollableTabView
+          tabBarPosition='top'
+          initialPage={1}
+          locked={this.state.locked}
+          renderTabBar={() => <FacebookTabBar setLocked={value => this.setLocked(value)} />} >
+          <Profil tabLabel='ios-contact'/>
+          <SwipeCard tabLabel='ios-flash' />
+          <List router={navigator} tabLabel='md-heart-outline' />
+        </ScrollableTabView>
+      </Container>
+     )
+  }
+}
 
 export default Onoma

@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 
+const IOS_NAV_BAR_HEIGHT = 44
+
 const FacebookTabBar = React.createClass({
   tabIcons: [],
 
@@ -15,57 +17,54 @@ const FacebookTabBar = React.createClass({
     activeTab: React.PropTypes.number,
     tabs: React.PropTypes.array,
   },
-
-  componentDidMount() {
-    this._listener = this.props.scrollValue.addListener(this.setAnimationValue);
-  },
-
-  setAnimationValue({ value, }) {
-    this.tabIcons.forEach((icon, i) => {
-      const progress = Math.min(1, Math.abs(value - i))
-      icon.setNativeProps({
-        style: {
-          color: this.iconColor(progress),
-        },
-      });
-    });
-  },
-
-  //color between rgb(59,89,152) and rgb(255,255,255)
-  iconColor(progress) {
-    const red = 59 + (255 - 59) * progress;
-    const green = 89 + (255 - 89) * progress;
-    const blue = 152 + (255 - 152) * progress;
-    return `rgb(${red}, ${green}, ${blue})`;
+  componentWillUpdate(nextProps) {
+    if (nextProps.activeTab !== this.props.activeTab)
+    this.props.setLocked([1, 2].includes(nextProps.activeTab))
   },
 
   render() {
-    return <View style={[styles.tabs, this.props.style, ]}>
-      {this.props.tabs.map((tab, i) => {
-        return <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
+    return (
+      <View style={[styles.tabs, this.props.style]}>
+         <TouchableOpacity onPress={() => this.props.goToPage(0)} style={styles.tab}>
           <Icon
-            name={tab}
-            size={45}
-            color={this.props.activeTab === i ? 'rgb(59,89,152)' : '#fff'}
-            ref={(icon) => { this.tabIcons[i] = icon; }}
+            name={'ios-contact'}
+            size={30}
+            color={this.props.activeTab === 0 ? 'rgb(59,89,152)' : '#d8dce5'}
+            ref={(icon) => { this.tabIcons[0] = icon; }}
           />
-        </TouchableOpacity>;
-      })}
-    </View>;
-  },
-});
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.goToPage(1)} style={styles.tab}>
+          <Text style={styles.navBarTitleText}>ONOMA</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.goToPage(2)} style={styles.tab}>
+          <Icon
+            name={'md-heart-outline'}
+            size={30}
+            color={this.props.activeTab === 2 ? 'rgb(59,89,152)' : '#d8dce5'}
+            ref={(icon) => { this.tabIcons[2] = icon; }}
+          />
+        </TouchableOpacity>
+    </View>
+    )
+  }
+})
 
 const styles = StyleSheet.create({
-  tab: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingBottom: 10,
-    paddingTop: 10,
-  },
   tabs: {
+    borderTopWidth: 0,
     flexDirection: 'row',
-    paddingTop: 5
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: IOS_NAV_BAR_HEIGHT,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
+  navBarTitleText: {
+    fontSize: 17,
+    letterSpacing: 0.5,
+    color: '#f8bbd0',
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });
 
