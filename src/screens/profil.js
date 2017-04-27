@@ -6,25 +6,34 @@ import {
   Image
 } from 'react-native'
 
-const Profil = () => 
-  <View style={stylesProfil.wrapper}>
-    <Image style={stylesProfil.image} source={require('../../assets/profile.jpg')}/>
-    <Text style={stylesProfil.username}>Alexandre Garrec</Text>
-    <Text style={stylesProfil.username}>Ajouter ma partenaire</Text>
-    <Text style={stylesProfil.username}>Offline</Text>
+import { RkText } from 'react-native-ui-kitten'
+import Icon from 'react-native-vector-icons/Ionicons'
+
+const Profil = () =>
+  <View style={styles.wrapper}>
+    <View>
+      <View style={styles.image_wrapper}>
+        <Image style={styles.image} source={require('../../assets/profile.jpg')}/>
+        <RkText>John Doe</RkText>
+      </View>
+      <RkText><Icon name='ios-link-outline' />Partenaire</RkText>
+      <RkText><Icon name='ios-flask-outline' />Réglages</RkText>
+      <RkText><Icon name='ios-beer-outline' /> Déconnexion</RkText>
+    </View>
   </View>
 
-var stylesProfil = StyleSheet.create({
+var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'
   },
-  username: {
-    color: '#fff',
-    margin: 20,
-    fontSize: 16
+  image_wrapper:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    marginBottom: 40
   },
   image: {
     height: 100,

@@ -9,6 +9,11 @@ export const getMatchs = state => state.match
 
 export const getNames = state => Object.values(state.name.items)
 
+export const makeGetNamesId = () => createSelector(
+  getNamesId,
+  names => shuffle(Object.keys(names))
+)
+
 export const makeGetNames = () => createSelector(
   getNamesId,
   names => shuffle(Object.values(names))

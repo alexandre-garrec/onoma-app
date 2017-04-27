@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import Component from './component'
-import { makeGetNames } from '../../selectors/name'
+import { makeGetNamesId } from '../../selectors/name'
 import { ADD_MATCH } from '../../actions'
 
 
 const makeMapStateToProps = () => {
-  const getNames = makeGetNames()
+  const getNames = makeGetNamesId()
   const mapStateToProps = (state) => {
     const names = getNames(state)
     return {

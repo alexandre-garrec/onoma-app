@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const IOS_NAV_BAR_HEIGHT = 44
@@ -19,7 +20,7 @@ const FacebookTabBar = React.createClass({
   },
   componentWillUpdate(nextProps) {
     if (nextProps.activeTab !== this.props.activeTab)
-    this.props.setLocked([1, 2].includes(nextProps.activeTab))
+    this.props.setLocked([1].includes(nextProps.activeTab))
   },
 
   render() {

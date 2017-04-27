@@ -25,7 +25,7 @@ class Onoma extends Component {
     this.setState({ locked })
   }
   render() {
-    const { id } = this.props
+    const { id, navigator } = this.props
     return (
       <Container>
         {/*<Query action={GET_NAME} />*/}
