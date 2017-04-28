@@ -9,3 +9,5 @@ export const ADD_MATCH_ERROR = 'add.match.error'
 export const DELETE_MATCH = 'delete.match'
 export const DELETE_MATCH_SUCCESS = 'delete.match.success'
 export const DELETE_MATCH_ERROR = 'delete.match.error'
+
+export const SET_FILTER = 'set.filter'

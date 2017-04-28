@@ -11,7 +11,7 @@ const Card = ({ name: { firstname, genre, origin = 'NC' } }) =>
       color={genre === 'f' ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
     />
     <Text style={styles.name}>{firstname}</Text>
-    { origin ? <Text style={styles.origine}>Origine: {origin}</Text> : null }
+    { origin ? <Text style={styles.origine}>Origine : prénoms {origin}</Text> : null }
   </View>
 
 const styles = StyleSheet.create({

@@ -34,8 +34,8 @@ class Onoma extends Component {
           initialPage={1}
           locked={this.state.locked}
           renderTabBar={() => <FacebookTabBar setLocked={value => this.setLocked(value)} />} >
-          <Profil tabLabel='ios-contact'/>
-          <SwipeCard tabLabel='ios-flash' />
+          <Profil />
+          <SwipeCard router={navigator} />
           <List router={navigator} tabLabel='md-heart-outline' />
         </ScrollableTabView>
       </Container>

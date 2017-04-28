@@ -24,12 +24,12 @@ class Name extends Component {
     navBarBackgroundColor: '#F8BBD0'
   }
   render() {
-    const { id } = this.props
+    const { id, deleteItem } = this.props
     return (
       <Container>
         <Card id={id} />
         <Group>
-          <RoundButton icon='md-trash' />
+          <RoundButton icon='md-trash' onPress={deleteItem} />
           <RoundButton icon='md-share' onPress={onClick} />
         </Group>
       </Container>
@@ -37,4 +37,11 @@ class Name extends Component {
   }
 }
 
-export default Name
+import { connect } from 'react-redux'
+import { DELETE_MATCH } from '../actions'
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  deleteItem: () => dispatch({ type: DELETE_MATCH, payload: id })
+})
+
+export default connect(() => ({}), mapDispatchToProps)(Name)
