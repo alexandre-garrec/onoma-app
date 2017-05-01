@@ -40,10 +40,6 @@ class Demo extends Component {
     this._deltaX = new Animated.Value(0)
   }
 
-  optimisticUpdate() {
-    this.setState({ current: this.props.next })
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!this.state.current || this.state.current < nextProps.current) {
       this.setState({ current: nextProps.current, next: nextProps.next })
@@ -78,11 +74,9 @@ class Demo extends Component {
   }
 
   render() {
-    const { handleNext, next, snapPoints, alertAreas, cards } = this.props
-    const { current } = this.state
+    const { handleNext, next, snapPoints, alertAreas, current } = this.props
     return (
       <View style={styles.wrapper}>
-        <Text style={styles.text}>Une putain de demo</Text>
         { current ?
           <View>
             <Interactable.View
@@ -104,18 +98,7 @@ class Demo extends Component {
                 <Card id={current} />
               </Animated.View>
           </Interactable.View>
-          <Interactable.View
-              style={styles.next}
-              key={next}
-              dragEnabled={false}
-              snapPoints={snapPoints}
-              alertAreas={alertAreas}
-              onAlert={this.onAlert.bind(this)}
-              onDrag={this.onDrag.bind(this)}
-              onSnap={this.onSnap.bind(this)}
-              animatedValueX={this._deltaX}>
-              <Card style={styles.card} id={next} />
-          </Interactable.View>
+          <Card style={styles.next} id={next} />
           <Group>
             <RoundButton style={{ opacity: this.state.left ? 1 : 0 }} icon='md-trash' />
             <RoundButton style={{ opacity: this.state.right ? 1 : 0 }} icon='md-share'  />
@@ -140,8 +123,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
-  init: () => dispatch({ type: CARD_INIT })
+  handleNext: () => dispatch({ type: CARD_HANDLE_NEXT })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Demo)
@@ -156,10 +138,7 @@ var styles = StyleSheet.create({
   },
   next: {
     position: 'absolute',
-    zIndex: -1,
-  },
-  card: {
-    backgroundColor: 'red'
+    zIndex: -1
   },
   text: {
     color: '#000'
