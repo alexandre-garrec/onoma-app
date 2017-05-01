@@ -28,3 +28,7 @@ export const makeGetNames = () => createSelector(
   getNamesId,
   names => shuffle(Object.values(names))
 )
+
+export const getCurrentCard = state => state.card.current
+export const getPreviousCard = state => state.card.previous
+export const getNextCard = state => state.card.next

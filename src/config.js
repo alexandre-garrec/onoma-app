@@ -5,6 +5,18 @@ import sagas from './sagas'
 import Storage from 'react-native-storage'
 import { AsyncStorage } from 'react-native'
 
+import Fireonsaga from './utils/fireonsaga'
+
+const config = {
+  apiKey: "AIzaSyCZctzbMpMOmwd4D_auRB_nXYTnB1VShko",
+  authDomain: "name-matcher-26232.firebaseapp.com",
+  databaseURL: "https://name-matcher-26232.firebaseio.com",
+  storageBucket: "name-matcher-26232.appspot.com",
+  messagingSenderId: "266586069715"
+}
+
+export const FireSaga = new Fireonsaga(config)
+
 export const storage = new Storage({
   // maximum capacity, default 1000
   size: 1000,

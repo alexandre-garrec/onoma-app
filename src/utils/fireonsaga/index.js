@@ -91,10 +91,10 @@ const onAuthStateChanged = (auth, saga) => {
 }
 
 
-const _makeAuthPromise = (auth, ...params) => ({
+const _makeAuthPromise = (auth) => ({
   ..._auth.reduce((memo, key) =>
-    ({...memo, [key]: () => auth[key](...params).then((...data) => data)}), {}),
-  onAuthStateChanged: () => onAuthStateChanged(auth, ...params)
+    ({...memo, [key]: ( ...params) => auth[key](...params).then((data) => data)}), {}),
+  onAuthStateChanged: ( ...params) => onAuthStateChanged(auth, ...params)
 })
 
 const _once = (ref, type) => new Promise(resolve => ref.once(type, data => resolve(data)))

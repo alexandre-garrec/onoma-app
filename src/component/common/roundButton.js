@@ -15,11 +15,11 @@ const SIZE = {
   }
 }
 
-const RoundButton = ({ icon, size = 'normal', color, onPress }) => {
+const RoundButton = ({ icon, size = 'normal', color, onPress, style }) => {
   const genStyle = styles(size)
   return (
     <TouchableOpacity style={genStyle.button} onPress={onPress}>
-      <Icon name={icon} size={SIZE[size].fontSize} color={color} style={{marginTop:5}} />
+      <Icon name={icon} size={SIZE[size].fontSize} color={color} style={[{ marginTop:5 }, style ]} />
     </TouchableOpacity>
   )
 }

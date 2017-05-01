@@ -11,3 +11,12 @@ export const DELETE_MATCH_SUCCESS = 'delete.match.success'
 export const DELETE_MATCH_ERROR = 'delete.match.error'
 
 export const SET_FILTER = 'set.filter'
+
+export const CARD_INIT = 'card.init'
+export const SET_CURRENT_CARD = 'set.current.card'
+export const CARD_HANDLE_NEXT = 'card.handle.next'
+export const CARD_HANDLE_BACK = 'card.handle.back'
+
+export const USER_LOGIN = 'user.login'
+export const USER_LOGIN_SUCCESS = 'user.login.success'
+export const USER_LOGIN_ERROR = 'user.login.error'

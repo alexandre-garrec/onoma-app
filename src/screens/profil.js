@@ -9,18 +9,31 @@ import {
 import { RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Profil = () =>
+const Profil = ({ user: { email } }) =>
   <View style={styles.wrapper}>
     <View>
       <View style={styles.image_wrapper}>
         <Image style={styles.image} source={require('../../assets/profile.jpg')}/>
-        <RkText>John Doe</RkText>
+        <RkText>{email}</RkText>
       </View>
       <RkText><Icon name='ios-link-outline' />Partenaire</RkText>
       <RkText><Icon name='ios-flask-outline' />Réglages</RkText>
       <RkText><Icon name='ios-beer-outline' /> Déconnexion</RkText>
     </View>
   </View>
+
+
+import { connect } from 'react-redux'
+import { getCurrentUser } from '../selectors/user'
+
+const mapStateToProps = (state) => {
+  const user = getCurrentUser(state)
+  return {
+    user
+  }
+}
+
+export default connect(mapStateToProps)(Profil)
 
 var styles = StyleSheet.create({
   wrapper: {
@@ -41,5 +54,3 @@ var styles = StyleSheet.create({
     width: 100
   }
 })
-
-export default Profil

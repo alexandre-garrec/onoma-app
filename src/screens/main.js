@@ -27,7 +27,7 @@ class Onoma extends Component {
   render() {
     const { id, navigator } = this.props
     return (
-      <Container>
+      <Container router={navigator}>
         {/*<Query action={GET_NAME} />*/}
         <ScrollableTabView
           tabBarPosition='top'

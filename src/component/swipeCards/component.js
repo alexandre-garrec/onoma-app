@@ -15,7 +15,7 @@ const onClick = router =>
       backgroundBlur: "none", // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
       backgroundColor: "#ffffff90" // tint color for the background, you can specify alpha here (optional)
    }
-  });
+  })
 
 class SwipeCard extends Component {
   constructor(props) {

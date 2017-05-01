@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Card = ({ name: { firstname, genre, origin = 'NC' } }) =>
-  <View key={firstname} style={styles.card}>
+const Card = ({ name: { firstname, genre, origin = 'NC' }, style }) =>
+  <View key={firstname} style={[styles.card, style]}>
     <Icon
       style={styles.icon}
       name={genre === 'f' ? 'md-female' : 'md-male'}
