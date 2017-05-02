@@ -6,7 +6,7 @@ import {
   Dimensions,
   Animated
 } from 'react-native'
-
+// swipe card
 import Interactable from 'react-native-interactable'
 import Card from '../card'
 
