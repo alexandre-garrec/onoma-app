@@ -16,7 +16,7 @@ const onClick = router =>
       backgroundColor: "#ffffff90" // tint color for the background, you can specify alpha here (optional)
    }
   })
-// wtf
+
 const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
   <View style={styles.container}>
     <SwipeCards onRight={onRight} handleNext={handleNext} current={current} next={next} />
