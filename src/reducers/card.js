@@ -4,13 +4,15 @@ import { SET_CURRENT_CARD } from '../actions'
 const initialState = {
   current: false,
   previous: false,
-  next: false
+  next: false,
+  history: []
 }
 
 const card =  reducer(initialState, {
   [SET_CURRENT_CARD]: (state, payload) => ({
     ...state,
-    ...payload
+    ...payload,
+    history: [ ...state.history, payload.current ]
   })
 })
 

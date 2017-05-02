@@ -3,20 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   Dimensions,
   Animated
 } from 'react-native'
 
-import RoundButton, { Group } from '../component/common/roundButton'
-
-import Card from '../component/card'
-
 import Interactable from 'react-native-interactable'
+import Card from '../card'
 
 const { width } = Dimensions.get('window')
 
-class Demo extends Component {
+class SwipeCard extends Component {
   static defaultProps = {
     snapPoints: [
       { x: width + 50, id: 'right', damping: 0, tension: 300 },
@@ -66,8 +62,12 @@ class Demo extends Component {
   }
 
   onSnap(event) {
+    const { onRight, onLeft, current } = this.props
     const snapPointId = event.nativeEvent.id
-    if (['right', 'left'].includes(snapPointId) && !this.state.drag) {
+    if (!this.state.drag && ['right', 'left'].includes(snapPointId)) {
+      if (snapPointId === 'right' && onRight) onRight(current)
+      else if (snapPointId === 'left' && onLeft) onLeft(current)
+
       this._deltaX.setValue(0)
       this.props.handleNext()
     }
@@ -75,12 +75,14 @@ class Demo extends Component {
 
   render() {
     const { handleNext, next, snapPoints, alertAreas, current } = this.props
+    const { left, right } = this.state
     return (
       <View style={styles.wrapper}>
         { current ?
           <View>
             <Interactable.View
               key={current}
+              animatedNativeDriver={true}
               snapPoints={snapPoints}
               alertAreas={alertAreas}
               onAlert={this.onAlert.bind(this)}
@@ -99,35 +101,19 @@ class Demo extends Component {
               </Animated.View>
           </Interactable.View>
           <Card style={styles.next} id={next} />
-          <Group>
-            <RoundButton style={{ opacity: this.state.left ? 1 : 0 }} icon='md-trash' />
-            <RoundButton style={{ opacity: this.state.right ? 1 : 0 }} icon='md-share'  />
-          </Group>
+          <View style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Text style={{ opacity: left ? 1 : 0 }}>left</Text>
+            <Text style={{ opacity: right ? 1 : 0 }}>right</Text>
+          </View>
         </View>: <Text style={styles.text}>Loading ...</Text> }
       </View>
     )
   }
 }
-
-import { connect } from 'react-redux'
-import { CARD_HANDLE_NEXT, CARD_INIT } from '../actions'
-import { getCurrentCard, getNextCard, getNamesId } from '../selectors/name'
-
-const mapStateToProps = (state) => {
-  const current = getCurrentCard(state)
-  const next = getNextCard(state)
-  return {
-    current,
-    next
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  handleNext: () => dispatch({ type: CARD_HANDLE_NEXT })
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Demo)
-
 
 var styles = StyleSheet.create({
   wrapper: {
@@ -144,3 +130,5 @@ var styles = StyleSheet.create({
     color: '#000'
   }
 })
+
+export default SwipeCard

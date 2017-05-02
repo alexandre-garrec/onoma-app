@@ -1,34 +1,40 @@
 import { fork, call, put, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
 import { CARD_INIT, SET_CURRENT_CARD, CARD_HANDLE_NEXT } from '../actions'
-import { getCurrentCard, getPreviousCard, getNextCard } from '../selectors/name'
+import { getCurrentCard, getPreviousCard, getNextCard, makeGetNamesId } from '../selectors/name'
+
+const getNamesId = makeGetNamesId()
 
 function* initCard() {
   try {
-    console.log('init ! ')
-    const state = yield select()
+    const card1 = yield getRandomCard()
+    const card2 = yield getRandomCard()
     yield put({ type: SET_CURRENT_CARD, payload: {
-      current: 1,
-      next: 2
+      current: card1,
+      next: card2
     } })
-  } catch (error) {
-  }
+  } catch (error) {}
 }
 
 function* handleNext() {
   try {
     const state = yield select()
     const current = getCurrentCard(state)
-    const previous = getPreviousCard(state)
     const next = getNextCard(state)
-
+    const card = yield getRandomCard()
     yield put({ type: SET_CURRENT_CARD, payload: {
-      current: current + 1,
+      current: next,
       previous: current,
-      next: current + 2
+      next: card
     }})
-  } catch (error) {
-  }
+  } catch (error) {}
+}
+
+function* getRandomCard() {
+  const state = yield select()
+  const cards = getNamesId(state)
+  const randomNumber = Math.floor(Math.random() * cards.length)
+  return randomNumber
 }
 
 

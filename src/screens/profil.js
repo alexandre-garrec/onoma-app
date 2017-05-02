@@ -6,10 +6,10 @@ import {
   Image
 } from 'react-native'
 
-import { RkText } from 'react-native-ui-kitten'
+import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Profil = ({ user: { email } }) =>
+const Profil = ({ user: { email }, logout }) =>
   <View style={styles.wrapper}>
     <View>
       <View style={styles.image_wrapper}>
@@ -18,13 +18,14 @@ const Profil = ({ user: { email } }) =>
       </View>
       <RkText><Icon name='ios-link-outline' />Partenaire</RkText>
       <RkText><Icon name='ios-flask-outline' />Réglages</RkText>
-      <RkText><Icon name='ios-beer-outline' /> Déconnexion</RkText>
+      <RkButton onPress={logout}>Déconnexion</RkButton>
     </View>
   </View>
 
 
 import { connect } from 'react-redux'
 import { getCurrentUser } from '../selectors/user'
+import { USER_LOGOUT } from '../actions'
 
 const mapStateToProps = (state) => {
   const user = getCurrentUser(state)
@@ -32,6 +33,10 @@ const mapStateToProps = (state) => {
     user
   }
 }
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  logout: () => dispatch({ type: USER_LOGOUT })
+})
 
 export default connect(mapStateToProps)(Profil)
 

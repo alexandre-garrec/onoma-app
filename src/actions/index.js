@@ -20,3 +20,7 @@ export const CARD_HANDLE_BACK = 'card.handle.back'
 export const USER_LOGIN = 'user.login'
 export const USER_LOGIN_SUCCESS = 'user.login.success'
 export const USER_LOGIN_ERROR = 'user.login.error'
+
+export const USER_LOGOUT = 'user.logout'
+export const USER_LOGOUT_SUCCESS = 'user.logout.success'
+export const USER_LOGOUT_ERROR = 'user.logout.error'

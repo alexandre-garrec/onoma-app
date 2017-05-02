@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import SwipeCards from 'react-native-swipe-cards'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Loading from '../loading'
 import Card from '../card'
 import RoundButton, { Group } from '../common/roundButton'
+import SwipeCards from '../common/swipeCard'
 
 const onClick = router =>
   router.showLightBox({
@@ -17,51 +17,40 @@ const onClick = router =>
    }
   })
 
-class SwipeCard extends Component {
-  constructor(props) {
-    super(props)
-  }
-  yup(id){
-    this.props.match(this.refs['swiper'].state.card)
-    this.refs['swiper']._goToNextCard()
-  }
-  nope(){
-    this.refs['swiper']._goToNextCard()
-  }
-  render() {
-    const { names, match, router } = this.props
-    return  (
-      <View style={styles.container}>
-        <SwipeCards
-          ref={'swiper'}
-          containerStyle={styles.cardWrapper}
-          cards={names}
-          handleYup={id => {
-            match(id)
-            return
-          }}
-          handleNope={() => {
-            return
-          }}
-          loop={true}
-          smoothTransition={true}
-          showYup={true}
-          showNope={true}
-          renderNoMoreCards={() => <Loading />}
-          allowGestureTermination={false}
-          handleMaybe={this.handleMaybe}
-          renderCard={id => <Card id={id} />}
-        />
-        <Group>
-          <RoundButton icon={'md-close'} color='#505aac' onPress={() => this.nope()} />
-          <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
-          <RoundButton icon={'ios-options'} size='small' color='#bb56cb' onPress={() => onClick(router)} />
-          <RoundButton icon={'md-heart'} color='#f0568a' onPress={() => this.yup()} />
-        </Group>
-      </View>
-    )
+const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
+  <View style={styles.container}>
+    <SwipeCards onRight={onRight} handleNext={handleNext} current={current} next={next} />
+     <Group>
+      <RoundButton icon={'md-close'} color='#505aac' onPress={handleNext} />
+      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
+      <RoundButton icon={'ios-options'} size='small' color='#bb56cb' onPress={() => onClick(router)} />
+      <RoundButton icon={'md-heart'} color='#f0568a' onPress={() => {
+        onRight()
+        handleNext()
+      }} />
+    </Group>
+  </View>
+
+import { connect } from 'react-redux'
+import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
+import { getCurrentCard, getNextCard, getNamesId } from '../../selectors/name'
+
+const mapStateToProps = (state) => {
+  const current = getCurrentCard(state)
+  const next = getNextCard(state)
+  return {
+    current,
+    next
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
+  onRight: id => dispatch({ type: ADD_MATCH, payload: id })
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SwipeCard)
+
 
 const styles = StyleSheet.create({
   container: {
@@ -71,5 +60,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   }
 })
-
-export default SwipeCard

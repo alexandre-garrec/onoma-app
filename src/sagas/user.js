@@ -1,6 +1,6 @@
 import { fork, call, put, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR } from '../actions'
 import { FireSaga } from '../config'
 import { save, load } from '../utils/localStorage'
 
@@ -19,6 +19,15 @@ function* login({ payload: { username, password } }) {
   }
 }
 
+function* logout() {
+  try {
+    yield FireSaga.auth().signOut()
+    yield save('user', false)
+    yield put({ type: USER_LOGOUT_SUCCESS })
+  } catch ({ message }) {
+    yield put({ type: USER_LOGOUT_ERROR, payload: message})
+  }
+}
 function* getlocalUser() {
   try {
     const userData = yield load('user')
@@ -35,6 +44,7 @@ function* getlocalUser() {
 function* flow() {
   yield [
     takeEvery(USER_LOGIN, login),
+    takeEvery(USER_LOGOUT, logout),
     fork(getlocalUser)
   ]
 }
