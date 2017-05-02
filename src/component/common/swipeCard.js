@@ -36,12 +36,6 @@ class SwipeCard extends Component {
     this._deltaX = new Animated.Value(0)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.current || this.state.current < nextProps.current) {
-      this.setState({ current: nextProps.current, next: nextProps.next })
-    }
-  }
-
   onDrag () {
     const drag = !this.state.drag
     if (!drag && ( this.state.right || this.state.left )) {
