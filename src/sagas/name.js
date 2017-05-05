@@ -31,7 +31,7 @@ function* saveMatch({ payload }) {
     const updatedData = {
       [`user/${userId}/match/${payload}`]: true
     }
-    yield FireSaga.update(updatedData)
+    // yield FireSaga.update(updatedData)
     yield save('matchs', matchs)
     yield put({ type: ADD_MATCH_SUCCESS, payload: [ payload ] })
   } catch (error) {

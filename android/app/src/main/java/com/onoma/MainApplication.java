@@ -3,6 +3,9 @@ package com.onoma;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.evollu.react.fcm.FIRMessagingPackage;
+import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
+import io.fullstack.firestack.FirestackPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationReactPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -27,6 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FIRMessagingPackage(),
+            new ReactNativePermissionsPackage(),
+            new FirestackPackage(),
             new VectorIconsPackage(),
             new NavigationReactPackage(),
             new LinearGradientPackage(),
