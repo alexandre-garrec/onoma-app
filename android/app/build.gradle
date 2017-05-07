@@ -127,7 +127,6 @@ android {
 
 dependencies {
     compile project(':react-native-fcm')
-    compile project(':react-native-permissions')
     compile project(':react-native-firestack')
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')

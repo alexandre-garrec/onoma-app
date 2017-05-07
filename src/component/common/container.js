@@ -21,6 +21,22 @@ const onClick = router =>
   })
 
 class Container extends Component {
+  constructor(props) {
+    super(props);
+    // if you want to listen on navigator events, set this up
+    this.props.router.setOnNavigatorEvent(this.onNavigatorEvent.bind(this))
+  }
+  onNavigatorEvent(event) {
+    // handle a deep link
+    if (event.type == 'DeepLink') {
+      const parts = event.link.split('/'); // Link parts
+      const payload = event.payload; // (optional) The payload
+      console.log(parts, payload)
+      if (parts[0] == 'tab2') {
+        // handle the link somehow, usually run a this.props.navigator command
+      }
+    }
+  }
   componentWillMount() {
     this.props.router && onClick(this.props.router)
   }

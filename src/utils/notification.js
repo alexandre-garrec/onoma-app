@@ -1,0 +1,35 @@
+import FCM from 'react-native-fcm'
+import { call, fork } from 'redux-saga/effects'
+import createChannel from './fireonsaga/channel'
+
+export const on = (action, cb) => {
+  const channel = createChannel()
+  FCM.on(action, notification => channel.put(notification))
+  return fork(listen, channel, cb)
+}
+
+export const getFCMToken = () =>
+  FCM.getFCMToken().then(token => token)
+
+export const getBadgeNumber = () =>
+  FCM.getBadgeNumber().then(number => number)
+
+function _on (ref, action, saga = false) {
+  const channel = createChannel()
+  ref.on(action, snapshot => channel.put(snapshot))
+  return fork(listen, channel, saga)
+}
+
+function* listen (channel, saga) {
+  while (true) {
+    const data = yield call(channel.take)
+    yield fork(saga, data)
+  }
+}
+
+export default {
+  ...FCM,
+  on,
+  getFCMToken,
+  getBadgeNumber
+}

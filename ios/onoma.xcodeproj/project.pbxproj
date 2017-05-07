@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -27,7 +26,6 @@
 		5FAE81528AA844348CD1CD7D /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EDD98AAA08D46B0A4540AF2 /* SimpleLineIcons.ttf */; };
 		6324C97D3B194394BD01A61F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81C8BD1AB3CA48A1BF8E94CC /* Zocial.ttf */; };
 		71735006F59841109352E750 /* libFirestack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AE530849924C460FA1553D00 /* libFirestack.a */; };
-		74F978C6FF5949F0819C2CFE /* libReactNativePermissions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0A85F3A0CB480E936D8765 /* libReactNativePermissions.a */; };
 		7DFA78471EB9174700280001 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7DFA78461EB9174700280001 /* GoogleService-Info.plist */; };
 		8321EDF8E95046B2B1EFCDA4 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FFDE90265B84A228144CD0F /* Octicons.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -219,13 +217,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNFIRMessaging;
 		};
-		7D9F84591EBBD702000D08D9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 14E085AF2EDC4F1BBC5C7A1E /* ReactNativePermissions.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9D23B34F1C767B80008B4819;
-			remoteInfo = ReactNativePermissions;
-		};
 		7DF7F8821EB7529400AEB66F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 03E3F4AD85494AF48FA133C0 /* Interactable.xcodeproj */;
@@ -291,7 +282,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = onoma/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = onoma/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		14E085AF2EDC4F1BBC5C7A1E /* ReactNativePermissions.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativePermissions.xcodeproj; path = "../node_modules/react-native-permissions/ReactNativePermissions.xcodeproj"; sourceTree = "<group>"; };
 		17449BA41B7C4BEF85F924C2 /* BVLinearGradient.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = BVLinearGradient.xcodeproj; path = "../node_modules/react-native-linear-gradient/BVLinearGradient.xcodeproj"; sourceTree = "<group>"; };
 		1CFD917AC34E42929FF171E8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		2FFDE90265B84A228144CD0F /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
@@ -311,7 +301,6 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		88450D511AB346488046C2F4 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		8B29300659004F4AFD5C2305 /* Pods-onoma.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-onoma.debug.xcconfig"; path = "Pods/Target Support Files/Pods-onoma/Pods-onoma.debug.xcconfig"; sourceTree = "<group>"; };
-		8E0A85F3A0CB480E936D8765 /* libReactNativePermissions.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativePermissions.a; sourceTree = "<group>"; };
 		903C7D204B7F42348EAAF2F5 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		9221424D706E4781A24CDF75 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		98FDE7167EC848B6A4DA5BF3 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFIRMessaging.xcodeproj; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; };
@@ -348,7 +337,6 @@
 				08EF3C3998A14A9682F3DB8B /* libRNVectorIcons.a in Frameworks */,
 				71735006F59841109352E750 /* libFirestack.a in Frameworks */,
 				8EB5C6C8AB6A19188C86A1CE /* Pods_onoma.framework in Frameworks */,
-				74F978C6FF5949F0819C2CFE /* libReactNativePermissions.a in Frameworks */,
 				E963F484202E40DBBD79D9E3 /* libRNFIRMessaging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,14 +478,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7D9F84391EBBD702000D08D9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7D9F845A1EBBD702000D08D9 /* libReactNativePermissions.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7DF7F87D1EB7529400AEB66F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,7 +537,6 @@
 				CB9ED3F37C1D4869BBFF7E7D /* ReactNativeNavigation.xcodeproj */,
 				64382C9B8F10498A98A0C6DB /* RNVectorIcons.xcodeproj */,
 				65137A87597A4DE3BF302C49 /* Firestack.xcodeproj */,
-				14E085AF2EDC4F1BBC5C7A1E /* ReactNativePermissions.xcodeproj */,
 				98FDE7167EC848B6A4DA5BF3 /* RNFIRMessaging.xcodeproj */,
 			);
 			name = Libraries;
@@ -758,10 +737,6 @@
 					ProjectRef = CB9ED3F37C1D4869BBFF7E7D /* ReactNativeNavigation.xcodeproj */;
 				},
 				{
-					ProductGroup = 7D9F84391EBBD702000D08D9 /* Products */;
-					ProjectRef = 14E085AF2EDC4F1BBC5C7A1E /* ReactNativePermissions.xcodeproj */;
-				},
-				{
 					ProductGroup = 7D8E0DA21EBBDAAD00E19067 /* Products */;
 					ProjectRef = 98FDE7167EC848B6A4DA5BF3 /* RNFIRMessaging.xcodeproj */;
 				},
@@ -953,13 +928,6 @@
 			remoteRef = 7D8E0DC31EBBDAAD00E19067 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7D9F845A1EBBD702000D08D9 /* libReactNativePermissions.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libReactNativePermissions.a;
-			remoteRef = 7D9F84591EBBD702000D08D9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7DF7F8831EB7529400AEB66F /* libInteractable.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1132,15 +1100,12 @@
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
-					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 				INFOPLIST_FILE = onoma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/onoma\"",
-					"\"$(SRCROOT)/onoma\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1172,15 +1137,12 @@
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firestack/ios/Firestack",
-					"$(SRCROOT)/../node_modules/react-native-permissions/**",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 				INFOPLIST_FILE = onoma/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/onoma\"",
-					"\"$(SRCROOT)/onoma\"",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
