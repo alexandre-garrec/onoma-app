@@ -10,7 +10,7 @@ import { Image, StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 const onClick = router =>
-  router.showLightBox({
+  router.push({
     screen: "example.login", // unique ID registered with Navigation.registerScreen
     passProps: {}, // simple serializable object that will pass as props to the modal (optional)
     navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)

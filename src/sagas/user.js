@@ -7,6 +7,7 @@ import userModel from '../models/user'
 import notification from '../utils/notification'
 import { getCurrentId } from '../selectors/user'
 import { AccessToken } from 'react-native-fbsdk'
+import { REHYDRATE } from 'redux-persist/constants'
 
 const firestack = new Firestack()
 
@@ -18,13 +19,13 @@ const firebaseAuth = (email, password) => firestack.auth.signInWithEmail(email, 
     .then(data => data.user)
 
 const getCurrentAccessToken = () =>
-  AccessToken.getCurrentAccessToken().then(data =>  data.accessToken.toString())
+  AccessToken.getCurrentAccessToken().then(data => data ? data.accessToken.toString() : false)
 
 const getToken = () => firestack.auth.getToken()
   .then(res =>res.token)
 
 const getCurrentUser = () =>
- firestack.auth.getCurrentUser().then(user => user)
+ firestack.auth.getCurrentUser().then(user => user).catch(() => ({authenticated: false}))
 
 function* login({ payload: { username, password, token } }) {
   try {
@@ -52,15 +53,24 @@ function* logout() {
 }
 
 function* checkUser () {
-  const { authenticated } = yield getCurrentUser()
-  if (!authenticated) yield put({ type: USER_NEED_LOGIN })
+  console.log('checkUser')
+  try {
+    const { authenticated, user } = yield getCurrentUser()
+    console.log('user', user)
+    yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
+    if (!authenticated) yield put({ type: USER_NEED_LOGIN })
+  } catch (e) {
+    console.log('error', e)
+    yield put({ type: USER_NEED_LOGIN })
+  }
+
 }
 
 function* flow() {
   yield [
     takeEvery(USER_LOGIN, login),
     takeEvery(USER_LOGOUT, logout),
-    fork(checkUser)
+    takeEvery(REHYDRATE, checkUser)
   ]
 }
 

@@ -44,11 +44,12 @@ class Login extends Component {
           label={<Icon name='ios-search-outline'/>}
           containerStyle={{marginTop: 20}}
           placeholder='password'/>
-        <RkButton onPress={() => login(username, password)}>connect</RkButton>
+        <RkButton onPress={() => login({username, password})}>connect</RkButton>
          <LoginButton
-          publishPermissions={["publish_actions"]}
+          publishPermissions={[]}
           onLoginFinished={
             (error, result) => {
+              console.log(error, result)
               if (error) {
                 alert("login has error: " + result.error);
               } else if (result.isCancelled) {
@@ -56,7 +57,7 @@ class Login extends Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(
                   (data) => {
-                    alert(data.accessToken.toString())
+                    login({ token: data.accessToken.toString() })
                   }
                 )
               }
@@ -82,7 +83,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (username, password) => dispatch({ type: USER_LOGIN, payload: { username, password } })
+  login: (data) => dispatch({ type: USER_LOGIN, payload: data })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
@@ -90,6 +91,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login)
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    width: 200
   }
 })

@@ -15,7 +15,7 @@
     "react-native-firestack": "2.3.9",
     "react-native-interactable": "0.0.8",
     "react-native-linear-gradient": "^2.0.0",
-   "react-native-navigation": "2.0.0-legacy.16",
+   "react-native-navigation": "2.0.0-experimental.256",
     "react-native-scrollable-tab-view": "^0.7.2",
     "react-native-storage": "^0.1.5",
     "react-native-swipe-cards": "^0.1.0",

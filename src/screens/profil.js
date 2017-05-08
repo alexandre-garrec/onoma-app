@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   logout: () => dispatch({ type: USER_LOGOUT })
 })
 
-export default connect(mapStateToProps, mapStateToProps)(Profil)
+export default connect(mapStateToProps, mapDispatchToProps)(Profil)
 
 var styles = StyleSheet.create({
   wrapper: {
