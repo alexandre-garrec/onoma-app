@@ -9,12 +9,12 @@ import {
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Profil = ({ user: { email }, logout }) =>
+const Profil = ({ user: { email, displayName, picture }, logout }) =>
   <View style={styles.wrapper}>
     <View>
       <View style={styles.image_wrapper}>
-        <Image style={styles.image} source={require('../../assets/profile.jpg')}/>
-        <RkText>{email}</RkText>
+        <Image style={styles.image} source={picture ? {uri : picture } : require('../../assets/profile.jpg')}/>
+        <RkText>{displayName || email}</RkText>
       </View>
       <RkText><Icon name='ios-link-outline' />Partenaire</RkText>
       <RkText><Icon name='ios-flask-outline' />Réglages</RkText>
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   logout: () => dispatch({ type: USER_LOGOUT })
 })
 
-export default connect(mapStateToProps)(Profil)
+export default connect(mapStateToProps, mapStateToProps)(Profil)
 
 var styles = StyleSheet.create({
   wrapper: {

@@ -17,6 +17,8 @@ export const SET_CURRENT_CARD = 'set.current.card'
 export const CARD_HANDLE_NEXT = 'card.handle.next'
 export const CARD_HANDLE_BACK = 'card.handle.back'
 
+export const USER_NEED_LOGIN = 'user.need.login'
+
 export const USER_LOGIN = 'user.login'
 export const USER_LOGIN_SUCCESS = 'user.login.success'
 export const USER_LOGIN_ERROR = 'user.login.error'

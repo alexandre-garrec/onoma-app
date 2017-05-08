@@ -24,7 +24,7 @@ class Login extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    //if (nextProps.current) nextProps.navigator.dismissLightBox()
+    if (nextProps.current) nextProps.navigator.dismissLightBox()
   }
   render() {
     const { navigator, login, error } = this.props
@@ -54,7 +54,11 @@ class Login extends Component {
               } else if (result.isCancelled) {
                 alert("login is cancelled.");
               } else {
-
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    alert(data.accessToken.toString())
+                  }
+                )
               }
             }
           }

@@ -38,7 +38,7 @@ class Container extends Component {
     }
   }
   componentWillMount() {
-    this.props.router && onClick(this.props.router)
+    this.props.router && this.props.displayLogin && onClick(this.props.router)
   }
   render() {
     const { children } = this.props
@@ -51,6 +51,13 @@ class Container extends Component {
   }
 }
 
+import { connect } from 'react-redux'
+import { displayLogin } from '../../selectors/user'
+
+const mapStateToProps = (state) => ({
+  displayLogin: displayLogin(state)
+})
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,4 +68,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Container
+export default connect(mapStateToProps)(Container)
