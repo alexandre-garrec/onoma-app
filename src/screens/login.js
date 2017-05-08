@@ -9,6 +9,11 @@ import {
 import { RkButton, RkTextInput } from 'react-native-ui-kitten';
 import Icon from 'react-native-vector-icons/Ionicons'
 import RoundButton, { Group } from '../component/common/roundButton'
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+  AccessToken
+} = FBSDK;
 
 class Login extends Component {
   constructor(props) {
@@ -19,7 +24,7 @@ class Login extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.current) nextProps.navigator.dismissLightBox()
+    //if (nextProps.current) nextProps.navigator.dismissLightBox()
   }
   render() {
     const { navigator, login, error } = this.props
@@ -40,6 +45,20 @@ class Login extends Component {
           containerStyle={{marginTop: 20}}
           placeholder='password'/>
         <RkButton onPress={() => login(username, password)}>connect</RkButton>
+         <LoginButton
+          publishPermissions={["publish_actions"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("login has error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("login is cancelled.");
+              } else {
+
+              }
+            }
+          }
+          onLogoutFinished={() => alert("logout.")}/>
       </View>
     )
   }

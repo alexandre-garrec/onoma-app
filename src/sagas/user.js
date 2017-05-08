@@ -12,6 +12,10 @@ const firestack = new Firestack()
 const firebaseAuth = (email, password) => firestack.auth.signInWithEmail(email, password)
   .then(data => data.user)
 
+ const firebaseAuthFacebook = (token) =>
+  firestack.auth.signInWithProvider('facebook', token, '')
+    .then((data => data.user)
+
 function* login({ payload: { username, password } }) {
   try {
     const user = yield firebaseAuth(username, password)
@@ -34,10 +38,25 @@ function* logout() {
   }
 }
 
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+  AccessToken
+} = FBSDK;
+
+function* test () {
+  AccessToken.getCurrentAccessToken().then(
+    (data) => {
+      console.log(data, data.accessToken.toString())
+    }
+  )
+}
+
 function* flow() {
   yield [
     takeEvery(USER_LOGIN, login),
-    takeEvery(USER_LOGOUT, logout)
+    takeEvery(USER_LOGOUT, logout),
+    fork(test)
   ]
 }
 

@@ -9,7 +9,7 @@ registerScreens(store, Provider); // this is where you register all of your app'
 
 Navigation.startSingleScreenApp({
   screen: {
-    screen: 'example.FirstTabScreen', // unique ID registered with Navigation.registerScreen
+    screen: 'example.login', // unique ID registered with Navigation.registerScreen
     title: 'ONOMA', // title of the screen as appears in the nav bar (optional)
     navigatorStyle: {
       drawUnderNavBar: true,
