@@ -7,18 +7,6 @@ import { AsyncStorage } from 'react-native'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { composeWithDevTools } from 'remote-redux-devtools'
 
-import Fireonsaga from './utils/fireonsaga'
-
-const config = {
-  apiKey: "AIzaSyCZctzbMpMOmwd4D_auRB_nXYTnB1VShko",
-  authDomain: "name-matcher-26232.firebaseapp.com",
-  databaseURL: "https://name-matcher-26232.firebaseio.com",
-  storageBucket: "name-matcher-26232.appspot.com",
-  messagingSenderId: "266586069715"
-}
-
-export const FireSaga = new Fireonsaga(config)
-
 const sagaMiddleware = createSagaMiddleware()
 
 const configureStore = (initialState = {}) => {

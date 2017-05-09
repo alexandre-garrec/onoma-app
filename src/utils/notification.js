@@ -1,6 +1,6 @@
 import FCM from 'react-native-fcm'
 import { call, fork } from 'redux-saga/effects'
-import createChannel from './fireonsaga/channel'
+import createChannel from './channel'
 
 export const on = (action, cb) => {
   const channel = createChannel()

@@ -6,17 +6,15 @@ import { getCurrentId } from '../selectors/user'
 import { makeAssociativeTable } from '../utils/reducer'
 import { isEmpty } from '../utils'
 import { REHYDRATE } from 'redux-persist/constants'
-
-import { FireSaga } from '../config'
+import { get, update } from '../api'
 
 function* getAllName() {
   try {
     const state = yield select()
     const localName = getNamesId(state)
     if (isEmpty(localName)) {
-      const data = yield FireSaga.ref('name').get()
-      const names =  makeAssociativeTable(data.val())
-      yield put({ type: GET_NAME_SUCCESS, payload: names })
+      const names = yield get('name')
+      yield put({ type: GET_NAME_SUCCESS, payload: makeAssociativeTable(names) })
       yield put({ type: CARD_INIT, payload: names })
     }
   } catch (error) {
@@ -28,11 +26,8 @@ function* saveMatch({ payload }) {
     const state = yield select()
     const userId = getCurrentId(state)
     const matchs = [ ...getMatchs(state), payload ]
-    const updatedData = {
-      [`user/${userId}/match/${payload}`]: true
-    }
-    // yield FireSaga.update(updatedData)
     yield put({ type: ADD_MATCH_SUCCESS, payload: [ payload ] })
+    yield update({[`user/${userId}/match/${payload}`]: true })
   } catch (error) {
     yield put({ type: ADD_MATCH_ERROR })
   }

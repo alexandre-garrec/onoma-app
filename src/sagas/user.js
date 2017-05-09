@@ -2,36 +2,12 @@ import { fork, call, put, select } from 'redux-saga/effects'
 import { takeEvery } from 'redux-saga/effects'
 import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
 import { FireSaga } from '../config'
-import Firestack from 'react-native-firestack'
 import userModel from '../models/user'
 import notification from '../utils/notification'
 import { getCurrentId } from '../selectors/user'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import { REHYDRATE } from 'redux-persist/constants'
-
-const firestack = new Firestack()
-
-const firebaseAuth = (email, password) =>
-  firestack.auth.signInWithEmail(email, password).then(data => data.user)
-
- const firebaseAuthFacebook = (token) =>
-  firestack.auth.signInWithProvider('facebook', token, '')
-    .then(data => data.user)
-
-const getCurrentAccessToken = () =>
-  AccessToken.getCurrentAccessToken().then(data => data ? data.accessToken.toString() : false)
-
-const getToken = () => firestack.auth.getToken()
-  .then(res => res.token)
-
-const getCurrentUser = () =>
- firestack.auth.getCurrentUser().then(user => user).catch(() => ({authenticated: false}))
-
- const logInWithReadPermissions = () =>
-  LoginManager.logInWithReadPermissions().then(result => result.accessToken.toString())
-
-const signOut = () =>
- firestack.auth.signOut().then(data => data)
+import { firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken } from '../api'
 
 function* login({ payload: { username, password } }) {
   try {
@@ -71,7 +47,6 @@ function* checkUser () {
     if (authenticated) yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
     else {
       const facekookToken = yield getCurrentAccessToken()
-      console.log('facekookToken', facekookToken)
       if (facekookToken) {
          const user = yield firebaseAuthFacebook(facekookToken)
         yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
