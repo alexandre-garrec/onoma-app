@@ -11,8 +11,8 @@ import { REHYDRATE } from 'redux-persist/constants'
 
 const firestack = new Firestack()
 
-const firebaseAuth = (email, password) => firestack.auth.signInWithEmail(email, password)
-  .then(data => data.user)
+const firebaseAuth = (email, password) =>
+  firestack.auth.signInWithEmail(email, password).then(data => data.user)
 
  const firebaseAuthFacebook = (token) =>
   firestack.auth.signInWithProvider('facebook', token, '')
@@ -22,13 +22,16 @@ const getCurrentAccessToken = () =>
   AccessToken.getCurrentAccessToken().then(data => data ? data.accessToken.toString() : false)
 
 const getToken = () => firestack.auth.getToken()
-  .then(res =>res.token)
+  .then(res => res.token)
 
 const getCurrentUser = () =>
  firestack.auth.getCurrentUser().then(user => user).catch(() => ({authenticated: false}))
 
  const logInWithReadPermissions = () =>
   LoginManager.logInWithReadPermissions().then(result => result.accessToken.toString())
+
+const signOut = () =>
+ firestack.auth.signOut().then(data => data)
 
 function* login({ payload: { username, password } }) {
   try {
@@ -54,7 +57,7 @@ function* logout() {
     const state = yield select()
     const userId = getCurrentId(state)
 
-    yield firestack.auth().signOut()
+    const data = yield signOut()
     notification.unsubscribeFromTopic(`/topics/user/${userId}`)
     yield put({ type: USER_LOGOUT_SUCCESS })
   } catch ({ message }) {
@@ -63,17 +66,21 @@ function* logout() {
 }
 
 function* checkUser () {
-  console.log('checkUser')
   try {
     const { authenticated, user } = yield getCurrentUser()
-    /*if (authenticated) {
-      yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
+    if (authenticated) yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
+    else {
+      const facekookToken = yield getCurrentAccessToken()
+      console.log('facekookToken', facekookToken)
+      if (facekookToken) {
+         const user = yield firebaseAuthFacebook(facekookToken)
+        yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user)})
+      }
+      yield put({ type: USER_NEED_LOGIN })
     }
-    else*/ yield put({ type: USER_NEED_LOGIN })
   } catch (e) {
     yield put({ type: USER_NEED_LOGIN })
   }
-
 }
 
 function* flow() {

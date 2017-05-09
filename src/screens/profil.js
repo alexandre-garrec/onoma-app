@@ -14,11 +14,17 @@ const Profil = ({ user: { email, displayName, picture }, logout }) =>
     <View>
       <View style={styles.image_wrapper}>
         <Image style={styles.image} source={picture ? {uri : picture } : require('../../assets/profile.jpg')}/>
-        <RkText>{displayName || email}</RkText>
+        <RkText style={{marginTop: 20, fontSize: 20}}>{displayName || email}</RkText>
       </View>
-      <RkText><Icon name='ios-link-outline' />Partenaire</RkText>
-      <RkText><Icon name='ios-flask-outline' />Réglages</RkText>
-      <RkButton onPress={logout}>Déconnexion</RkButton>
+      <RkButton rkType='basic' >
+        <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
+        Partenaire
+      </RkButton>
+      <RkButton style={{marginTop: 10}}  rkType='basic' >
+        <Icon name='ios-flask-outline' style={{marginRight: 10, fontSize: 18}} />
+        Réglages
+      </RkButton>
+      <RkButton style={{marginTop: 10}}  rkType='medium outline' onPress={logout}>Déconnexion</RkButton>
     </View>
   </View>
 
@@ -43,15 +49,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(Profil)
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   image_wrapper:{
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    marginBottom: 40
+    marginVertical: 40
   },
   image: {
     height: 100,

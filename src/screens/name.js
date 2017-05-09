@@ -21,7 +21,7 @@ const onClick = () => {
 
 class Name extends Component {
   static navigatorStyle = {
-    navBarBackgroundColor: '#F8BBD0'
+    navBarBackgroundColor: '#3b5998'
   }
   render() {
     const { id, deleteItem, navigator } = this.props

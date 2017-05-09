@@ -98,12 +98,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Login)
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    //backgroundColor: ''
     alignItems: 'center',
     justifyContent: 'center'
   },
   image: {
-    width: 200
+    width: 200,
+    marginBottom: 30
   },
   titleText: {
     fontSize: 20,

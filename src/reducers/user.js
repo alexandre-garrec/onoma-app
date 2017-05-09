@@ -1,5 +1,5 @@
 import reducer from '../utils/reducer'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS } from '../actions'
 
 const initialState = {
   current: false,
@@ -25,6 +25,14 @@ const user =  reducer(initialState, {
       ...state.gui,
       loading: true,
       error: false
+    }
+  }),
+  [USER_LOGOUT_SUCCESS] : (state, payload) => ({
+    ...state,
+    current: false,
+    gui: {
+      ...state.gui,
+      displayLogin: true
     }
   }),
   [USER_LOGIN_SUCCESS]: (state, payload) => ({

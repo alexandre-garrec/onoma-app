@@ -42,9 +42,7 @@ class Container extends Component {
       onClick(this.props.router)
     }
   }
-  componentWillRe() {
 
-  }
   render() {
     const { children } = this.props
     return (
