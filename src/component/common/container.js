@@ -37,8 +37,13 @@ class Container extends Component {
       }
     }
   }
-  componentWillMount() {
-    this.props.router && this.props.displayLogin && onClick(this.props.router)
+  componentWillReceiveProps(nextProps) {
+    if (this.props.router && nextProps.displayLogin) {
+      onClick(this.props.router)
+    }
+  }
+  componentWillRe() {
+
   }
   render() {
     const { children } = this.props

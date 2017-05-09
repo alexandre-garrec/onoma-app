@@ -22,10 +22,10 @@
 {
   // DEV
    NSURL *jsCodeLocation;
-     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
   
   // PROD
-  // NSURL *jsCodeLocation;
+  //NSURL *jsCodeLocation;
   //    jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output iOS/main.jsbundle
   

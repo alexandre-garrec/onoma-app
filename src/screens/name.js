@@ -24,9 +24,9 @@ class Name extends Component {
     navBarBackgroundColor: '#F8BBD0'
   }
   render() {
-    const { id, deleteItem } = this.props
+    const { id, deleteItem, navigator } = this.props
     return (
-      <Container>
+      <Container router={navigator}>
         <Card id={id} />
         <Group>
           <RoundButton icon='md-trash' onPress={deleteItem} />
