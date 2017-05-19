@@ -68,7 +68,7 @@ class SwipeCard extends Component {
   }
 
   render() {
-    const { handleNext, next, snapPoints, alertAreas, current } = this.props
+    const { next, snapPoints, alertAreas, current } = this.props
     const { left, right } = this.state
     return (
       <View style={styles.wrapper}>

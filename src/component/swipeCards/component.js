@@ -25,7 +25,7 @@ const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
       <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
       <RoundButton icon={'ios-options'} size='small' color='#bb56cb' onPress={() => onClick(router)} />
       <RoundButton icon={'md-heart'} color='#f0568a' onPress={() => {
-        onRight()
+        onRight(current)
         handleNext()
       }} />
     </Group>

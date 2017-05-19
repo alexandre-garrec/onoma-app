@@ -6,23 +6,30 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+@import Firebase;
 
 #import "AppDelegate.h"
 #import "RCCManager.h"
 #import "RNFIRMessaging.h"
+#import "DeepLink.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <React/RCTLinkingManager.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
 
 @implementation AppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // DEV
-  NSURL *jsCodeLocation;
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+   NSURL *jsCodeLocation;
+   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  
+  //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.39:8081/index.ios.bundle?platform=ios&dev=true"];
   
   // PROD
   //NSURL *jsCodeLocation;
@@ -34,7 +41,9 @@
   // **********************************************
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   self.window.backgroundColor = [UIColor whiteColor];
-  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
+  //[[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
+  [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation
+                                         launchOptions:launchOptions];
   
   /*
    // original RN bootstrap - remove this part
@@ -49,10 +58,14 @@
    self.window.rootViewController = rootViewController;
    [self.window makeKeyAndVisible];
    */
-   [FIRApp configure];
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];
+  // Set deepLinkURLScheme to the custom URL scheme you defined in your
+  // Xcode project.
+  [FIROptions defaultOptions].deepLinkURLScheme = CUSTOM_URL_SCHEME;
+  [FIRApp configure];
+  
   return YES;
 }
 
@@ -72,7 +85,8 @@
   [RNFIRMessaging didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
 }
 
-- (BOOL)application:(UIApplication *)application
+// Facekook SDK
+ - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
   
@@ -80,8 +94,34 @@
                                                                 openURL:url
                                                       sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                              annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                  
                   ];
+   [self application:application openURL:url sourceApplication:nil annotation:@{}];
   // Add any custom logic here.
   return handled;
 }
+
+
+/*// Firebase deep link
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+  return [self application:app openURL:url sourceApplication:nil annotation:@{}];
+}*/
+
+
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *))restorationHandler {
+  return [DeepLink application:application
+                   continueUserActivity:userActivity
+                     restorationHandler:restorationHandler];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+  return [DeepLink application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];}
 @end

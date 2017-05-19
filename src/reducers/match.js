@@ -1,16 +1,12 @@
 import reducer from '../utils/reducer'
-import { ADD_MATCH_SUCCESS, DELETE_MATCH_SUCCESS } from '../actions'
+import { UPDATE_MATCH } from '../actions'
 
-const initialState = []
+const initialState = {}
 
 const match =  reducer(initialState, {
-  [ADD_MATCH_SUCCESS]: (state, payload) => ([
-    ...state,
+  [UPDATE_MATCH]: (state, payload) => ({
     ...payload
-  ]),
-  [DELETE_MATCH_SUCCESS]: (state, payload) => ([
-    ...state.filter(id => id !== payload),
-  ])
+  })
 })
 
 export default match

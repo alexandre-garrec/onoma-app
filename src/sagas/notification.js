@@ -4,6 +4,7 @@ import { USER_LOGIN_SUCCESS } from '../actions'
 import { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm'
 import { getCurrentId } from '../selectors/user'
 import notification from '../utils/notification'
+import { update } from '../api'
 
 function* onNotification(notif) {
   console.log(notif)
@@ -13,13 +14,12 @@ function* watchNotification() {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
-
     notification.requestPermissions(); // for iOS
 
-    const token = yield notification.getFCMToken()
-
     notification.subscribeToTopic('/topics/setup_topic')
-    notification.subscribeToTopic(`/topics/user/${userId}`)
+
+    const token = yield notification.getFCMToken()
+    yield update({[`user/${userId}/notificationToken/${token}`]: true })
 
     yield notification.on(FCMEvent.Notification, onNotification)
 

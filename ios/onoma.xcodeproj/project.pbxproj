@@ -46,6 +46,7 @@
 		6871553D9E924279B3750390 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBD51EB1CE224DBDBD15792D /* FontAwesome.ttf */; };
 		7453B74723394B588F7A9E87 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36032FC3EC44712B50D870A /* libRNVectorIcons.a */; };
 		7D4C7D561EC1241100BCA372 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D4C7D551EC1241100BCA372 /* GoogleService-Info.plist */; };
+		7D4C7DAF1EC3344F00BCA372 /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */; };
 		7FCD063514D94B41A320FA31 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 197CE1617F714C5A832E08C3 /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9B78C5A78FC34045A5EB4051 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B068989BA7F748C8870DBD87 /* libRCTFBSDK.a */; };
@@ -335,6 +336,8 @@
 		7C63ACE175914BEBA6B8DCB4 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		7D4C7D341EC123F500BCA372 /* onoma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = onoma.entitlements; path = onoma/onoma.entitlements; sourceTree = "<group>"; };
 		7D4C7D551EC1241100BCA372 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "onoma/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7D4C7DAD1EC3344F00BCA372 /* DeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeepLink.h; path = onoma/DeepLink.h; sourceTree = "<group>"; };
+		7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeepLink.m; path = onoma/DeepLink.m; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8A16B415AFE74E9786EF8EE0 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		9C8D8E721E0B48A8BA190508 /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
@@ -495,6 +498,8 @@
 			isa = PBXGroup;
 			children = (
 				7D4C7D551EC1241100BCA372 /* GoogleService-Info.plist */,
+				7D4C7DAD1EC3344F00BCA372 /* DeepLink.h */,
+				7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */,
 				7D4C7D341EC123F500BCA372 /* onoma.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -784,6 +789,15 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FP2TKK255J;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1255,6 +1269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				7D4C7DAF1EC3344F00BCA372 /* DeepLink.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1388,6 +1403,7 @@
 			baseConfigurationReference = 6761554E679BD6426476F14F /* Pods-onoma.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = onoma/onoma.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = FP2TKK255J;
@@ -1410,6 +1426,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
+				PROVISIONING_PROFILE = "b29c706c-673b-4a10-b35b-774eb6331cb5";
+				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1419,6 +1437,7 @@
 			baseConfigurationReference = F918C6DC2587464D6D804AD8 /* Pods-onoma.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = onoma/onoma.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FP2TKK255J;
 				HEADER_SEARCH_PATHS = (
@@ -1440,6 +1459,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
+				PROVISIONING_PROFILE = "b29c706c-673b-4a10-b35b-774eb6331cb5";
+				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

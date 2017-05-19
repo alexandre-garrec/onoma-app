@@ -16,3 +16,17 @@ export const isEmpty = obj => {
   }
   return JSON.stringify(obj) === JSON.stringify({});
 }
+
+export const extractParams = (url, base = '') => {
+  const _url = url.replace(base, '').split('/') || []
+  return paramsToJson(_url)
+}
+
+export const paramsToJson = (params, obj = {}) => {
+  if (!params.length) return obj
+  const [ key, value = '', ...rest ] = params
+  return paramsToJson(rest, {
+    ...obj,
+    [key]: value
+  })
+}

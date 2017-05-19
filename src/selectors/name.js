@@ -1,5 +1,6 @@
 import { shuffle } from '../utils'
 import { createSelector } from 'reselect'
+import { getCurrentUser } from './user'
 
 const match = (name, filters) =>
   !Object.keys(filters).reduce(
@@ -10,11 +11,22 @@ export const getNamesId = state => state.name.items
 
 export const getNameById = (state, id) => state.name.items[id]
 
-export const getMatchs = state => state.match
+export const getMatchs = state => Object.keys(state.match)
 
 export const getFilters = state => state.filter
 
 export const getNames = state => Object.values(state.name.items)
+
+export const getMatchList = state => {
+  const user = getCurrentUser(state)
+  console.log(state)
+  return user.channels.reduce((memo, channelId) => {
+    return [
+      ...memo,
+      ...state.channel[channelId].match
+    ]
+  }, [])
+}
 
 export const makeGetNamesId = () => createSelector(
   getNamesId, getFilters,

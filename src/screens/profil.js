@@ -9,14 +9,23 @@ import {
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Profil = ({ user: { email, displayName, picture }, logout }) =>
+const onClick = (router) => {
+  router.push({
+    screen: 'example.channel',
+    animated: true,
+    backButtonTitle: 'Paramètre',
+    title: 'Partenaire'
+  })
+}
+
+const Profil = ({ user: { email, displayName, picture }, logout, router }) =>
   <View style={styles.wrapper}>
     <View>
       <View style={styles.image_wrapper}>
         <Image style={styles.image} source={picture ? {uri : picture } : require('../../assets/profile.jpg')}/>
         <RkText style={{marginTop: 20, fontSize: 20}}>{displayName || email}</RkText>
       </View>
-      <RkButton rkType='basic' >
+      <RkButton onPress={() => onClick(router)} rkType='basic' >
         <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
         Partenaire
       </RkButton>
