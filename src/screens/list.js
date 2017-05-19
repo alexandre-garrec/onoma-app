@@ -1,11 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import MatchList from '../component/matchList'
-var ScrollableTabView = require('react-native-scrollable-tab-view');
+import ScrollableTabView from 'react-native-scrollable-tab-view'
 
-const List = ({router}) =>
+
+const List = ({ router }) =>
   <ScrollableTabView locked={true}>
-    <MatchList router={router} tabLabel='Liste des matchs'/>
+    <MatchList router={router} tabLabel='Liste des matchs' />
     <MatchList personal={true} router={router} tabLabel='Liste personnelle' />
   </ScrollableTabView>
 
