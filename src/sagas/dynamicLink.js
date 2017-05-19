@@ -1,5 +1,4 @@
-import { fork, call, put, select } from 'redux-saga/effects'
-import { takeEvery } from 'redux-saga/effects'
+import { fork, select } from 'redux-saga/effects'
 import { onLink } from '../utils/deepLink'
 import { extractParams } from '../utils'
 import { update } from '../api'
@@ -7,7 +6,7 @@ import { getCurrentId } from '../selectors/user'
 
 const BASE_URL = 'https://ono.ma/'
 
-function* onDynamicLink({ url }) {
+function * onDynamicLink ({ url }) {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
@@ -16,19 +15,18 @@ function* onDynamicLink({ url }) {
       [`channel/${invite}/users/${userId}`]: true,
       [`user/${userId}/channels/${invite}`]: true
     })
-  } catch (e) {console.log(e)}
+  } catch (e) { console.log(e) }
 }
 
-function* watchLink() {
+function * watchLink () {
   try {
     yield onLink(onDynamicLink)
-
   } catch (error) {
     console.log(error)
   }
 }
 
-function* flow() {
+function * flow () {
   yield [
     fork(watchLink)
   ]

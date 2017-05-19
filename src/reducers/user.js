@@ -11,7 +11,7 @@ const initialState = {
   }
 }
 
-const user =  reducer(initialState, {
+const user = reducer(initialState, {
   [GET_CHANNEL_SUCCESS]: (state, payload) => ({
     ...state,
     users: {
@@ -22,7 +22,7 @@ const user =  reducer(initialState, {
       }
     }
   }),
-   [USER_NEED_LOGIN]: (state, payload) => ({
+  [USER_NEED_LOGIN]: (state, payload) => ({
     ...state,
     gui: {
       ...state.gui,
@@ -37,7 +37,7 @@ const user =  reducer(initialState, {
       error: false
     }
   }),
-  [USER_LOGOUT_SUCCESS] : (state, payload) => ({
+  [USER_LOGOUT_SUCCESS]: (state, payload) => ({
     ...state,
     current: false,
     gui: {
@@ -50,7 +50,7 @@ const user =  reducer(initialState, {
     current: payload.id,
     users: {
       ...state.users,
-      [ payload.id]: payload
+      [payload.id]: payload
     },
     gui: {
       ...state.gui,

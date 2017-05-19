@@ -8,7 +8,7 @@ const initialState = {
   history: []
 }
 
-const card =  reducer(initialState, {
+const card = reducer(initialState, {
   [SET_CURRENT_CARD]: (state, payload) => ({
     ...state,
     ...payload,

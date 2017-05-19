@@ -9,7 +9,7 @@ const initialState = {
   }
 }
 
-const name =  reducer(initialState, {
+const name = reducer(initialState, {
   [GET_NAME]: (state, payload) => ({
     ...state,
     gui: {
