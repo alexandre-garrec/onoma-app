@@ -6,10 +6,14 @@ import Storage from 'react-native-storage'
 import { AsyncStorage } from 'react-native'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { composeWithDevTools } from 'remote-redux-devtools'
+import { initRk } from './style'
+
+initRk()
 
 const sagaMiddleware = createSagaMiddleware()
 
 const configureStore = (initialState = {}) => {
+
   const middlewares = [
     sagaMiddleware
   ]
@@ -24,7 +28,7 @@ const configureStore = (initialState = {}) => {
     composeWithDevTools(...enhancers)
   )
 
-  persistStore(store, { storage: AsyncStorage, whitelist: [ 'name', 'card'] })//.purge()
+  persistStore(store, { storage: AsyncStorage, whitelist: [ 'name', 'card', 'match', 'channel' ] })//.purge()
 
   // Extensions
   store.runSaga = sagaMiddleware.run(sagas)

@@ -5,7 +5,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 
 const List = ({ router }) =>
-  <ScrollableTabView locked={true}>
+  <ScrollableTabView tabBarUnderlineStyle={{height: 2}} locked={true}>
     <MatchList router={router} tabLabel='Liste des matchs' />
     <MatchList personal={true} router={router} tabLabel='Liste personnelle' />
   </ScrollableTabView>

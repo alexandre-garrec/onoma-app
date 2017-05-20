@@ -13,29 +13,30 @@ const onClick = (router) => {
   router.push({
     screen: 'example.channel',
     animated: true,
-    backButtonTitle: 'Paramètre',
+    backButtonTitle: '',
     title: 'Partenaire'
   })
 }
 
-const Profil = ({ user: { email, displayName, picture }, logout, router }) =>
+const Profil = ({ user, logout, router }) =>
+  user ?
   <View style={styles.wrapper}>
-    <View>
+    <View style={{width: 300}}>
       <View style={styles.image_wrapper}>
-        <Image style={styles.image} source={picture ? {uri : picture } : require('../../assets/profile.jpg')}/>
-        <RkText style={{marginTop: 20, fontSize: 20}}>{displayName || email}</RkText>
+        <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
+        <RkText style={{marginTop: 20, fontSize: 20}}>{user.displayName || user.email}</RkText>
       </View>
-      <RkButton onPress={() => onClick(router)} rkType='basic' >
+      <RkButton onPress={() => onClick(router)} rkType='default' >
         <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
         Partenaire
       </RkButton>
-      <RkButton style={{marginTop: 10}}  rkType='basic' >
+      <RkButton rkType='default' >
         <Icon name='ios-flask-outline' style={{marginRight: 10, fontSize: 18}} />
         Réglages
       </RkButton>
-      <RkButton style={{marginTop: 10}}  rkType='medium outline' onPress={logout}>Déconnexion</RkButton>
+      <RkButton rkType='default facebook' onPress={logout}>Déconnexion</RkButton>
     </View>
-  </View>
+  </View> : <View/>
 
 
 import { connect } from 'react-redux'

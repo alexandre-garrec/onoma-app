@@ -17,12 +17,6 @@ class Onoma extends Component {
   }
   constructor(props) {
     super(props)
-    this.state = {
-      locked: true
-    }
-  }
-  setLocked (locked) {
-    this.setState({ locked })
   }
   render() {
     const { id, navigator } = this.props
@@ -30,9 +24,10 @@ class Onoma extends Component {
       <Container router={navigator}>
         {/*<Query action={GET_NAME} />*/}
         <ScrollableTabView
+          prerenderingSiblingsNumber={Infinity}
           tabBarPosition='top'
           initialPage={1}
-          locked={this.state.locked}
+          locked={false}
           renderTabBar={() => <FacebookTabBar setLocked={value => this.setLocked(value)} />} >
           <Profil router={navigator} />
           <SwipeCard router={navigator} />

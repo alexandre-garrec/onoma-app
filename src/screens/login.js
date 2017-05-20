@@ -9,14 +9,8 @@ import {
 import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten';
 import { Hoshi } from 'react-native-textinput-effects'
 import Icon from 'react-native-vector-icons/Ionicons'
-import RoundButton, { Group } from '../component/common/roundButton'
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-  AccessToken
-} = FBSDK;
-
 import LinearGradient from 'react-native-linear-gradient'
+import KeyboardSpace from 'react-native-keyboard-space'
 
 class Login extends Component {
   static navigatorStyle = {
@@ -36,41 +30,42 @@ class Login extends Component {
     const { navigator, login, error, loginFb } = this.props
     const { username, password } = this.state
     return (
-      <LinearGradient
-        end={{x: 0.0, y: 0}}
-        start={{x: 1, y: 0}}
-        locations={[0.3,0.7]} colors={['#F8BBD0', '#C5CAE9']} style={styles.wrapper}>
+      <View style={styles.wrapper}>
         <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')}/>
         <View style={styles.section}>
-          <Text style={styles.titleText}>Connexion</Text>
           <View style={styles.rowContainer}>
             <View style={{flex: 1}}>
             <Text>{error}</Text>
             <Hoshi
+              labelStyle={{ color: '#fff' }}
+              inputStyle={{ color: '#fff' }}
               label={'Adresse email'}
-              // this is used as active and passive border color
-              borderColor={'#9b537a'}
+              borderColor={'transparent'}
               clearButtonMode='always'
               onChangeText={text => this.setState({username: text})}
+              autoCapitalize={'none'}
+              autoCorrect={false}
             />
             <Hoshi
+              labelStyle={{ color: '#fff' }}
+              inputStyle={{ color: '#fff' }}
               label={'Mot de passe'}
               onChangeText={text => this.setState({password: text})}
               secureTextEntry={true}
               style={{marginTop: 10}}
               clearButtonMode='always'
-              // this is used as active and passive border color
-              borderColor={'#9b537a'}
+              borderColor={'transparent'}
             />
-            <RkButton style={{marginTop: 10}} rkType='basic medium' onPress={() => login({username, password})}>Connexion</RkButton>
-            <RkButton style={{marginTop: 10}} rkType='medium outline' onPress={() => loginFb()}>
-              <Icon style={{marginRight: 5, fontSize: 18}} name={'logo-facebook'}/>
+            <RkButton rkType='default' onPress={() => login({username, password})}>Connexion</RkButton>
+            <RkButton rkType='default facebook' onPress={() => loginFb()}>
+              <Icon style={{marginRight: 10}} name={'logo-facebook'}/>
               Connexion avec Facebook
             </RkButton>
+            <KeyboardSpace />
         </View>
         </View>
         </View>
-      </LinearGradient>
+      </View>
     )
   }
 }
@@ -99,15 +94,12 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#f06292'
   },
   image: {
-    width: 200,
-    marginBottom: 30
-  },
-  titleText: {
-    fontSize: 20,
-    textAlign: 'center'
+    width: 170,
+    marginBottom: 0
   },
   rowContainer: {
     marginTop: 5,
@@ -116,19 +108,9 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap'
   },
-   section: {
+  section: {
     paddingHorizontal: 25,
     paddingVertical: 15,
     width: 300,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    borderColor: '#d8dce5',
-    borderWidth: 1,
-    shadowOffset:{
-      width: 0,
-      height: 2,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
   },
 })

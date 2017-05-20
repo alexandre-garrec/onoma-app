@@ -6,7 +6,7 @@ import {
   Image
 } from 'react-native'
 
-import { RkButton } from 'react-native-ui-kitten';
+import { RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import RoundButton, { Group } from '../component/common/roundButton'
 
@@ -17,12 +17,12 @@ const Filter = ({ navigator, setFilter, filters }) =>
       <RkButton
         onPress={() => setFilter({ genre: 'f' })}
         rkType={filters.genre && filters.genre === 'f' && 'outline'}>
-        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-female'}/> Fille
+        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-female'} /> Fille
       </RkButton>
       <RkButton
         onPress={() => setFilter({ genre: 'h' })}
         rkType={filters.genre && filters.genre === 'h' && 'outline'}>
-        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-male'}/> Garçon
+        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-male'} /> Garçon
       </RkButton>
     </Group>
   </View>

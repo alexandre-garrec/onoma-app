@@ -32,6 +32,7 @@ function * logout () {
 }
 
 function * checkUser () {
+  // return yield put({ type: USER_NEED_LOGIN })
   try {
     const { authenticated, user } = yield getCurrentUser()
     if (authenticated) yield put({ type: USER_LOGIN_SUCCESS, payload: userModel(user) })

@@ -18,10 +18,6 @@ const FacebookTabBar = React.createClass({
     activeTab: React.PropTypes.number,
     tabs: React.PropTypes.array,
   },
-  componentWillUpdate(nextProps) {
-    if (nextProps.activeTab !== this.props.activeTab)
-    this.props.setLocked([].includes(nextProps.activeTab))
-  },
 
   render() {
     return (

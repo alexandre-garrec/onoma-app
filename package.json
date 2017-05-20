@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "build:icon": "yo rn-toolbox:assets --icon ./icon.jpg",
+    "build:splash": "yo rn-toolbox:assets --splash ./splash.jpg --ios"
   },
   "dependencies": {
     "firebase": "^3.8.0",
@@ -14,6 +16,7 @@
     "react-native-fcm": "6.2.3",
     "react-native-firestack": "2.3.9",
     "react-native-interactable": "0.0.8",
+    "react-native-keyboard-space": "^1.0.1",
     "react-native-linear-gradient": "^2.0.0",
     "react-native-navigation": "2.0.0-experimental.256",
     "react-native-scrollable-tab-view": "^0.7.2",

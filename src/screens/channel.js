@@ -9,6 +9,8 @@ import {
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Container from '../component/common/container'
+
 
 const onClick = (url) => {
   Share.share({
@@ -25,14 +27,16 @@ class Channel extends Component {
   }
   render() {
     const { channel } = this.props
+    console.log(channel)
     return (
-      <View style={styles.wrapper}>
-        <Text></Text>
-        <RkButton onPress={() => onClick(channel.dynamicLink)} rkType='basic' >
+      <Container>
+        {channel.users.map(id => <Text>{id}</Text>)}
+
+        <RkButton onPress={() => onClick(channel.dynamicLink)} rkType='default' >
           <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
           Inviter votre partenaire
         </RkButton>
-      </View>
+      </Container>
      )
   }
 }
@@ -50,11 +54,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Channel)
 
 var styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
   image_wrapper:{
     justifyContent: 'center',
     alignItems: 'center',

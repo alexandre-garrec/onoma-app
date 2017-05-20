@@ -19,7 +19,7 @@ export const getNames = state => Object.values(state.name.items)
 
 export const getMatchList = state => {
   const user = getCurrentUser(state)
-  console.log(state)
+  if (!user) return []
   return user.channels.reduce((memo, channelId) => {
     return [
       ...memo,
