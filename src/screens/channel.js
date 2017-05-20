@@ -27,7 +27,6 @@ class Channel extends Component {
   }
   render() {
     const { channel } = this.props
-    console.log(channel)
     return (
       <Container>
         {channel.users.map(id => <Text key={id}>{id}</Text>)}

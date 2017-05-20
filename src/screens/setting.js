@@ -19,10 +19,10 @@ class Setting extends Component {
     return (
       <Container>
         <View style={styles.wrapper}>
-        <RkButton rkType='default warning' >
+          <RkButton rkType='default warning' >
             <Icon name='md-trash' onPress={() => onClickSetting(router)} style={{marginRight: 10, fontSize: 18}} />
             Supprimer mon Compte
-        </RkButton>
+          </RkButton>
         </View>
       </Container>
      )

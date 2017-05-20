@@ -34,18 +34,33 @@ class SwipeCard extends Component {
       current: false
     }
     this._deltaX = new Animated.Value(0)
+    this._onMove = this.onMove.bind(this)
   }
 
+  componentDidMount() {
+    this._deltaX.addListener(this._onMove)
+  }
+
+  componentWillUnmount() {
+    this._deltaX.removeAllListeners()
+  }
+
+
+  onMove (event) {
+    //console.log(event.value, event.value > width)
+    const { left, right, drag } = this.state
+    if (!drag && Math.abs(event.value) > width && (left || right)) {
+      const { onRight, onLeft, current, handleNext } = this.props
+      if (right && onRight) onRight(current)
+      else if (left && onLeft) onLeft(current)
+      handleNext()
+      this._deltaX.setValue(0)
+      this.setState({right: false, left: false})
+    }
+  }
   onDrag () {
     const drag = !this.state.drag
-    if (!drag && ( this.state.right || this.state.left )) {
-      this.setState({
-        drag,
-        right: false,
-        left: false
-      })
-    }
-    else this.setState({ drag })
+    this.setState({ drag })
   }
 
   onAlert(event) {
@@ -55,17 +70,15 @@ class SwipeCard extends Component {
     }
   }
 
-  onSnap(event) {
+  /*onSnap(event) {
     const { onRight, onLeft, current } = this.props
     const snapPointId = event.nativeEvent.id
     if (!this.state.drag && ['right', 'left'].includes(snapPointId)) {
       if (snapPointId === 'right' && onRight) onRight(current)
       else if (snapPointId === 'left' && onLeft) onLeft(current)
-
       this._deltaX.setValue(0)
-      this.props.handleNext()
     }
-  }
+  }*/
 
   render() {
     const { next, snapPoints, alertAreas, current } = this.props
@@ -81,7 +94,7 @@ class SwipeCard extends Component {
               alertAreas={alertAreas}
               onAlert={this.onAlert.bind(this)}
               onDrag={this.onDrag.bind(this)}
-              onSnap={this.onSnap.bind(this)}
+              //onSnap={this.onSnap.bind(this)}
               animatedValueX={this._deltaX} >
               <Animated.View style={[styles.card, {
                   transform: [{
@@ -91,10 +104,19 @@ class SwipeCard extends Component {
                     })
                   }]
                 }]}>
-                <Card id={current} />
+                  <Card id={current} />
               </Animated.View>
           </Interactable.View>
-          <Card style={styles.next} id={next} />
+          <Animated.View style={[styles.next, {
+            transform: [{
+              scale: this._deltaX.interpolate({
+                inputRange: [-( width + 50 ), 0, width + 50],
+                outputRange: [1, 0.90, 1]
+              })
+            }]
+          }]}>
+            <Card id={next} />
+          </Animated.View>
           <View style={{
             flexDirection: 'row',
             justifyContent: 'center',
