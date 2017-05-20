@@ -30,8 +30,7 @@ class Channel extends Component {
     console.log(channel)
     return (
       <Container>
-        {channel.users.map(id => <Text>{id}</Text>)}
-
+        {channel.users.map(id => <Text key={id}>{id}</Text>)}
         <RkButton onPress={() => onClick(channel.dynamicLink)} rkType='default' >
           <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
           Inviter votre partenaire

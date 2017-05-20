@@ -4,47 +4,33 @@ import {
   Text,
   View,
   TouchableOpacity,
-} from 'react-native';
+} from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
+import { COLOR_LIGHT_GRAY } from '../../style'
 
 const IOS_NAV_BAR_HEIGHT = 44
 
-const FacebookTabBar = React.createClass({
-  tabIcons: [],
-
-  propTypes: {
-    goToPage: React.PropTypes.func,
-    activeTab: React.PropTypes.number,
-    tabs: React.PropTypes.array,
-  },
-
-  render() {
-    return (
-      <View style={[styles.tabs, this.props.style]}>
-         <TouchableOpacity onPress={() => this.props.goToPage(0)} style={styles.tab}>
-          <Icon
-            name={'ios-contact'}
-            size={30}
-            color={this.props.activeTab === 0 ? 'rgb(59,89,152)' : '#d8dce5'}
-            ref={(icon) => { this.tabIcons[0] = icon; }}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.goToPage(1)} style={styles.tab}>
-          <Text style={styles.navBarTitleText}>ONOMA</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.goToPage(2)} style={styles.tab}>
-          <Icon
-            name={'md-heart-outline'}
-            size={30}
-            color={this.props.activeTab === 2 ? 'rgb(59,89,152)' : '#d8dce5'}
-            ref={(icon) => { this.tabIcons[2] = icon; }}
-          />
-        </TouchableOpacity>
-    </View>
-    )
-  }
-})
+const FacebookTabBar = ({ goToPage, style, activeTab }) =>
+  <View style={[styles.tabs, style]}>
+    <TouchableOpacity onPress={() => goToPage(0)} style={styles.tab}>
+      <Icon
+        name={'ios-contact'}
+        size={30}
+        color={activeTab === 0 ? '#3b5998' : COLOR_LIGHT_GRAY}
+      />
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => goToPage(1)} style={styles.tab}>
+      <Text style={{ color: activeTab === 1 ? '#f8bbd0' : COLOR_LIGHT_GRAY, fontSize: 17,  letterSpacing: 0.5,  fontWeight: '500'}}>ONOMA</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => goToPage(2)} style={styles.tab}>
+      <Icon
+        name={'md-heart-outline'}
+        size={30}
+        color={activeTab === 2 ? '#3b5998' : COLOR_LIGHT_GRAY}
+      />
+    </TouchableOpacity>
+</View>
 
 const styles = StyleSheet.create({
   tabs: {
@@ -55,14 +41,7 @@ const styles = StyleSheet.create({
     height: IOS_NAV_BAR_HEIGHT,
     paddingLeft: 15,
     paddingRight: 15,
-  },
-  navBarTitleText: {
-    fontSize: 17,
-    letterSpacing: 0.5,
-    color: '#f8bbd0',
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-});
+  }
+})
 
 export default FacebookTabBar;

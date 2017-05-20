@@ -18,6 +18,15 @@ const onClick = (router) => {
   })
 }
 
+const onClickSetting = (router) => {
+  router.push({
+    screen: 'example.setting',
+    animated: true,
+    backButtonTitle: '',
+    title: 'Réglages'
+  })
+}
+
 const Profil = ({ user, logout, router }) =>
   user ?
   <View style={styles.wrapper}>
@@ -30,13 +39,16 @@ const Profil = ({ user, logout, router }) =>
         <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
         Partenaire
       </RkButton>
-      <RkButton rkType='default' >
+      <RkButton rkType='default' onPress={() => onClickSetting(router)}>
         <Icon name='ios-flask-outline' style={{marginRight: 10, fontSize: 18}} />
         Réglages
       </RkButton>
-      <RkButton rkType='default facebook' onPress={logout}>Déconnexion</RkButton>
+      <RkButton rkType='default facebook' onPress={logout}>
+        <Icon name='md-bicycle' style={{marginRight: 10, fontSize: 18}} />
+        Déconnexion
+      </RkButton>
     </View>
-  </View> : <View/>
+  </View> : <View />
 
 
 import { connect } from 'react-redux'
