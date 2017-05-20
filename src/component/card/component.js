@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#d8dce5',
     borderWidth: 1,
-    shadowOffset:{
+    shadowOffset: {
       width: 0,
-      height: 2,
+      height: 2
     },
     shadowColor: 'black',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.1
   },
   icon: {
     padding: 50

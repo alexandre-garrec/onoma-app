@@ -3,11 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR_LIGHT_GRAY } from '../../style'
+import Badge from '../common/badge'
 
 const IOS_NAV_BAR_HEIGHT = 44
 
@@ -21,16 +22,18 @@ const FacebookTabBar = ({ goToPage, style, activeTab }) =>
       />
     </TouchableOpacity>
     <TouchableOpacity onPress={() => goToPage(1)} style={styles.tab}>
-      <Text style={{ color: activeTab === 1 ? '#f8bbd0' : COLOR_LIGHT_GRAY, fontSize: 17,  letterSpacing: 0.5,  fontWeight: '500'}}>ONOMA</Text>
+      <Text style={{ color: activeTab === 1 ? '#f8bbd0' : COLOR_LIGHT_GRAY, fontSize: 17, letterSpacing: 0.5, fontWeight: '500' }}>ONOMA</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => goToPage(2)} style={styles.tab}>
-      <Icon
-        name={'md-heart-outline'}
-        size={30}
-        color={activeTab === 2 ? '#3b5998' : COLOR_LIGHT_GRAY}
-      />
+      <Badge number={0}>
+        <Icon
+          name={'md-heart-outline'}
+          size={30}
+          color={activeTab === 2 ? '#3b5998' : COLOR_LIGHT_GRAY}
+        />
+      </Badge>
     </TouchableOpacity>
-</View>
+  </View>
 
 const styles = StyleSheet.create({
   tabs: {
@@ -44,4 +47,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FacebookTabBar;
+export default FacebookTabBar

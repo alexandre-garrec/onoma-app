@@ -3,7 +3,7 @@ const User = ({ uid, email, displayName, photoURL, channels = [] }) => ({
   email,
   displayName: displayName,
   picture: photoURL,
-  channels: channels,
+  channels: channels
 })
 
 export default User

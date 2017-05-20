@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-native'
 
