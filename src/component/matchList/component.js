@@ -4,8 +4,9 @@ import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-nati
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const MatchList = ({ matchs, router, deleteItem }) => {
-  const dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(matchs)
+const MatchList = ({ matchs, router, deleteItem, loading }) => {
+  if (loading) return <View />
+  const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(matchs)
   return (
     <ListView
       style={styles.container}
@@ -25,16 +26,16 @@ const onClick = (router, id, firstname) => {
   })
 }
 
-const Name = ({ id, firstname, genre, origin = 'NC', router }) =>
-  <TouchableHighlight onPress={() => onClick(router, id, firstname)} >
+const Name = ({ id, name, isFelame, router }) =>
+  <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
       <Icon
         style={styles.icon}
-        name={genre === 'f' ? 'md-female' : 'md-male'}
+        name={isFelame === 'f' ? 'md-female' : 'md-male'}
         size={20}
-        color={genre === 'f' ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
+        color={isFelame === 'f' ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
       />
-      <Text>{firstname}</Text>
+      <Text>{name}</Text>
     </View>
   </TouchableHighlight>
 

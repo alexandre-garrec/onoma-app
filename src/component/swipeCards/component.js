@@ -3,16 +3,6 @@ import { StyleSheet, View } from 'react-native'
 import RoundButton, { Group } from '../common/roundButton'
 import SwipeCards from '../common/swipeCard'
 
-const onClick = router =>
-  router.showLightBox({
-    screen: 'example.ModalScreenFilter', // unique ID registered with Navigation.registerScreen
-    passProps: {}, // simple serializable object that will pass as props to the modal (optional)
-    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
-    style: {
-      backgroundBlur: 'none', // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
-      backgroundColor: '#ffffff90' // tint color for the background, you can specify alpha here (optional)
-    }
-  })
 
 const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
   <View style={styles.container}>
@@ -20,7 +10,6 @@ const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
     <Group>
       <RoundButton icon={'md-close'} color='#505aac' onPress={handleNext} />
       <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
-      <RoundButton icon={'ios-options'} size='small' color='#bb56cb' onPress={() => onClick(router)} />
       <RoundButton icon={'md-heart'} color='#f0568a' onPress={() => {
         onRight(current)
         handleNext()

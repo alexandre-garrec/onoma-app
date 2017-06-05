@@ -21,7 +21,7 @@ class SwipeCard extends Component {
     ],
     alertAreas: [
       { id: 'right', influenceArea: { left: 100 } },
-      { id: 'left', influenceArea:  { right: -50 } }
+      { id: 'left', influenceArea: { right: -50 } }
     ]
   }
 
@@ -46,7 +46,7 @@ class SwipeCard extends Component {
   }
 
 
-  onMove (event) {
+  onMove(event) {
     //console.log(event.value, event.value > width)
     const { left, right, drag } = this.state
     if (!drag && Math.abs(event.value) > width && (left || right)) {
@@ -55,10 +55,10 @@ class SwipeCard extends Component {
       else if (left && onLeft) onLeft(current)
       handleNext()
       this._deltaX.setValue(0)
-      this.setState({right: false, left: false})
+      this.setState({ right: false, left: false })
     }
   }
-  onDrag () {
+  onDrag() {
     const drag = !this.state.drag
     this.setState({ drag })
   }
@@ -85,7 +85,7 @@ class SwipeCard extends Component {
     const { left, right } = this.state
     return (
       <View style={styles.wrapper}>
-        { current ?
+        {current ?
           <View>
             <Interactable.View
               key={current}
@@ -97,35 +97,35 @@ class SwipeCard extends Component {
               //onSnap={this.onSnap.bind(this)}
               animatedValueX={this._deltaX} >
               <Animated.View style={[styles.card, {
-                  transform: [{
-                    rotate: this._deltaX.interpolate({
-                      inputRange: [-250, 0, 250],
-                      outputRange: ['10deg', '0deg', '-10deg']
-                    })
-                  }]
-                }]}>
-                  <Card id={current} />
+                transform: [{
+                  rotate: this._deltaX.interpolate({
+                    inputRange: [-250, 0, 250],
+                    outputRange: ['10deg', '0deg', '-10deg']
+                  })
+                }]
+              }]}>
+                <Card id={current} />
               </Animated.View>
-          </Interactable.View>
-          <Animated.View style={[styles.next, {
-            transform: [{
-              scale: this._deltaX.interpolate({
-                inputRange: [-( width + 50 ), 0, width + 50],
-                outputRange: [1, 0.90, 1]
-              })
-            }]
-          }]}>
-            <Card id={next} />
-          </Animated.View>
-          <View style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Text style={{ opacity: left ? 1 : 0 }}>left</Text>
-            <Text style={{ opacity: right ? 1 : 0 }}>right</Text>
-          </View>
-        </View>: <Text style={styles.text}>Loading ...</Text> }
+            </Interactable.View>
+            <Animated.View style={[styles.next, {
+              transform: [{
+                scale: this._deltaX.interpolate({
+                  inputRange: [-(width + 50), 0, width + 50],
+                  outputRange: [1, 0.90, 1]
+                })
+              }]
+            }]}>
+              <Card id={next} />
+            </Animated.View>
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Text style={{ opacity: left ? 1 : 0 }}>left</Text>
+              <Text style={{ opacity: right ? 1 : 0 }}>right</Text>
+            </View>
+          </View> : <Text style={styles.text}>Loading ...</Text>}
       </View>
     )
   }

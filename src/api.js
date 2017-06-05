@@ -4,9 +4,9 @@ import createChannel from './utils/channel'
 import { call, fork } from 'redux-saga/effects'
 
 
-const firestack = new Firestack({debug: true})
+const firestack = new Firestack({ debug: true })
 
-function* listen (channel, saga) {
+function* listen(channel, saga) {
   while (true) {
     const data = yield call(channel.take)
     yield fork(saga, data)
@@ -35,7 +35,7 @@ export const getToken = () =>
   firestack.auth.getToken().then(res => res.token)
 
 export const getCurrentUser = () =>
- firestack.auth.getCurrentUser().then(user => user).catch(() => ({authenticated: false}))
+  firestack.auth.getCurrentUser().then(user => user).catch(() => ({ authenticated: false }))
 
 export const logInWithReadPermissions = () =>
   LoginManager.logInWithReadPermissions().then(result => {
@@ -43,12 +43,22 @@ export const logInWithReadPermissions = () =>
   })
 
 export const signOut = () =>
- firestack.auth.signOut().then(data => data)
+  firestack.auth.signOut().then(data => data)
+
+export const getNamesFromApi = ({ isMale = false, isFemale = false }) => {
+  console.log({ isMale, isFemale })
+  return firestack.database.ref('name')
+    .orderByChild('giveInTotal')
+    .orderByChild('isMale').equalTo(isMale)
+    .orderByChild('isFemale').equalTo(isFemale)
+    .once('value')
+    .then(snapshot => snapshot.val())
+}
 
 export const get = ref =>
   firestack.database.ref(ref).once('value')
-  .then(snapshot => snapshot.val())
+    .then(snapshot => snapshot.val())
 
 export const update = updates =>
- firestack.database.ref().update(updates)
-  .then(snapshot => snapshot)
+  firestack.database.ref().update(updates)
+    .then(snapshot => snapshot)

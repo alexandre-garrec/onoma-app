@@ -13,7 +13,7 @@ import FacebookTabBar from '../component/topbar'
 
 class Onoma extends Component {
   static navigatorStyle = {
-     navBarHidden: true
+    navBarHidden: true
   }
   constructor(props) {
     super(props)
@@ -34,7 +34,7 @@ class Onoma extends Component {
           <List router={navigator} tabLabel='md-heart-outline' />
         </ScrollableTabView>
       </Container>
-     )
+    )
   }
 }
 

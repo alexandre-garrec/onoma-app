@@ -4,7 +4,7 @@ import { GET_NAME, GET_NAME_SUCCESS, GET_NAME_ERROR } from '../actions'
 const initialState = {
   items: {},
   gui: {
-    loading: false,
+    loading: true,
     error: false
   }
 }

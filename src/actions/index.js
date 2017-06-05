@@ -6,6 +6,8 @@ export const GET_CHANNEL_SUCCESS = 'get.channel.success'
 
 export const UPDATE_MATCH = 'update.match'
 
+export const UPDATE_ORIGIN = 'update.origin'
+
 export const ADD_MATCH = 'add.match'
 export const ADD_MATCH_ERROR = 'add.match.error'
 
@@ -18,6 +20,7 @@ export const CARD_INIT = 'card.init'
 export const SET_CURRENT_CARD = 'set.current.card'
 export const CARD_HANDLE_NEXT = 'card.handle.next'
 export const CARD_HANDLE_BACK = 'card.handle.back'
+export const CARD_SET_NUMBER = 'card.set.number'
 
 export const USER_NEED_LOGIN = 'user.need.login'
 

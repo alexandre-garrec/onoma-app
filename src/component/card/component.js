@@ -2,16 +2,16 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Card = ({ name: { firstname, genre, origin = 'NC' }, style }) =>
-  <View key={firstname} style={[styles.card, style]}>
+const Card = ({ name: { name, id, isFemale }, origin, style }) =>
+  <View key={id} style={[styles.card, style]}>
     <Icon
       style={styles.icon}
-      name={genre === 'f' ? 'md-female' : 'md-male'}
+      name={isFemale ? 'md-female' : 'md-male'}
       size={100}
-      color={genre === 'f' ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
+      color={isFemale ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
     />
-    <Text style={styles.name}>{firstname}</Text>
-    { origin ? <Text style={styles.origine}>Origine : prénoms {origin}</Text> : null }
+    <Text style={styles.name}>{name}</Text>
+    {origin ? <Text style={styles.origine}>Origine : prénoms {origin.name}</Text> : null}
   </View>
 
 const styles = StyleSheet.create({

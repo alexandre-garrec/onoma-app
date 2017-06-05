@@ -27,28 +27,41 @@ const onClickSetting = (router) => {
   })
 }
 
+const onClickFilter = (router) => {
+  router.push({
+    screen: 'example.filter',
+    animated: true,
+    backButtonTitle: '',
+    title: 'Filtre'
+  })
+}
+
 const Profil = ({ user, logout, router }) =>
   user ?
-  <View style={styles.wrapper}>
-    <View style={{width: 300}}>
-      <View style={styles.image_wrapper}>
-        <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
-        <RkText style={{marginTop: 20, fontSize: 20}}>{user.displayName || user.email}</RkText>
+    <View style={styles.wrapper}>
+      <View style={{ width: 300 }}>
+        <View style={styles.image_wrapper}>
+          <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
+          <RkText style={{ marginTop: 20, fontSize: 20 }}>{user.displayName || user.email}</RkText>
+        </View>
+        <RkButton onPress={() => onClickFilter(router)} rkType='default' >
+          <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
+          Filtre
+      </RkButton>
+        <RkButton onPress={() => onClick(router)} rkType='default' >
+          <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
+          Partenaire
+      </RkButton>
+        <RkButton rkType='default' onPress={() => onClickSetting(router)}>
+          <Icon name='ios-flask-outline' style={{ marginRight: 10, fontSize: 18 }} />
+          Réglages
+      </RkButton>
+        <RkButton rkType='default facebook' onPress={logout}>
+          <Icon name='md-bicycle' style={{ marginRight: 10, fontSize: 18 }} />
+          Déconnexion
+      </RkButton>
       </View>
-      <RkButton onPress={() => onClick(router)} rkType='default' >
-        <Icon name='ios-link-outline' style={{marginRight: 10, fontSize: 18}} />
-        Partenaire
-      </RkButton>
-      <RkButton rkType='default' onPress={() => onClickSetting(router)}>
-        <Icon name='ios-flask-outline' style={{marginRight: 10, fontSize: 18}} />
-        Réglages
-      </RkButton>
-      <RkButton rkType='default facebook' onPress={logout}>
-        <Icon name='md-bicycle' style={{marginRight: 10, fontSize: 18}} />
-        Déconnexion
-      </RkButton>
-    </View>
-  </View> : <View />
+    </View> : <View />
 
 
 import { connect } from 'react-redux'
@@ -74,7 +87,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  image_wrapper:{
+  image_wrapper: {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',

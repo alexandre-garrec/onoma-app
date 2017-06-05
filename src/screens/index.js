@@ -13,7 +13,7 @@ export function registerScreens (store, provider) {
   Navigation.registerComponent('example.FirstTabScreen', () => MainTabScreen, store, provider)
   Navigation.registerComponent('example.SecondTabScreen', () => LoginTabScreen, store, provider)
   Navigation.registerComponent('example.NameScreen', () => NameScreen, store, provider)
-  Navigation.registerComponent('example.ModalScreenFilter', () => FilterScreen, store, provider)
+  Navigation.registerComponent('example.filter', () => FilterScreen, store, provider)
   Navigation.registerComponent('example.login', () => LoginScreen, store, provider)
   Navigation.registerComponent('example.channel', () => ChannelScreen, store, provider)
   Navigation.registerComponent('example.setting', () => SettingScreen, store, provider)

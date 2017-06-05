@@ -4,15 +4,16 @@ import { getCurrentId } from '../selectors/user'
 import { get, addListenerOnRef } from '../api'
 import channelModel from '../models/channel'
 
-function * onChannelUpdate (snapshot) {
+function* onChannelUpdate(snapshot) {
+  console.log(snapshot.val())
   yield put({ type: GET_CHANNEL_SUCCESS, payload: { [snapshot.key]: channelModel(snapshot.val()) } })
 }
 
-function * watchUserChannel (channelId) {
+function* watchUserChannel(channelId) {
   yield addListenerOnRef(`channel/${channelId}`, onChannelUpdate)
 }
 
-function * getChannel () {
+function* getChannel() {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
@@ -22,10 +23,10 @@ function * getChannel () {
     if (channelsArray.length) {
       yield channelsArray.map((channelId) => watchUserChannel(channelId))
     }
-  } catch (error) {}
+  } catch (error) { }
 }
 
-function * flow () {
+function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, getChannel)
   ]

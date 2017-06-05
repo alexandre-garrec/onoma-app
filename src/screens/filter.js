@@ -1,40 +1,71 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
-
-import { RkButton } from 'react-native-ui-kitten'
+import { StyleSheet, ScrollView } from 'react-native'
+import CheckBox from 'react-native-check-box'
+import { RkButton, RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
-import RoundButton, { Group } from '../component/common/roundButton'
-
-const Filter = ({ navigator, setFilter, filters }) =>
-  <View style={styles.wrapper}>
-    <RoundButton icon='ios-close' onPress={() => navigator.dismissLightBox()} />
-    <Group>
-      <RkButton
-        onPress={() => setFilter({ genre: 'f' })}
-        rkType={filters.genre && filters.genre === 'f' && 'outline'}>
-        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-female'} /> Fille
-      </RkButton>
-      <RkButton
-        onPress={() => setFilter({ genre: 'h' })}
-        rkType={filters.genre && filters.genre === 'h' && 'outline'}>
-        <Icon style={{marginRight: 5, fontSize: 18}} name={'md-male'} /> Garçon
-      </RkButton>
-    </Group>
-  </View>
+import { padding } from '../utils/style'
 
 import { connect } from 'react-redux'
 import { SET_FILTER } from '../actions'
-import { getFilters } from '../selectors/name'
+import { getFilters, getCardNumber } from '../selectors/name'
+import { getOrigins } from '../selectors/origin'
 
-const mapStateToProps = (state) => {
+class Filter extends Component {
+  static navigatorStyle = {
+    navBarTextColor: '#f8bbd0',
+    navBarButtonColor: '#d8dce5'
+  }
+  setOrigin(id) {
+    const { setFilter, filters: { origin: origins = [] } } = this.props
+    const origin = (() => {
+      if (origins.includes(id))
+        return [...origins].filter(o => o !== id)
+      else return [...origins, id]
+    })()
+
+    setFilter({ origin: origin })
+  }
+  render() {
+    const { navigator, setFilter, filters, origins, number } = this.props
+    return (
+      <ScrollView style={styles.wrapper}>
+        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Nombre de prénoms {number}</RkText>
+        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Sex</RkText>
+        <CheckBox
+          style={{ ...padding(10, 0) }}
+          onClick={() => setFilter({ isFemale: !filters.isFemale })}
+          isChecked={filters.isFemale}
+          leftText='Fille'
+        />
+        <CheckBox
+          style={{ ...padding(10, 0) }}
+          onClick={() => setFilter({ isMale: !filters.isMale })}
+          isChecked={filters.isMale}
+          leftText='Garçon'
+        />
+        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Origine</RkText>
+        {origins.map(origin =>
+          <CheckBox
+            key={origin.id}
+            onClick={() => this.setOrigin(origin.id)}
+            style={{ ...padding(10, 0) }}
+            isChecked={filters.origin && filters.origin.includes(origin.id)}
+            leftText={origin.name}
+          />
+        )}
+      </ScrollView>
+    )
+  }
+}
+
+const mapStateToProps = state => {
   const filters = getFilters(state)
+  const origins = getOrigins(state)
+  const number = getCardNumber(state)
   return {
-    filters
+    filters,
+    origins,
+    number
   }
 }
 
@@ -44,11 +75,9 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter)
 
-
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    width: 300,
-    height: 500
+    padding: 20
   }
 })
