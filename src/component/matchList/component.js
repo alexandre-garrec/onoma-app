@@ -26,14 +26,14 @@ const onClick = (router, id, firstname) => {
   })
 }
 
-const Name = ({ id, name, isFelame, router }) =>
+const Name = ({ id, name, isFemale, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
       <Icon
         style={styles.icon}
-        name={isFelame === 'f' ? 'md-female' : 'md-male'}
+        name={isFemale ? 'md-female' : 'md-male'}
         size={20}
-        color={isFelame === 'f' ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
+        color={isFemale ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
       />
       <Text>{name}</Text>
     </View>
