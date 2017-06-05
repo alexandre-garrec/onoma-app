@@ -1,10 +1,22 @@
-import {RkConfig} from 'react-native-ui-kitten'
+import { RkConfig } from 'react-native-ui-kitten'
 
 export const COLOR_PINK = '#f06292'
 export const COLOR_LIGHT_GRAY = '#d8dce5'
 
-
 export const initRk = () => {
+  RkConfig.setType('text', 'info', {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16,
+    color: COLOR_PINK,
+    textAlign: 'center'
+  })
+  RkConfig.setType('text', 'title', {
+    marginTop: 20,
+    marginBottom: 20,
+    fontSize: 20,
+    color: COLOR_PINK
+  })
   RkConfig.setType('button', 'default', {
     container: {
       marginTop: 10,
@@ -15,20 +27,20 @@ export const initRk = () => {
     inner: {
       color: COLOR_PINK,
       fontSize: 16
-    },
+    }
   })
   RkConfig.setType('button', 'facebook', {
     container: {
-      backgroundColor: '#fff',
+      backgroundColor: '#fff'
     },
     inner: {
       fontSize: 16,
       color: '#3b5998'
-    },
+    }
   })
   RkConfig.setType('button', 'border', {
     container: {
-      borderWidth: 1,
+      borderWidth: 1
     }
   })
   RkConfig.setType('button', 'warning', {
@@ -41,6 +53,6 @@ export const initRk = () => {
     inner: {
       color: '#fff',
       fontSize: 16
-    },
+    }
   })
 }

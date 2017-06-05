@@ -29,8 +29,8 @@ class Filter extends Component {
     const { navigator, setFilter, filters, origins, number } = this.props
     return (
       <ScrollView style={styles.wrapper}>
-        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Nombre de prénoms {number}</RkText>
-        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Sex</RkText>
+        <RkText rkType='info'>Nombre de prénoms {number}</RkText>
+        <RkText rkType='title'>Sex</RkText>
         <CheckBox
           style={{ ...padding(10, 0) }}
           onClick={() => setFilter({ isFemale: !filters.isFemale })}
@@ -43,7 +43,7 @@ class Filter extends Component {
           isChecked={filters.isMale}
           leftText='Garçon'
         />
-        <RkText style={{ marginTop: 20, marginBottom: 20, fontSize: 20 }}>Origine</RkText>
+        <RkText rkType='title'>Origine</RkText>
         {origins.map(origin =>
           <CheckBox
             key={origin.id}
@@ -78,6 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter)
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    padding: 20
+    paddingLeft: 20,
+    paddingRight: 20
   }
 })
