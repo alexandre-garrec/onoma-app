@@ -35,3 +35,5 @@ export const USER_LOGIN_ERROR = 'user.login.error'
 export const USER_LOGOUT = 'user.logout'
 export const USER_LOGOUT_SUCCESS = 'user.logout.success'
 export const USER_LOGOUT_ERROR = 'user.logout.error'
+
+export const SET_LINK = 'set.link'

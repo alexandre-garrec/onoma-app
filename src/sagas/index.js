@@ -5,7 +5,7 @@ import notificationSaga from './notification'
 import dynamicLinkSaga from './dynamicLink'
 import channelSaga from './channel'
 
-function * rootSaga () {
+function* rootSaga() {
   yield [
     nameSaga(),
     cardSaga(),

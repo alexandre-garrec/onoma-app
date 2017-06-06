@@ -5,11 +5,11 @@ import { getCurrentId } from '../selectors/user'
 import notification from '../utils/notification'
 import { update } from '../api'
 
-function * onNotification (notif) {
+function* onNotification(notif) {
   console.log(notif)
 }
 
-function * watchNotification () {
+function* watchNotification() {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
@@ -26,7 +26,7 @@ function * watchNotification () {
   }
 }
 
-function * flow () {
+function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, watchNotification)
   ]
