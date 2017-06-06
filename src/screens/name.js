@@ -30,11 +30,16 @@ class Name extends Component {
       <Container router={navigator}>
         <Card id={id} />
         <Group>
-          <RoundButton icon='md-trash' onPress={deleteItem} />
+          <RoundButton icon='md-trash' onPress={() => {
+            deleteItem()
+            navigator.pop({
+              animated: true
+            })
+          }} />
           <RoundButton icon='md-share' onPress={onClick} />
         </Group>
       </Container>
-     )
+    )
   }
 }
 

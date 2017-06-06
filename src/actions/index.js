@@ -24,6 +24,8 @@ export const CARD_SET_NUMBER = 'card.set.number'
 
 export const USER_NEED_LOGIN = 'user.need.login'
 
+export const USER_REGISTER = 'user.register'
+
 export const USER_FACEBOOK_LOGIN = 'user.fabekook.login'
 
 export const USER_LOGIN = 'user.login'

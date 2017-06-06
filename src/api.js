@@ -28,7 +28,7 @@ export const firebaseAuthFacebook = (token) =>
 
 export const getCurrentAccessToken = () =>
   AccessToken.getCurrentAccessToken().then(data => {
-    data ? data.accessToken.toString() : false
+    return data ? data.accessToken.toString() : false
   })
 
 export const getToken = () =>
@@ -39,11 +39,16 @@ export const getCurrentUser = () =>
 
 export const logInWithReadPermissions = () =>
   LoginManager.logInWithReadPermissions().then(result => {
+    console.log(result)
     return result.accessToken ? result.accessToken.toString() : false
   })
 
 export const signOut = () =>
   firestack.auth.signOut().then(data => data)
+
+export const createUserWithEmail = (email, password) =>
+  firestack.auth.createUserWithEmail(email, password)
+    .then(data => data)
 
 export const getNamesFromApi = ({ isMale = false, isFemale = false }) => {
   console.log({ isMale, isFemale })

@@ -42,7 +42,7 @@ const Profil = ({ user, logout, router }) =>
       <View style={{ width: 300 }}>
         <View style={styles.image_wrapper}>
           <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
-          <RkText style={{ marginTop: 20, fontSize: 20 }}>{user.displayName || user.email}</RkText>
+          <RkText style={{ marginTop: 20, fontSize: 18 }}>{user.displayName || user.email}</RkText>
         </View>
         <RkButton onPress={() => onClickFilter(router)} rkType='default' >
           <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />

@@ -12,16 +12,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
 
-const onClick = (router) => {
-  router.push({
-    screen: 'example.registration',
-    animated: true,
-    backButtonTitle: '',
-    title: 'Filtre'
-  })
-}
-
-class Login extends Component {
+class Registration extends Component {
   static navigatorStyle = {
     navBarHidden: true
   }
@@ -33,14 +24,17 @@ class Login extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.current) nextProps.navigator.pop()
+    if (nextProps.current) nextProps.navigator.push({
+      screen: 'example.FirstTabScreen',
+      animated: true,
+      backButtonTitle: '',
+    })
   }
   render() {
-    const { navigator, login, error, loginFb } = this.props
-    const { username, password } = this.state
+    const { navigator, register } = this.props
+    const { username, password, error } = this.state
     return (
       <View style={styles.wrapper}>
-        <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
         <View style={styles.section}>
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
@@ -65,12 +59,7 @@ class Login extends Component {
                 clearButtonMode='always'
                 borderColor={'transparent'}
               />
-              <RkButton rkType='default' onPress={() => login({ username, password })}>Connexion</RkButton>
-              <RkButton rkType='default' onPress={() => onClick(navigator)}>Inscription</RkButton>
-              <RkButton rkType='default facebook' onPress={() => loginFb()}>
-                <Icon style={{ marginRight: 10 }} name={'logo-facebook'} />
-                Connexion avec Facebook
-            </RkButton>
+              <RkButton rkType='default' onPress={() => register({ username, password })}>Suivant</RkButton>
               <KeyboardSpace />
             </View>
           </View>
@@ -81,7 +70,7 @@ class Login extends Component {
 }
 
 import { connect } from 'react-redux'
-import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
+import { USER_REGISTER } from '../actions'
 import { getError, getCurrentId } from '../selectors/user'
 
 const mapStateToProps = (state) => {
@@ -94,11 +83,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch({ type: USER_LOGIN, payload: data }),
-  loginFb: (data) => dispatch({ type: USER_FACEBOOK_LOGIN })
+  register: (data) => dispatch({ type: USER_REGISTER, payload: data }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Registration)
 
 var styles = StyleSheet.create({
   wrapper: {
