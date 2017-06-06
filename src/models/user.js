@@ -1,9 +1,10 @@
-const User = ({ uid, email, displayName, photoURL, channels = [] }) => ({
+const User = ({ uid, email, displayName, photoURL, channels = [], link }) => ({
   id: uid,
   email,
   displayName: displayName,
   picture: photoURL,
-  channels: channels
+  channels: Object.keys(channels),
+  link
 })
 
 export default User

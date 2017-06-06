@@ -6,19 +6,22 @@ import { getCurrentId } from '../selectors/user'
 
 const BASE_URL = 'https://ono.ma/'
 
-function * onDynamicLink ({ url }) {
+function* onDynamicLink({ url }) {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
     const { invite } = extractParams(url, BASE_URL)
+    const channelId = `${invite}_${userId}`
     yield update({
-      [`channel/${invite}/users/${userId}`]: true,
-      [`user/${userId}/channels/${invite}`]: true
+      [`channel/${channelId}/users/${userId}`]: true,
+      [`channel/${channelId}/users/${invite}`]: true,
+      [`user/${userId}/channels/${channelId}`]: true,
+      [`user/${invite}/channels/${channelId}`]: true
     })
   } catch (e) { console.log(e) }
 }
 
-function * watchLink () {
+function* watchLink() {
   try {
     yield onLink(onDynamicLink)
   } catch (error) {
@@ -26,7 +29,7 @@ function * watchLink () {
   }
 }
 
-function * flow () {
+function* flow() {
   yield [
     fork(watchLink)
   ]

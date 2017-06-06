@@ -28,11 +28,11 @@ export const getNames = state => Object.values(state.name.items)
 
 export const getMatchList = state => {
   const user = getCurrentUser(state)
-  if (!user) return []
+  if (!user || !user.channels) return []
   return user.channels.reduce((memo, channelId) => {
     return [
       ...memo,
-      ...state.channel[channelId].match
+      ...(state.channel[channelId] ? state.channel[channelId].match : {})
     ]
   }, [])
 }
