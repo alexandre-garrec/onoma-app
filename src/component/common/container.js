@@ -21,8 +21,8 @@ const openModal = router =>
     screen: 'example.join.modal',
     animationType: 'slide-up',
     style: {
-      backgroundBlur: 'dark', // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
-      backgroundColor: '#ffffff80' // tint color for the background, you can specify alpha here (optional)
+      backgroundBlur: 'dark',
+      backgroundColor: '#ffffff80'
     }
   })
 
