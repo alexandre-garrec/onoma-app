@@ -4,6 +4,13 @@ export const COLOR_PINK = '#f06292'
 export const COLOR_LIGHT_GRAY = '#d8dce5'
 
 export const initRk = () => {
+  RkConfig.setType('text', 'big', {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 26,
+    color: '#fff',
+    textAlign: 'center'
+  })
   RkConfig.setType('text', 'info', {
     marginTop: 10,
     marginBottom: 10,
@@ -53,6 +60,18 @@ export const initRk = () => {
     inner: {
       color: '#fff',
       fontSize: 16
+    }
+  })
+  RkConfig.setType('button', 'big', {
+    container: {
+      marginTop: 20,
+      borderRadius: 10,
+      backgroundColor: 'trasparent',
+      borderColor: '#fff'
+    },
+    inner: {
+      color: '#fff',
+      fontSize: 26
     }
   })
 }

@@ -17,9 +17,13 @@ const onClick = router =>
   })
 
 const openModal = router =>
-  router.showModal({
+  router.showLightBox({
     screen: 'example.join.modal',
-    animationType: 'slide-up'
+    animationType: 'slide-up',
+    style: {
+      backgroundBlur: 'dark', // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
+      backgroundColor: '#ffffff80' // tint color for the background, you can specify alpha here (optional)
+    }
   })
 
 
@@ -32,7 +36,6 @@ class Container extends Component {
       openModal(this.props.router)
     }
   }
-
   render() {
     const { children } = this.props
     return (

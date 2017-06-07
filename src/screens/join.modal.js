@@ -1,35 +1,33 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  Text,
-  View,
-  Image
+  View
 } from 'react-native'
 
-import { RkText, RkButton } from 'react-native-ui-kitten'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
+import { MODAL_LINK_CLOSE } from '../actions'
 
-const Profil = ({ user, logout, router }) =>
+import { RkText, RkButton } from 'react-native-ui-kitten'
+
+const Profil = ({ closeModal, navigator }) =>
   <View style={styles.wrapper}>
     <View style={{ width: 300 }}>
-      <RkText>Vous étes maintenant lier a ...</RkText>
-      <RkButton>Fermer</RkButton>
+      <RkText rkType='big'>Vous étes maintenant lier a votre partenaire</RkText>
+      <RkButton rkType='border big' onPress={() => {
+        navigator.dismissLightBox()
+        closeModal()
+      }}>Fermer</RkButton>
     </View>
   </View>
 
 
-import { connect } from 'react-redux'
-import { getCurrentUser } from '../selectors/user'
-import { } from '../actions'
-
 const mapStateToProps = (state) => {
-  const user = getCurrentUser(state)
   return {
-    user
   }
 }
 
 const mapDispatchToProps = (dispatch, { id }) => ({
+  closeModal: (data) => dispatch({ type: MODAL_LINK_CLOSE, payload: data })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profil)
