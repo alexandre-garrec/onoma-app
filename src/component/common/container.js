@@ -1,53 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 
 import LinearGradient from 'react-native-linear-gradient'
 
+import { connect } from 'react-redux'
+import { displayLogin } from '../../selectors/user'
+import { displayLinkModal } from '../../selectors/gui'
+
 const onClick = router =>
   router.push({
-    screen: "example.login", // unique ID registered with Navigation.registerScreen
-    passProps: {}, // simple serializable object that will pass as props to the modal (optional)
-    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
+    screen: 'example.login',
     style: {
-      backgroundBlur: "dark", // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
-      backgroundColor: "#ffffff90" // tint color for the background, you can specify alpha here (optional)
-   }
+      backgroundBlur: 'dark',
+      backgroundColor: '#ffffff90'
+    }
+  })
+
+const openModal = router =>
+  router.showModal({
+    screen: 'example.join.modal',
+    animationType: 'slide-up'
   })
 
 
 class Container extends Component {
-  constructor(props) {
-    super(props);
-    // if you want to listen on navigator events, set this up
-  }
   componentWillReceiveProps(nextProps) {
     if (this.props.router && nextProps.displayLogin) {
       onClick(this.props.router)
+    }
+    if (this.props.router && nextProps.displayLinkModal) {
+      openModal(this.props.router)
     }
   }
 
   render() {
     const { children } = this.props
     return (
-       <LinearGradient
-        locations={[0.1,0.9]} colors={['#ffff', '#f4f5f9']} style={styles.container}>
+      <LinearGradient
+        locations={[0.1, 0.9]} colors={['#ffff', '#f4f5f9']} style={styles.container}>
         {children}
       </LinearGradient>
-     )
+    )
   }
 }
 
-import { connect } from 'react-redux'
-import { displayLogin } from '../../selectors/user'
-
 const mapStateToProps = (state) => ({
-  displayLogin: displayLogin(state)
+  displayLogin: displayLogin(state),
+  displayLinkModal: displayLinkModal(state)
 })
 
 const styles = StyleSheet.create({

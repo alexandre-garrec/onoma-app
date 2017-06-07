@@ -1,11 +1,10 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { USER_LOGIN_SUCCESS, GET_CHANNEL_SUCCESS } from '../actions'
+import { USER_LOGIN_SUCCESS, GET_CHANNEL_SUCCESS, USER_SET_CHANNEL_SUCCESS } from '../actions'
 import { getCurrentId } from '../selectors/user'
 import { get, addListenerOnRef } from '../api'
 import channelModel from '../models/channel'
 
 function* onChannelUpdate(snapshot) {
-  console.log(snapshot.val())
   yield put({ type: GET_CHANNEL_SUCCESS, payload: { [snapshot.key]: channelModel(snapshot.val()) } })
 }
 
@@ -28,7 +27,8 @@ function* getChannel() {
 
 function* flow() {
   yield [
-    takeEvery(USER_LOGIN_SUCCESS, getChannel)
+    takeEvery(USER_LOGIN_SUCCESS, getChannel),
+    takeEvery(USER_SET_CHANNEL_SUCCESS, getChannel)
   ]
 }
 

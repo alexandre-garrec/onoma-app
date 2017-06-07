@@ -7,7 +7,6 @@ import { get, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCu
 function* userRegister({ payload: { username, password } }) {
   try {
     const user = yield createUserWithEmail(username, password)
-    console.log(user)
     yield onUserLogin(user)
   } catch ({ message }) {
     yield put({ type: USER_LOGIN_ERROR, payload: message })
@@ -49,10 +48,8 @@ function* logout() {
 }
 
 function* checkUser() {
-  // return yield put({ type: USER_NEED_LOGIN })
   try {
     const { authenticated, user } = yield getCurrentUser()
-    console.log({ authenticated, user })
     if (authenticated) yield onUserLogin(user)
     else {
       const facekookToken = yield getCurrentAccessToken()

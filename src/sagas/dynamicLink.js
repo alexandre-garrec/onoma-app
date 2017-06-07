@@ -4,7 +4,7 @@ import { extractParams } from '../utils'
 import { update } from '../api'
 import { getCurrentId } from '../selectors/user'
 import { getLink } from '../selectors/gui'
-import { SET_LINK, USER_LOGIN_SUCCESS } from '../actions'
+import { SET_LINK, USER_LOGIN_SUCCESS, USER_SET_CHANNEL_SUCCESS } from '../actions'
 
 const BASE_URL = 'https://ono.ma/'
 
@@ -27,6 +27,7 @@ function* linkUser() {
         [`user/${userId}/channels/${channelId}`]: true,
         [`user/${invite}/channels/${channelId}`]: true
       })
+      yield put({ type: USER_SET_CHANNEL_SUCCESS })
     }
   } catch (e) { }
 }
