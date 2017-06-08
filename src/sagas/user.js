@@ -1,8 +1,21 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER } from '../actions'
+import { put, takeEvery, select } from 'redux-saga/effects'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
-import { get, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail } from '../api'
+import { get, update, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail } from '../api'
+import { getFilters } from '../selectors/name'
+import { getCurrentId } from '../selectors/user'
+
+function* onSetFilter() {
+  try {
+    const state = yield select()
+    const filters = getFilters(state)
+    const userId = getCurrentId(state)
+    yield update({
+      [`user/${userId}/filters`]: filters
+    })
+  } catch (e) { console.log(e) }
+}
 
 function* userRegister({ payload: { username, password } }) {
   try {
@@ -76,6 +89,7 @@ function* flow() {
     takeEvery(USER_LOGOUT, logout),
     takeEvery(USER_FACEBOOK_LOGIN, loginFacebook),
     takeEvery(USER_REGISTER, userRegister),
+    takeEvery(SET_FILTER, onSetFilter),
     takeEvery(REHYDRATE, checkUser)
   ]
 }

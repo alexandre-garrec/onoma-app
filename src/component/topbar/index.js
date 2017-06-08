@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native'
-
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR_LIGHT_GRAY } from '../../style'
 import Badge from '../common/badge'
@@ -43,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: IOS_NAV_BAR_HEIGHT,
     paddingLeft: 15,
-    paddingRight: 15,
+    paddingRight: 15
   }
 })
 

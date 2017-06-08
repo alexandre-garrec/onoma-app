@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 class Query extends Component {
   render = () => null
   componentWillMount = () => this.request(this.props)
-  request = ({fetch, id = false}) => fetch(id)
+  request = ({ fetch, id = false }) => fetch(id)
 }
 
 const mapDispatchToProps = (dispatch, { action }) => ({

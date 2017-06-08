@@ -4,7 +4,7 @@ import createChannel from './utils/channel'
 import { call, fork } from 'redux-saga/effects'
 
 
-const firestack = new Firestack({ debug: true })
+const firestack = new Firestack({ debug: false })
 
 function* listen(channel, saga) {
   while (true) {
@@ -39,7 +39,6 @@ export const getCurrentUser = () =>
 
 export const logInWithReadPermissions = () =>
   LoginManager.logInWithReadPermissions().then(result => {
-    console.log(result)
     return result.accessToken ? result.accessToken.toString() : false
   })
 
@@ -49,16 +48,6 @@ export const signOut = () =>
 export const createUserWithEmail = (email, password) =>
   firestack.auth.createUserWithEmail(email, password)
     .then(data => data)
-
-export const getNamesFromApi = ({ isMale = false, isFemale = false }) => {
-  console.log({ isMale, isFemale })
-  return firestack.database.ref('name')
-    .orderByChild('giveInTotal')
-    .orderByChild('isMale').equalTo(isMale)
-    .orderByChild('isFemale').equalTo(isFemale)
-    .once('value')
-    .then(snapshot => snapshot.val())
-}
 
 export const get = ref =>
   firestack.database.ref(ref).once('value')

@@ -2,19 +2,7 @@ import { shuffle } from '../utils'
 import { createSelector } from 'reselect'
 import { getCurrentUser } from './user'
 
-const match = (name, filters) =>
-  Object.keys(filters).reduce(
-    (memo, key) => {
-      if (memo === false || filters[key] === false) return memo
-      switch (key) {
-        case 'isMale': return name[key] === filters[key]
-        case 'isFemale': return name[key] === filters[key]
-        case 'origin': return filters[key].length ? filters[key].includes(name[key]) : true
-        default: return true
-      }
-    }, true)
-
-export const getNamesId = state => state.name.items
+export const getNamesId = state => state.name.list
 
 export const getNameById = (state, id) => state.name.items[id]
 
@@ -38,11 +26,8 @@ export const getMatchList = state => {
 }
 
 export const makeGetNamesId = () => createSelector(
-  getNamesId, getFilters,
-  (names, filters) =>
-    Object.keys(names).reduce((memo, key) =>
-      match(names[key], filters) ? [...memo, key] : memo
-      , [])
+  getNamesId,
+  names => names
 )
 
 export const makeGetNames = () => createSelector(

@@ -1,6 +1,6 @@
 export const shuffle = array => {
   var tmp, current, top = array.length;
-  if(top) while(--top) {
+  if (top) while (--top) {
     current = Math.floor(Math.random() * (top + 1));
     tmp = array[current];
     array[current] = array[top];
@@ -10,8 +10,8 @@ export const shuffle = array => {
 }
 
 export const isEmpty = obj => {
-  for(var prop in obj) {
-    if(obj.hasOwnProperty(prop))
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop))
       return false;
   }
   return JSON.stringify(obj) === JSON.stringify({});
@@ -24,7 +24,7 @@ export const extractParams = (url, base = '') => {
 
 export const paramsToJson = (params, obj = {}) => {
   if (!params.length) return obj
-  const [ key, value = '', ...rest ] = params
+  const [key, value = '', ...rest] = params
   return paramsToJson(rest, {
     ...obj,
     [key]: value

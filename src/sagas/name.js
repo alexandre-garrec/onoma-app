@@ -1,8 +1,8 @@
 import { put, select, takeEvery } from 'redux-saga/effects'
-import { GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, CARD_INIT, USER_LOGIN_SUCCESS, UPDATE_ORIGIN } from '../actions'
-import { getNamesId, getFilters } from '../selectors/name'
+import { GET_NAME, GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, CARD_INIT, USER_LOGIN_SUCCESS, UPDATE_ORIGIN, NAME_LIST_UPDATE } from '../actions'
 import { getCurrentId } from '../selectors/user'
 import { getOriginsId } from '../selectors/origin'
+import { getNameById as getNameByIdSelector } from '../selectors/name'
 import { makeAssociativeTable } from '../utils/reducer'
 import { isEmpty } from '../utils'
 import { REHYDRATE } from 'redux-persist/constants'
@@ -32,20 +32,34 @@ function* getOrigins() {
   } catch (error) { }
 }
 
-function* getAllName() {
-  try {
-    const state = yield select()
-    const localName = getNamesId(state)
-    // const filters = getFilters(state)
-    if (isEmpty(localName)) {
-      const names = yield get('name')
-      yield put({ type: GET_NAME_SUCCESS, payload: makeAssociativeTable(names) })
-      yield put({ type: CARD_INIT, payload: names })
-    }
-  } catch (error) {
-    console.log(error)
+function* onListUpdate(snapshot) {
+  const namesArray = snapshot.val()
+  if (namesArray) {
+    yield put({ type: NAME_LIST_UPDATE, payload: Object.keys(namesArray) })
+    yield put({ type: CARD_INIT })
   }
 }
+
+function* watchUserList() {
+  try {
+    const state = yield select()
+    const userId = getCurrentId(state)
+    yield addListenerOnRef(`list/${userId}`, onListUpdate)
+  } catch (error) { }
+}
+
+function* getNameById({ payload: { id } }) {
+  try {
+    const state = yield select()
+    const localName = getNameByIdSelector(state, id) || false
+    if (localName) return true
+    const name = yield get(`name/${id}`)
+    yield put({ type: GET_NAME_SUCCESS, payload: { [id]: name } })
+  } catch (error) {
+    yield put({ type: ADD_MATCH_ERROR })
+  }
+}
+
 
 function* saveMatch({ payload }) {
   try {
@@ -70,9 +84,10 @@ function* deleteMatch({ payload }) {
 function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, watchUserMatch),
-    takeEvery(REHYDRATE, getAllName),
+    takeEvery(USER_LOGIN_SUCCESS, watchUserList),
     takeEvery(REHYDRATE, getOrigins),
     takeEvery(ADD_MATCH, saveMatch),
+    takeEvery(GET_NAME, getNameById),
     takeEvery(DELETE_MATCH, deleteMatch)
   ]
 }

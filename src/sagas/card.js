@@ -6,15 +6,18 @@ const getNamesId = makeGetNamesId()
 
 function* initCard() {
   try {
-    const card1 = yield getRandomCard()
-    const card2 = yield getRandomCard()
-    yield put({
-      type: SET_CURRENT_CARD,
-      payload: {
-        current: card1,
-        next: card2
-      }
-    })
+    const state = yield select()
+    if (!getCurrentCard(state)) {
+      const card1 = yield getRandomCard()
+      const card2 = yield getRandomCard()
+      yield put({
+        type: SET_CURRENT_CARD,
+        payload: {
+          current: card1,
+          next: card2
+        }
+      })
+    }
   } catch (error) { }
 }
 

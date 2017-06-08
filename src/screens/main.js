@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 
-// import Query from '../utils/query'
-// import { GET_NAME } from '../actions'
-
 import Container from '../component/common/container'
 import List from './list'
 import Profil from './profil'
@@ -22,7 +19,6 @@ class Onoma extends Component {
     const { id, navigator } = this.props
     return (
       <Container router={navigator}>
-        {/*<Query action={GET_NAME} />*/}
         <ScrollableTabView
           prerenderingSiblingsNumber={Infinity}
           tabBarPosition='top'

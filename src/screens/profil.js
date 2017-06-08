@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
+import React from 'react'
+import { StyleSheet, View, Image } from 'react-native'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
+
+import { connect } from 'react-redux'
+import { getCurrentUser } from '../selectors/user'
+import { USER_LOGOUT } from '../actions'
 
 const onClick = (router) => {
   router.push({
@@ -63,10 +62,6 @@ const Profil = ({ user, logout, router }) =>
       </View>
     </View> : <View />
 
-
-import { connect } from 'react-redux'
-import { getCurrentUser } from '../selectors/user'
-import { USER_LOGOUT } from '../actions'
 
 const mapStateToProps = (state) => {
   const user = getCurrentUser(state)

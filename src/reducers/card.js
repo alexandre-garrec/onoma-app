@@ -17,7 +17,7 @@ const card = reducer(initialState, {
   }),
   [CARD_SET_NUMBER]: (state, payload) => ({
     ...state,
-    number: payload,
+    number: payload
   })
 })
 

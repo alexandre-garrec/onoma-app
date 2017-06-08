@@ -3,6 +3,10 @@ import { StyleSheet, View } from 'react-native'
 import RoundButton, { Group } from '../common/roundButton'
 import SwipeCards from '../common/swipeCard'
 
+import { connect } from 'react-redux'
+import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
+import { getCurrentCard, getNextCard } from '../../selectors/name'
+
 
 const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
   <View style={styles.container}>
@@ -16,10 +20,6 @@ const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
       }} />
     </Group>
   </View>
-
-import { connect } from 'react-redux'
-import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
-import { getCurrentCard, getNextCard } from '../../selectors/name'
 
 const mapStateToProps = (state) => {
   const current = getCurrentCard(state)

@@ -40,3 +40,5 @@ export const SET_LINK = 'set.link'
 
 export const USER_SET_CHANNEL_SUCCESS = 'user.set.channel.success'
 export const MODAL_LINK_CLOSE = 'modal.link.close'
+
+export const NAME_LIST_UPDATE = 'name.list.update'

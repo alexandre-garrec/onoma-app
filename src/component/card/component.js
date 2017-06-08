@@ -1,8 +1,10 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Query from '../../utils/query'
+import { GET_NAME } from '../../actions'
 
-const Card = ({ name: { name, id, isFemale }, origin, style }) =>
+const Card = ({ id: defaultId, name: { name, id, isFemale }, origin, style }) =>
   <View key={id} style={[styles.card, style]}>
     <Icon
       style={styles.icon}
@@ -12,6 +14,7 @@ const Card = ({ name: { name, id, isFemale }, origin, style }) =>
     />
     <Text style={styles.name}>{name}</Text>
     {origin ? <Text style={styles.origine}>Origine : prénoms {origin.name}</Text> : null}
+    <Query action={GET_NAME} id={defaultId} />
   </View>
 
 const styles = StyleSheet.create({

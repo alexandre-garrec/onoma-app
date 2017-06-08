@@ -4,18 +4,6 @@ import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-nati
 
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const MatchList = ({ matchs, router, deleteItem, loading }) => {
-  if (loading) return <View />
-  const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(matchs)
-  return (
-    <ListView
-      style={styles.container}
-      dataSource={dataSource}
-      renderRow={(data) => <Name key={data.id} router={router} {...data} />}
-    />
-  )
-}
-
 const onClick = (router, id, firstname) => {
   router.push({
     screen: 'example.NameScreen',
@@ -26,7 +14,10 @@ const onClick = (router, id, firstname) => {
   })
 }
 
-const Name = ({ id, name, isFemale, router }) =>
+import Query from '../../utils/query'
+import { GET_NAME } from '../../actions'
+
+const Name = ({ id, name: { name = '', isFemale = false }, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
       <Icon
@@ -36,10 +27,38 @@ const Name = ({ id, name, isFemale, router }) =>
         color={isFemale ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
       />
       <Text>{name}</Text>
+      <Query action={GET_NAME} id={id} />
     </View>
   </TouchableHighlight>
 
+import { connect } from 'react-redux'
+import { getNameById } from '../../selectors/name'
 
+const makeMapStateToProps = () => {
+  const mapStateToProps = (state, { id }) => {
+    const name = getNameById(state, id) || {}
+    console.log(name)
+    return {
+      name
+    }
+  }
+  return mapStateToProps
+}
+
+const NameConnected = connect(makeMapStateToProps)(Name)
+
+const MatchList = ({ matchsId, router, deleteItem, loading }) => {
+  if (loading) return <View />
+  const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(matchsId)
+  return (
+    <ListView
+      style={styles.container}
+      dataSource={dataSource}
+      enableEmptySections={true}
+      renderRow={id => <NameConnected key={id} router={router} id={id} />}
+    />
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
