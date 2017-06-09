@@ -30,3 +30,8 @@ export const paramsToJson = (params, obj = {}) => {
     [key]: value
   })
 }
+
+export const difference = (a1, a2) => {
+  var a2Set = new Set(a2)
+  return a1.filter(x => !a2Set.has(x))
+}

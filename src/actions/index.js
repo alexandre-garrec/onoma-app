@@ -16,7 +16,6 @@ export const DELETE_MATCH_ERROR = 'delete.match.error'
 
 export const SET_FILTER = 'set.filter'
 
-export const CARD_INIT = 'card.init'
 export const SET_CURRENT_CARD = 'set.current.card'
 export const CARD_HANDLE_NEXT = 'card.handle.next'
 export const CARD_HANDLE_BACK = 'card.handle.back'

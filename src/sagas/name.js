@@ -1,5 +1,5 @@
 import { put, select, takeEvery } from 'redux-saga/effects'
-import { GET_NAME, GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, CARD_INIT, USER_LOGIN_SUCCESS, UPDATE_ORIGIN, NAME_LIST_UPDATE } from '../actions'
+import { GET_NAME, GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, USER_LOGIN_SUCCESS, UPDATE_ORIGIN } from '../actions'
 import { getCurrentId } from '../selectors/user'
 import { getOriginsId } from '../selectors/origin'
 import { getNameById as getNameByIdSelector } from '../selectors/name'
@@ -32,22 +32,6 @@ function* getOrigins() {
   } catch (error) { }
 }
 
-function* onListUpdate(snapshot) {
-  const namesArray = snapshot.val()
-  if (namesArray) {
-    yield put({ type: NAME_LIST_UPDATE, payload: Object.keys(namesArray) })
-    yield put({ type: CARD_INIT })
-  }
-}
-
-function* watchUserList() {
-  try {
-    const state = yield select()
-    const userId = getCurrentId(state)
-    yield addListenerOnRef(`list/${userId}`, onListUpdate)
-  } catch (error) { }
-}
-
 function* getNameById({ payload: { id } }) {
   try {
     const state = yield select()
@@ -61,11 +45,11 @@ function* getNameById({ payload: { id } }) {
 }
 
 
-function* saveMatch({ payload }) {
+function* saveMatch({ payload: { id, yes } }) {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
-    yield update({ [`user/${userId}/match/${payload}`]: true })
+    yield update({ [`user/${userId}/match/${id}`]: yes })
   } catch (error) {
     yield put({ type: ADD_MATCH_ERROR })
   }
@@ -84,7 +68,6 @@ function* deleteMatch({ payload }) {
 function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, watchUserMatch),
-    takeEvery(USER_LOGIN_SUCCESS, watchUserList),
     takeEvery(REHYDRATE, getOrigins),
     takeEvery(ADD_MATCH, saveMatch),
     takeEvery(GET_NAME, getNameById),

@@ -37,7 +37,6 @@ import { getNameById } from '../../selectors/name'
 const makeMapStateToProps = () => {
   const mapStateToProps = (state, { id }) => {
     const name = getNameById(state, id) || {}
-    console.log(name)
     return {
       name
     }

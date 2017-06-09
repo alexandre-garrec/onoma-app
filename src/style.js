@@ -1,6 +1,7 @@
 import { RkConfig } from 'react-native-ui-kitten'
 
 export const COLOR_PINK = '#f06292'
+export const COLOR_BLUE = '#7986CB'
 export const COLOR_LIGHT_GRAY = '#d8dce5'
 
 export const initRk = () => {

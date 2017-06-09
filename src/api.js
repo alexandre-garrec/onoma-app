@@ -56,3 +56,15 @@ export const get = ref =>
 export const update = updates =>
   firestack.database.ref().update(updates)
     .then(snapshot => snapshot)
+
+
+const generateQuery = (ref, where) =>
+  Object.keys(where).reduce((memo, key) => {
+    return memo.orderByChild(key).equalTo(where[key])
+  }, ref)
+
+export const getNamebyRequest = ({ where = [] } = {}) =>
+  generateQuery(firestack.database
+    .ref(`name`), where)
+    .once('value')
+    .then(snapshot => snapshot)

@@ -1,31 +1,35 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { COLOR_LIGHT_GRAY } from '../../style'
-import Badge from '../common/badge'
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
+// import Icon from 'react-native-vector-icons/Ionicons'
 
 const IOS_NAV_BAR_HEIGHT = 44
+
+const isActive = (activeTab, index) => activeTab === index
 
 const FacebookTabBar = ({ goToPage, style, activeTab }) =>
   <View style={[styles.tabs, style]}>
     <TouchableOpacity onPress={() => goToPage(0)} style={styles.tab}>
-      <Icon
-        name={'ios-contact'}
-        size={30}
-        color={activeTab === 0 ? '#3b5998' : COLOR_LIGHT_GRAY}
+      <Image
+        resizeMode='contain'
+        style={styles.picto}
+        source={isActive(activeTab, 0)
+          ? require('../../../assets/picto-profil-active.png')
+          : require('../../../assets/picto-profil.png')
+        }
       />
     </TouchableOpacity>
     <TouchableOpacity onPress={() => goToPage(1)} style={styles.tab}>
-      <Text style={{ color: activeTab === 1 ? '#f8bbd0' : COLOR_LIGHT_GRAY, fontSize: 17, letterSpacing: 0.5, fontWeight: '500' }}>ONOMA</Text>
+      <Image resizeMode='contain' style={styles.image} source={require('../../../assets/onoma-logo-topbar.png')} />
     </TouchableOpacity>
     <TouchableOpacity onPress={() => goToPage(2)} style={styles.tab}>
-      <Badge number={0}>
-        <Icon
-          name={'md-heart-outline'}
-          size={30}
-          color={activeTab === 2 ? '#3b5998' : COLOR_LIGHT_GRAY}
-        />
-      </Badge>
+      <Image
+        resizeMode='contain'
+        style={styles.picto}
+        source={isActive(activeTab, 2)
+          ? require('../../../assets/picto-list-active.png')
+          : require('../../../assets/picto-list.png')
+        }
+      />
     </TouchableOpacity>
   </View>
 
@@ -38,6 +42,14 @@ const styles = StyleSheet.create({
     height: IOS_NAV_BAR_HEIGHT,
     paddingLeft: 15,
     paddingRight: 15
+    // borderBottomWidth: 1,
+  },
+  image: {
+    width: 100,
+    height: 30
+  },
+  picto: {
+    width: 25
   }
 })
 

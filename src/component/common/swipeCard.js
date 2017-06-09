@@ -70,16 +70,6 @@ class SwipeCard extends Component {
     }
   }
 
-  /*onSnap(event) {
-    const { onRight, onLeft, current } = this.props
-    const snapPointId = event.nativeEvent.id
-    if (!this.state.drag && ['right', 'left'].includes(snapPointId)) {
-      if (snapPointId === 'right' && onRight) onRight(current)
-      else if (snapPointId === 'left' && onLeft) onLeft(current)
-      this._deltaX.setValue(0)
-    }
-  }*/
-
   render() {
     const { next, snapPoints, alertAreas, current } = this.props
     const { left, right } = this.state
@@ -94,7 +84,6 @@ class SwipeCard extends Component {
               alertAreas={alertAreas}
               onAlert={this.onAlert.bind(this)}
               onDrag={this.onDrag.bind(this)}
-              //onSnap={this.onSnap.bind(this)}
               animatedValueX={this._deltaX} >
               <Animated.View style={[styles.card, {
                 transform: [{
@@ -105,6 +94,14 @@ class SwipeCard extends Component {
                 }]
               }]}>
                 <Card id={current} />
+                <Animated.View style={[styles.info, {
+                  opacity: this._deltaX.interpolate({
+                    inputRange: [-350, -100, 0, 100, 350],
+                    outputRange: [1, 0, 0, 0, 1]
+                  })
+                }, { backgroundColor: (right || left) ? right ? '#F06292' : '#7986CB' : '#fff' }]}>
+                  <Text style={styles.text}>{(right || left) ? right ? 'OUI' : 'NON' : ''}</Text>
+                </Animated.View>
               </Animated.View>
             </Interactable.View>
             <Animated.View style={[styles.next, {
@@ -117,14 +114,6 @@ class SwipeCard extends Component {
             }]}>
               <Card id={next} />
             </Animated.View>
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <Text style={{ opacity: left ? 1 : 0 }}>left</Text>
-              <Text style={{ opacity: right ? 1 : 0 }}>right</Text>
-            </View>
           </View> : <Text style={styles.text}>Loading ...</Text>}
       </View>
     )
@@ -137,14 +126,27 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
+    position: 'relative'
   },
   next: {
     position: 'absolute',
     zIndex: -1
   },
   text: {
-    color: '#000'
-  }
+    color: '#fff',
+    fontSize: 40
+  },
+  info: {
+    borderRadius: 10,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
 })
 
 export default SwipeCard

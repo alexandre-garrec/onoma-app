@@ -1,23 +1,23 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { CARD_INIT, SET_CURRENT_CARD, CARD_HANDLE_NEXT, SET_FILTER, CARD_SET_NUMBER } from '../actions'
+import { NAME_LIST_UPDATE, SET_CURRENT_CARD, CARD_HANDLE_NEXT, SET_FILTER, CARD_SET_NUMBER } from '../actions'
 import { getCurrentCard, getNextCard, makeGetNamesId } from '../selectors/name'
 
 const getNamesId = makeGetNamesId()
 
 function* initCard() {
   try {
-    const state = yield select()
-    if (!getCurrentCard(state)) {
-      const card1 = yield getRandomCard()
-      const card2 = yield getRandomCard()
-      yield put({
-        type: SET_CURRENT_CARD,
-        payload: {
-          current: card1,
-          next: card2
-        }
-      })
-    }
+    // const state = yield select()
+    // if (!getCurrentCard(state)) {
+    const card1 = yield getRandomCard()
+    const card2 = yield getRandomCard()
+    yield put({
+      type: SET_CURRENT_CARD,
+      payload: {
+        current: card1,
+        next: card2
+      }
+    })
+    // }
   } catch (error) { }
 }
 
@@ -51,9 +51,9 @@ function* getRandomCard() {
 
 function* flow() {
   yield [
-    takeEvery(CARD_INIT, initCard),
+    takeEvery(NAME_LIST_UPDATE, initCard),
     takeEvery(SET_FILTER, initCard),
-    takeEvery(CARD_HANDLE_NEXT, handleNext),
+    takeEvery(CARD_HANDLE_NEXT, handleNext)
   ]
 }
 

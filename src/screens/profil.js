@@ -80,7 +80,7 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   image_wrapper: {
     justifyContent: 'center',

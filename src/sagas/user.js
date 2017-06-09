@@ -1,19 +1,75 @@
-import { put, takeEvery, select } from 'redux-saga/effects'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER } from '../actions'
+import { put, takeEvery, select, call } from 'redux-saga/effects'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
-import { get, update, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail } from '../api'
+import { get, update, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, getNamebyRequest } from '../api'
 import { getFilters } from '../selectors/name'
 import { getCurrentId } from '../selectors/user'
+import { getOrigins } from '../selectors/origin'
+
+export const getSnapshotKeysVal = snapshot => {
+  const val = snapshot.val()
+  return val ? Object.keys(snapshot.val()) : []
+}
+
 
 function* onSetFilter() {
   try {
     const state = yield select()
     const filters = getFilters(state)
-    const userId = getCurrentId(state)
-    yield update({
+    // const userId = getCurrentId(state)
+    const origins = getOrigins(state)
+
+    /* yield update({
       [`user/${userId}/filters`]: filters
-    })
+    }) */
+
+    const genres = (() => {
+      switch (true) {
+        case filters.isMale && filters.isFemale:
+          return ['isMale', 'isFemale']
+        case filters.isMale:
+          return ['isMale']
+        case filters.isFemale:
+          return ['isFemale']
+        default: return ['isMale', 'isFemale']
+      }
+    })()
+
+    const requests = genres.reduce((memo, genre) => {
+      if (filters.origin && filters.origin.length) {
+        return [
+          ...memo,
+          ...filters.origin.map(origin =>
+            call(getNamebyRequest, {
+              where: {
+                genreAndOrgin: `${genre}_${origin}`
+              }
+            })
+          )
+        ]
+      } else {
+        return [
+          ...memo,
+          ...[...Object.keys(origins), 'undefined'].map(origin =>
+            call(getNamebyRequest, {
+              where: {
+                genreAndOrgin: `${genre}_${origin}`
+              }
+            })
+          )
+        ]
+      }
+    }, [])
+
+    const namesSnapshtot = yield requests
+
+    const namesArray = namesSnapshtot.reduce((memo, names) =>
+      [...memo, ...getSnapshotKeysVal(names)]
+      , [])
+
+    yield put({ type: NAME_LIST_UPDATE, payload: namesArray })
+
   } catch (e) { console.log(e) }
 }
 

@@ -28,7 +28,7 @@ const configureStore = (initialState = {}) => {
     composeWithDevTools(...enhancers)
   )
 
-  persistStore(store, { storage: AsyncStorage, whitelist: ['card', 'match', 'origin', 'filter', 'name'] })//.purge()
+  persistStore(store, { storage: AsyncStorage, whitelist: ['match', 'origin', 'filter', 'name', 'card'] })//.purge()
 
   // Extensions
   store.runSaga = sagaMiddleware.run(sagas)

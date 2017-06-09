@@ -15,3 +15,8 @@ export const width = percent => {
   const { width } = Dimensions.get('window')
   return width * percent / 100
 }
+
+export const height = percent => {
+  const { height } = Dimensions.get('window')
+  return height * percent / 100
+}

@@ -1,4 +1,4 @@
-import { shuffle } from '../utils'
+import { shuffle, difference } from '../utils'
 import { createSelector } from 'reselect'
 import { getCurrentUser } from './user'
 
@@ -6,7 +6,11 @@ export const getNamesId = state => state.name.list
 
 export const getNameById = (state, id) => state.name.items[id]
 
-export const getMatchs = state => Object.keys(state.match)
+export const getMatchs = state => Object.keys(state.match).reduce((memo, id) =>
+  state.match[id]
+    ? [...memo, id] : memo, [])
+
+const getAllMatch = state => Object.keys(state.match)
 
 export const getFilters = state => state.filter
 
@@ -26,8 +30,11 @@ export const getMatchList = state => {
 }
 
 export const makeGetNamesId = () => createSelector(
-  getNamesId,
-  names => names
+  [getNamesId, getAllMatch, getCurrentCard],
+  (names, match, current) => {
+    if (current) return difference(names, [...match, current])
+    return difference(names, match)
+  }
 )
 
 export const makeGetNames = () => createSelector(
