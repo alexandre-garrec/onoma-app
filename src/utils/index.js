@@ -1,6 +1,8 @@
 
 export const remove = (array = [], value) => {
   var index = array.indexOf(value)
+  console.log({ array, index, value })
+
   if (index > -1) {
     return array.slice(0, index).concat(array.slice(index + 1))
   }

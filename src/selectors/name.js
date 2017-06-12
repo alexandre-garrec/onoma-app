@@ -41,3 +41,4 @@ export const getCurrentCard = state => state.card.current
 export const getPreviousCard = state => state.card.previous
 export const getNextCard = state => state.card.next
 export const getCardNumber = state => state.card.number
+export const getHistory = state => state.card.history

@@ -3,12 +3,11 @@ import { StyleSheet, View } from 'react-native'
 import RoundButton, { Group } from '../common/roundButton'
 import SwipeCards from '../common/swipeCard'
 import { COLOR_BLUE, COLOR_PINK } from '../../style'
-
-import { connect } from 'react-redux'
-import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
+import { CARD_HANDLE_NEXT, ADD_MATCH, CARD_HANDLE_BACK } from '../../actions'
 import { getCurrentCard, getNextCard, getCardNumber } from '../../selectors/name'
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
 
 const openModal = router =>
   router.push({
@@ -33,7 +32,7 @@ const ChangeFiter = ({ router }) =>
     </RkButton>
   </View>
 
-const SwipeCard = ({ onRight, onLeft, handleNext, current, next, router, number }) =>
+const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router, number }) =>
   <View style={styles.container}>
     <View style={{
       flexGrow: 1
@@ -48,7 +47,7 @@ const SwipeCard = ({ onRight, onLeft, handleNext, current, next, router, number 
         onLeft()
         handleNext()
       }} />
-      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
+      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={onBack} />
       <RoundButton icon={'md-heart'} color={COLOR_PINK} onPress={() => {
         onRight(current)
         handleNext()
@@ -71,11 +70,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
   onRight: id => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
-  onLeft: id => dispatch({ type: ADD_MATCH, payload: { id, yes: false } })
+  onLeft: id => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
+  onBack: id => dispatch({ type: CARD_HANDLE_BACK })
 })
-
-export default connect(mapStateToProps, mapDispatchToProps)(SwipeCard)
-
 
 const styles = StyleSheet.create({
   container: {
@@ -85,3 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   }
 })
+
+export default connect(mapStateToProps, mapDispatchToProps)(SwipeCard)
+
