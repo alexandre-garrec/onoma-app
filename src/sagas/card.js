@@ -7,8 +7,6 @@ const getNamesId = makeGetNamesId()
 
 function* initCard() {
   try {
-    // const state = yield select()
-    // if (!getCurrentCard(state)) {
     const card1 = yield getRandomCard()
     const card2 = yield getRandomCard(card1)
     yield put({
@@ -18,7 +16,6 @@ function* initCard() {
         next: card2
       }
     })
-    // }
   } catch (error) { }
 }
 

@@ -1,15 +1,11 @@
-export const shuffle = array => {
-  var tmp, current, top = array.length
-  if (top) while (--top) {
-    current = Math.floor(Math.random() * (top + 1))
-    tmp = array[current]
-    array[current] = array[top]
-    array[top] = tmp
+
+export const remove = (array = [], value) => {
+  var index = array.indexOf(value)
+  if (index > -1) {
+    return array.slice(0, index).concat(array.slice(index + 1))
   }
   return array
 }
-
-export const remove = (array = [], value) => [...array].filter(v => value != v)
 
 export const isEmpty = obj => {
   for (var prop in obj) {

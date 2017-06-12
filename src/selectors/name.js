@@ -32,15 +32,9 @@ export const getMatchList = state => {
 export const makeGetNamesId = () => createSelector(
   [getNamesId, getAllMatch, getCurrentCard],
   (names, match, current) => {
-    // const key = Object.keys(names)
     if (current) return difference(names, [...match, current])
     return difference(names, match)
   }
-)
-
-export const makeGetNames = () => createSelector(
-  getNamesId,
-  names => shuffle(Object.values(names))
 )
 
 export const getCurrentCard = state => state.card.current

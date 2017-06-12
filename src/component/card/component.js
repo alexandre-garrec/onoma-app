@@ -48,8 +48,9 @@ const styles = StyleSheet.create({
   icon: {
   },
   name: {
-    fontSize: 40,
-    color: COLOR_BLACK
+    fontSize: 35,
+    color: COLOR_BLACK,
+    textAlign: 'center'
   },
   origine: {
     marginTop: 20,
