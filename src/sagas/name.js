@@ -44,7 +44,6 @@ function* getNameById({ payload: { id } }) {
   }
 }
 
-
 function* saveMatch({ payload: { id, yes } }) {
   try {
     const state = yield select()

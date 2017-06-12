@@ -1,8 +1,12 @@
 import React from 'react'
-
 import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-native'
-
 import Icon from 'react-native-vector-icons/Ionicons'
+import { COLOR_BLUE, COLOR_PINK } from '../../style'
+import Query from '../../utils/query'
+import { GET_NAME } from '../../actions'
+
+import { connect } from 'react-redux'
+import { getNameById } from '../../selectors/name'
 
 const onClick = (router, id, firstname) => {
   router.push({
@@ -14,9 +18,6 @@ const onClick = (router, id, firstname) => {
   })
 }
 
-import Query from '../../utils/query'
-import { GET_NAME } from '../../actions'
-
 const Name = ({ id, name: { name = '', isFemale = false }, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
@@ -24,15 +25,12 @@ const Name = ({ id, name: { name = '', isFemale = false }, router }) =>
         style={styles.icon}
         name={isFemale ? 'md-female' : 'md-male'}
         size={20}
-        color={isFemale ? 'rgb(248,187,208)' : 'rgb(59,89,152)'}
+        color={isFemale ? COLOR_BLUE : COLOR_PINK}
       />
       <Text>{name}</Text>
       <Query action={GET_NAME} id={id} />
     </View>
   </TouchableHighlight>
-
-import { connect } from 'react-redux'
-import { getNameById } from '../../selectors/name'
 
 const makeMapStateToProps = () => {
   const mapStateToProps = (state, { id }) => {

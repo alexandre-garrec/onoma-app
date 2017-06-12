@@ -10,6 +10,7 @@ import {
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Container from '../component/common/container'
+import { COLOR_PINK } from '../style'
 
 
 const onClick = (url) => {
@@ -22,7 +23,7 @@ const onClick = (url) => {
 
 class Channel extends Component {
   static navigatorStyle = {
-    navBarTextColor: '#f8bbd0',
+    navBarTextColor: COLOR_PINK,
     navBarButtonColor: '#d8dce5'
   }
   render() {

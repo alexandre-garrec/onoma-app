@@ -10,6 +10,7 @@ import {
 import RoundButton, { Group } from '../component/common/roundButton'
 import Container from '../component/common/container'
 import Card from '../component/card'
+import { COLOR_PINK } from '../style'
 
 const onClick = () => {
   Share.share({
@@ -21,7 +22,7 @@ const onClick = () => {
 
 class Name extends Component {
   static navigatorStyle = {
-    navBarTextColor: '#f8bbd0',
+    navBarTextColor: COLOR_PINK,
     navBarButtonColor: '#d8dce5'
   }
   render() {

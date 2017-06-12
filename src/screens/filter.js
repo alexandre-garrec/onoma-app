@@ -12,9 +12,12 @@ import { getOrigins } from '../selectors/origin'
 
 import { COLOR_PINK } from '../style'
 
+const capitalizeFirstLetter = (txt) =>
+  `${txt.charAt(0).toUpperCase()}${txt.slice(1)}`
+
 class Filter extends Component {
   static navigatorStyle = {
-    navBarTextColor: '#f8bbd0',
+    navBarTextColor: COLOR_PINK,
     navBarButtonColor: '#d8dce5'
   }
   setOrigin(id) {
@@ -31,50 +34,45 @@ class Filter extends Component {
     const { navigator, setFilter, filters, origins } = this.props
     return (
       <ScrollView style={styles.wrapper}>
-        <RkText rkType='title'>Sex</RkText>
-        <View style={styles.row}>
-          <Text>Fille</Text>
-          <Switch
-            onValueChange={() => setFilter({ isFemale: !filters.isFemale })}
-            value={filters.isFemale}
-            tintColor={COLOR_PINK}
-            onTintColor={COLOR_PINK}
-          />
-        </View>
-        <View style={styles.row}>
-          <Text>Garçon</Text>
-          <Switch
-            onValueChange={() => setFilter({ isMale: !filters.isMale })}
-            value={filters.isMale}
-            tintColor={COLOR_PINK}
-            onTintColor={COLOR_PINK}
-          />
-        </View>
-        <RkText rkType='title'>Origine</RkText>
-        {origins.map(origin =>
-          <View key={origin.id} style={styles.row}>
-            <Text>{origin.name}</Text>
+        <RkText rkType='menu'>Sexe</RkText>
+        <View style={styles.rowContainer}>
+          <View style={styles.row}>
+            <Text style={styles.rowText}>Fille</Text>
             <Switch
-              onValueChange={() => this.setOrigin(origin.id)}
-              value={filters.origin && filters.origin.includes(origin.id)}
+              onValueChange={() => setFilter({ isFemale: !filters.isFemale })}
+              value={filters.isFemale}
               tintColor={COLOR_PINK}
               onTintColor={COLOR_PINK}
             />
           </View>
-        )}
+          <View style={styles.row}>
+            <Text style={styles.rowText}>Garçon</Text>
+            <Switch
+              onValueChange={() => setFilter({ isMale: !filters.isMale })}
+              value={filters.isMale}
+              tintColor={COLOR_PINK}
+              onTintColor={COLOR_PINK}
+            />
+          </View>
+        </View>
+        <RkText rkType='menu'>Origine</RkText>
+        <View style={styles.rowContainer}>
+          {origins.map(origin =>
+            <View key={origin.id} style={styles.row}>
+              <Text style={styles.rowText}>{capitalizeFirstLetter(origin.name)}</Text>
+              <Switch
+                onValueChange={() => this.setOrigin(origin.id)}
+                value={filters.origin && filters.origin.includes(origin.id)}
+                tintColor={COLOR_PINK}
+                onTintColor={COLOR_PINK}
+              />
+            </View>
+          )}
+        </View>
       </ScrollView>
     )
   }
 }
-
-
-{/*<CheckBox
-  key={origin.id}
-  onClick={() => this.setOrigin(origin.id)}
-  style={{ ...padding(10, 0) }}
-  isChecked={filters.origin && filters.origin.includes(origin.id)}
-  leftText={origin.name}
-/>*/}
 
 const mapStateToProps = state => {
   const filters = getFilters(state)
@@ -93,15 +91,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter)
 
 var styles = StyleSheet.create({
   wrapper: {
+    backgroundColor: '#F7F7F7',
     flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20
   },
   row: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
-    ...padding(10, 0)
+    borderBottomWidth: 1,
+    alignItems: 'center',
+    borderColor: '#e5e5e5',
+    ...padding(10, 20)
+  },
+  rowText: {
+
+  },
+  rowContainer: {
+    borderColor: '#e5e5e5',
+    borderTopWidth: 1
   }
 })

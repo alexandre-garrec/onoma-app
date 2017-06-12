@@ -2,9 +2,17 @@ import { RkConfig } from 'react-native-ui-kitten'
 
 export const COLOR_PINK = '#f06292'
 export const COLOR_BLUE = '#7986CB'
+export const COLOR_BLACK = '#1F1F21'
 export const COLOR_LIGHT_GRAY = '#d8dce5'
 
 export const initRk = () => {
+  RkConfig.setType('text', 'menu', {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    fontSize: 16,
+    color: '#8E8E93'
+  })
   RkConfig.setType('text', 'big', {
     marginTop: 10,
     marginBottom: 10,

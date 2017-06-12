@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { getCurrentUser } from '../selectors/user'
 import { USER_LOGOUT } from '../actions'
 
+import { COLOR_BLACK } from '../style'
+
 const onClick = (router) => {
   router.push({
     screen: 'example.channel',
@@ -41,7 +43,7 @@ const Profil = ({ user, logout, router }) =>
       <View style={{ width: 300 }}>
         <View style={styles.image_wrapper}>
           <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
-          <RkText style={{ marginTop: 20, fontSize: 18 }}>{user.displayName || user.email}</RkText>
+          <RkText style={{ marginTop: 20, fontSize: 18, color: COLOR_BLACK }}>{user.displayName || user.email}</RkText>
         </View>
         <RkButton onPress={() => onClickFilter(router)} rkType='default' >
           <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
@@ -61,7 +63,6 @@ const Profil = ({ user, logout, router }) =>
       </RkButton>
       </View>
     </View> : <View />
-
 
 const mapStateToProps = (state) => {
   const user = getCurrentUser(state)

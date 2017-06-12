@@ -2,9 +2,8 @@ import { put, takeEvery, select, call } from 'redux-saga/effects'
 import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
-import { get, update, firebaseAut, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, getNamebyRequest } from '../api'
+import { get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, getNamebyRequest } from '../api'
 import { getFilters } from '../selectors/name'
-import { getCurrentId } from '../selectors/user'
 import { getOrigins } from '../selectors/origin'
 
 export const getSnapshotKeysVal = snapshot => {
@@ -42,22 +41,16 @@ function* onSetFilter() {
           ...memo,
           ...filters.origin.map(origin =>
             call(getNamebyRequest, {
-              where: {
-                genreAndOrgin: `${genre}_${origin}`
-              }
-            })
-          )
+              where: { genreAndOrgin: `${genre}_${origin}` }
+            }))
         ]
       } else {
         return [
           ...memo,
           ...[...Object.keys(origins), 'undefined'].map(origin =>
             call(getNamebyRequest, {
-              where: {
-                genreAndOrgin: `${genre}_${origin}`
-              }
-            })
-          )
+              where: { genreAndOrgin: `${genre}_${origin}` }
+            }))
         ]
       }
     }, [])
@@ -84,7 +77,7 @@ function* userRegister({ payload: { username, password } }) {
 
 function* login({ payload: { username, password } }) {
   try {
-    const user = yield firebaseAut(username, password)
+    const user = yield firebaseAuth(username, password)
     yield onUserLogin(user)
   } catch ({ message }) {
     yield put({ type: USER_LOGIN_ERROR, payload: message })
