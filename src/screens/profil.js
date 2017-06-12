@@ -53,10 +53,10 @@ const Profil = ({ user, logout, router }) =>
           <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
           Partenaire
       </RkButton>
-        <RkButton rkType='default' onPress={() => onClickSetting(router)}>
+        {/* <RkButton rkType='default' onPress={() => onClickSetting(router)}>
           <Icon name='ios-flask-outline' style={{ marginRight: 10, fontSize: 18 }} />
           Réglages
-      </RkButton>
+      </RkButton> */}
         <RkButton rkType='default facebook' onPress={logout}>
           <Icon name='md-bicycle' style={{ marginRight: 10, fontSize: 18 }} />
           Déconnexion
