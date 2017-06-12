@@ -25,7 +25,7 @@ const Name = ({ id, name: { name = '', isFemale = false }, router }) =>
         style={styles.icon}
         name={isFemale ? 'md-female' : 'md-male'}
         size={20}
-        color={isFemale ? COLOR_BLUE : COLOR_PINK}
+        color={isFemale ? COLOR_PINK : COLOR_BLUE}
       />
       <Text>{name}</Text>
       <Query action={GET_NAME} id={id} />

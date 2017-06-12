@@ -1,5 +1,5 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { NAME_LIST_UPDATE, SET_CURRENT_CARD, CARD_HANDLE_NEXT, SET_FILTER, CARD_SET_NUMBER } from '../actions'
+import { NAME_LIST_UPDATE, SET_CURRENT_CARD, CARD_HANDLE_NEXT, CARD_SET_NUMBER } from '../actions'
 import { getCurrentCard, getNextCard, makeGetNamesId } from '../selectors/name'
 import { remove } from '../utils'
 
@@ -42,7 +42,6 @@ function* handleNext() {
 function* getRandomCard(ommit) {
   const state = yield select()
   const cards = remove(getNamesId(state), `${ommit}`)
-  console.log(cards)
   yield put({
     type: CARD_SET_NUMBER,
     payload: cards.length
@@ -54,7 +53,6 @@ function* getRandomCard(ommit) {
 function* flow() {
   yield [
     takeEvery(NAME_LIST_UPDATE, initCard),
-    takeEvery(SET_FILTER, initCard),
     takeEvery(CARD_HANDLE_NEXT, handleNext)
   ]
 }

@@ -7,15 +7,42 @@ import { COLOR_BLUE, COLOR_PINK } from '../../style'
 import { connect } from 'react-redux'
 import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
 import { getCurrentCard, getNextCard, getCardNumber } from '../../selectors/name'
-import { RkText } from 'react-native-ui-kitten'
+import { RkText, RkButton } from 'react-native-ui-kitten'
+import Icon from 'react-native-vector-icons/Ionicons'
 
+const openModal = router =>
+  router.push({
+    screen: 'example.filter',
+    animated: true,
+    backButtonTitle: 'Retour',
+    title: 'Filtre'
+  })
+
+const ChangeFiter = ({ router }) =>
+  <View style={{
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 40
+  }}>
+    <RkText rkType='info'>Changer les filtes pour avoir des nouveaux prénom</RkText>
+    <RkButton onPress={() => openModal(router)} rkType='default' >
+      <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
+      Filtre
+    </RkButton>
+  </View>
 
 const SwipeCard = ({ onRight, onLeft, handleNext, current, next, router, number }) =>
   <View style={styles.container}>
-    {number === 0
-      ? <RkText rkType='info'>Changer les filtes pour avoir des nouveaux nom</RkText>
-      : <SwipeCards onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
-    }
+    <View style={{
+      flexGrow: 1
+    }}>
+      {number === 0
+        ? <ChangeFiter router={router} />
+        : <SwipeCards onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
+      }
+    </View>
     <Group>
       <RoundButton icon={'md-close'} color={COLOR_BLUE} onPress={() => {
         onLeft()

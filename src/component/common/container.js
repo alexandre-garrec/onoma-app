@@ -26,7 +26,6 @@ const openModal = router =>
     }
   })
 
-
 class Container extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.router && nextProps.displayLogin) {

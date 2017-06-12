@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
-
+import { StyleSheet, Text, View, Image } from 'react-native'
 import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten';
 import { Hoshi } from 'react-native-textinput-effects'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -60,6 +54,7 @@ class Registration extends Component {
                 borderColor={'transparent'}
               />
               <RkButton rkType='default' onPress={() => register({ username, password })}>Suivant</RkButton>
+              <RkButton rkType='default' onPress={() => navigator.pop()}>Retour</RkButton>
               <KeyboardSpace />
             </View>
           </View>

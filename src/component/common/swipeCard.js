@@ -47,7 +47,6 @@ class SwipeCard extends Component {
 
 
   onMove(event) {
-    //console.log(event.value, event.value > width)
     const { left, right, drag } = this.state
     if (!drag && Math.abs(event.value) > width && (left || right)) {
       const { onRight, onLeft, current, handleNext } = this.props
@@ -146,7 +145,7 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }
 })
 
 export default SwipeCard

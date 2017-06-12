@@ -1,5 +1,5 @@
 import { put, takeEvery, select, call } from 'redux-saga/effects'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE, GET_NAME_SUCCESS } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
 import { get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, getNamebyRequest } from '../api'
@@ -8,9 +8,8 @@ import { getOrigins } from '../selectors/origin'
 
 export const getSnapshotKeysVal = snapshot => {
   const val = snapshot.val()
-  return val ? Object.keys(snapshot.val()) : []
+  return snapshot.val()
 }
-
 
 function* onSetFilter() {
   try {
@@ -58,10 +57,13 @@ function* onSetFilter() {
     const namesSnapshtot = yield requests
 
     const namesArray = namesSnapshtot.reduce((memo, names) =>
-      [...memo, ...getSnapshotKeysVal(names)]
-      , [])
+      ({ ...memo, ...getSnapshotKeysVal(names) })
+      , {})
 
-    yield put({ type: NAME_LIST_UPDATE, payload: namesArray })
+    yield [
+      put({ type: NAME_LIST_UPDATE, payload: Object.keys(namesArray) }),
+      put({ type: GET_NAME_SUCCESS, payload: namesArray })
+    ]
 
   } catch (e) { console.log(e) }
 }
