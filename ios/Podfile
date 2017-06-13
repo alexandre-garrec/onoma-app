@@ -23,6 +23,7 @@ platform :ios, '8.0'
   'Firebase/Database',
   'Firebase/RemoteConfig',
   'Firebase/Messaging'
+  'Firebase/Crash'
 ].each do |lib|
   pod lib
 end

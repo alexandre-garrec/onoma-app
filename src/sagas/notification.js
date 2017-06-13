@@ -28,7 +28,6 @@ function* watchNotification() {
 
 function* clearBadge() {
   try {
-    console.log('clearBadge')
     const state = yield select()
     const userId = getCurrentId(state)
     notification.removeAllDeliveredNotifications()

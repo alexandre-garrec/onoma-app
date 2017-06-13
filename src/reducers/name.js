@@ -1,5 +1,5 @@
 import reducer from '../utils/reducer'
-import { GET_NAME, GET_NAME_SUCCESS, GET_NAME_ERROR, NAME_LIST_UPDATE } from '../actions'
+import { SET_FILTER, GET_NAME_SUCCESS, GET_NAME_ERROR, NAME_LIST_UPDATE } from '../actions'
 
 const initialState = {
   items: {},
@@ -15,12 +15,11 @@ const name = reducer(initialState, {
     ...state,
     list: payload
   }),
-  [GET_NAME]: (state, payload) => ({
+  [SET_FILTER]: (state, payload) => ({
     ...state,
     gui: {
       ...state.gui,
-      loading: true,
-      error: false
+      loading: true
     }
   }),
   [GET_NAME_SUCCESS]: (state, payload) => ({

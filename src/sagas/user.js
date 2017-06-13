@@ -1,4 +1,4 @@
-import { put, takeEvery, select } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest, select } from 'redux-saga/effects'
 import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE, GET_NAME_SUCCESS, USER_UPDATE_BADGE } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
@@ -117,7 +117,7 @@ function* flow() {
     takeEvery(USER_LOGOUT, logout),
     takeEvery(USER_FACEBOOK_LOGIN, loginFacebook),
     takeEvery(USER_REGISTER, userRegister),
-    takeEvery(SET_FILTER, onSetFilter),
+    takeLatest(SET_FILTER, onSetFilter),
     takeEvery(REHYDRATE, checkUser)
   ]
 }
