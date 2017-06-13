@@ -1,27 +1,30 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
 import { USER_LOGIN_SUCCESS, GET_CHANNEL_SUCCESS, USER_SET_CHANNEL_SUCCESS } from '../actions'
 import { getCurrentId } from '../selectors/user'
-import { get, addListenerOnRef } from '../api'
+import { addListenerOnRef } from '../api'
 import channelModel from '../models/channel'
 
 function* onChannelUpdate(snapshot) {
   yield put({ type: GET_CHANNEL_SUCCESS, payload: { [snapshot.key]: channelModel(snapshot.val()) } })
 }
 
-function* watchUserChannel(channelId) {
+function* watchChannel(channelId) {
   yield addListenerOnRef(`channel/${channelId}`, onChannelUpdate)
+}
+
+function* watchUserChannel(snapshot) {
+  const channels = snapshot.val()
+  if (channels) {
+    const channelsArray = Object.keys(channels)
+    yield channelsArray.map((channelId) => watchChannel(channelId))
+  }
 }
 
 function* getChannel() {
   try {
     const state = yield select()
     const userId = getCurrentId(state)
-
-    const channels = yield get(`user/${userId}/channels`)
-    const channelsArray = Object.keys(channels)
-    if (channelsArray.length) {
-      yield channelsArray.map((channelId) => watchUserChannel(channelId))
-    }
+    yield addListenerOnRef(`user/${userId}/channels`, watchUserChannel)
   } catch (error) { }
 }
 

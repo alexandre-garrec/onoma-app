@@ -1,5 +1,5 @@
 import reducer from '../utils/reducer'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS, GET_CHANNEL_SUCCESS } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS, GET_CHANNEL_SUCCESS, USER_UPDATE_BADGE } from '../actions'
 
 const initialState = {
   current: false,
@@ -7,11 +7,19 @@ const initialState = {
   gui: {
     loading: false,
     error: false,
-    displayLogin: false
+    displayLogin: false,
+    badge: 0
   }
 }
 
 const user = reducer(initialState, {
+  [USER_UPDATE_BADGE]: (state, payload) => ({
+    ...state,
+    gui: {
+      ...state.gui,
+      badge: payload
+    }
+  }),
   [GET_CHANNEL_SUCCESS]: (state, payload) => ({
     ...state,
     users: {

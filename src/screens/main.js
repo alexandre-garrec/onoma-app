@@ -16,13 +16,14 @@ class Onoma extends Component {
     super(props)
   }
   render() {
-    const { id, navigator } = this.props
+    const { navigator, clear } = this.props
     return (
       <Container router={navigator}>
         <ScrollableTabView
           prerenderingSiblingsNumber={Infinity}
           tabBarPosition='top'
           initialPage={1}
+          onChangeTab={({ i }) => i === 2 && clear()}
           locked={false}
           renderTabBar={() => <FacebookTabBar setLocked={value => this.setLocked(value)} />} >
           <Profil router={navigator} />
@@ -34,4 +35,12 @@ class Onoma extends Component {
   }
 }
 
-export default Onoma
+import { connect } from 'react-redux'
+import { USER_CLEAR_BADGE } from '../actions'
+
+const mapDispatchToProps = (dispatch) => ({
+  clear: () => dispatch({ type: USER_CLEAR_BADGE })
+})
+
+export default connect(() => ({}), mapDispatchToProps)(Onoma)
+

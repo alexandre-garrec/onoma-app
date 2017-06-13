@@ -3,7 +3,6 @@ import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import createChannel from './utils/channel'
 import { call, fork } from 'redux-saga/effects'
 
-
 const firestack = new Firestack({ debug: false })
 
 function* listen(channel, saga) {
@@ -62,8 +61,28 @@ const generateQuery = (ref, where) =>
     return memo.orderByChild(key).equalTo(where[key])
   }, ref)
 
-export const getNamebyRequest = ({ where = [] } = {}) =>
+const getNamebyRequest = ({ where = [] } = {}) =>
   generateQuery(firestack.database
     .ref(`name`), where)
     .once('value')
     .then(snapshot => snapshot)
+
+export const generateFilter = (genres, filters, origins) => genres.reduce((memo, genre) => {
+  if (filters.origin && filters.origin.length) {
+    return [
+      ...memo,
+      ...filters.origin.map(origin =>
+        call(getNamebyRequest, {
+          where: { genreAndOrgin: `${genre}_${origin}` }
+        }))
+    ]
+  } else {
+    return [
+      ...memo,
+      ...[...Object.keys(origins), 'undefined'].map(origin =>
+        call(getNamebyRequest, {
+          where: { genreAndOrgin: `${genre}_${origin}` }
+        }))
+    ]
+  }
+}, [])

@@ -1,27 +1,17 @@
-import { put, takeEvery, select, call } from 'redux-saga/effects'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE, GET_NAME_SUCCESS } from '../actions'
+import { put, takeEvery, select } from 'redux-saga/effects'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE, GET_NAME_SUCCESS, USER_UPDATE_BADGE } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
-import { get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, getNamebyRequest } from '../api'
+import { get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, generateFilter, addListenerOnRef } from '../api'
 import { getFilters } from '../selectors/name'
 import { getOrigins } from '../selectors/origin'
-
-export const getSnapshotKeysVal = snapshot => {
-  const val = snapshot.val()
-  return snapshot.val()
-}
+import { getCurrentId } from '../selectors/user'
 
 function* onSetFilter() {
   try {
     const state = yield select()
     const filters = getFilters(state)
-    // const userId = getCurrentId(state)
     const origins = getOrigins(state)
-
-    /* yield update({
-      [`user/${userId}/filters`]: filters
-    }) */
-
     const genres = (() => {
       switch (true) {
         case filters.isMale && filters.isFemale:
@@ -34,37 +24,16 @@ function* onSetFilter() {
       }
     })()
 
-    const requests = genres.reduce((memo, genre) => {
-      if (filters.origin && filters.origin.length) {
-        return [
-          ...memo,
-          ...filters.origin.map(origin =>
-            call(getNamebyRequest, {
-              where: { genreAndOrgin: `${genre}_${origin}` }
-            }))
-        ]
-      } else {
-        return [
-          ...memo,
-          ...[...Object.keys(origins), 'undefined'].map(origin =>
-            call(getNamebyRequest, {
-              where: { genreAndOrgin: `${genre}_${origin}` }
-            }))
-        ]
-      }
-    }, [])
-
-    const namesSnapshtot = yield requests
+    const namesSnapshtot = yield generateFilter(genres, filters, origins)
 
     const namesArray = namesSnapshtot.reduce((memo, names) =>
-      ({ ...memo, ...getSnapshotKeysVal(names) })
+      ({ ...memo, ...names.val() })
       , {})
 
     yield [
       put({ type: NAME_LIST_UPDATE, payload: Object.keys(namesArray) }),
       put({ type: GET_NAME_SUCCESS, payload: namesArray })
     ]
-
   } catch (e) { console.log(e) }
 }
 
@@ -128,14 +97,22 @@ function* checkUser() {
   }
 }
 
-
 function* onUserLogin(user) {
   const userBdd = yield get(`user/${user.uid}`)
   yield put({ type: USER_LOGIN_SUCCESS, payload: userModel({ ...user, ...userBdd }) })
 }
 
+function* watchUpdateBadge() {
+  const state = yield select()
+  const userId = getCurrentId(state)
+  yield addListenerOnRef(`user/${userId}/badge`, function* (snapshot) {
+    yield put({ type: USER_UPDATE_BADGE, payload: snapshot.val() })
+  })
+}
+
 function* flow() {
   yield [
+    takeEvery(USER_LOGIN_SUCCESS, watchUpdateBadge),
     takeEvery(USER_LOGIN, login),
     takeEvery(USER_LOGOUT, logout),
     takeEvery(USER_FACEBOOK_LOGIN, loginFacebook),

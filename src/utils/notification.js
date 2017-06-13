@@ -14,12 +14,6 @@ export const getFCMToken = () =>
 export const getBadgeNumber = () =>
   FCM.getBadgeNumber().then(number => number)
 
-function _on(ref, action, saga = false) {
-  const channel = createChannel()
-  ref.on(action, snapshot => channel.put(snapshot))
-  return fork(listen, channel, saga)
-}
-
 function* listen(channel, saga) {
   while (true) {
     const data = yield call(channel.take)

@@ -1,6 +1,6 @@
 import { takeEvery, put, select } from 'redux-saga/effects'
-import { NAME_LIST_UPDATE, SET_CURRENT_CARD, CARD_HANDLE_NEXT, CARD_SET_NUMBER, CARD_HANDLE_BACK, CARD_BACK_SUCCESS } from '../actions'
-import { getCurrentCard, getNextCard, makeGetNamesId, getPreviousCard, getHistory } from '../selectors/name'
+import { NAME_LIST_UPDATE, SET_CURRENT_CARD, CARD_HANDLE_NEXT, CARD_SET_NUMBER } from '../actions'
+import { getCurrentCard, getNextCard, makeGetNamesId } from '../selectors/name'
 import { remove } from '../utils'
 
 const getNamesId = makeGetNamesId()

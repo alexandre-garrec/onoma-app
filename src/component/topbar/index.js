@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native'
-// import Icon from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
+import { getBadgeCount } from '../../selectors/user'
 
 const IOS_NAV_BAR_HEIGHT = 44
 
 const isActive = (activeTab, index) => activeTab === index
 
-const FacebookTabBar = ({ goToPage, style, activeTab }) =>
+const FacebookTabBar = ({ goToPage, style, activeTab, badgeCount = 0 }) =>
   <View style={[styles.tabs, style]}>
     <TouchableOpacity onPress={() => goToPage(0)} style={styles.tab}>
       <Image
@@ -27,7 +28,9 @@ const FacebookTabBar = ({ goToPage, style, activeTab }) =>
         style={styles.picto}
         source={isActive(activeTab, 2)
           ? require('../../../assets/picto-list-active.png')
-          : require('../../../assets/picto-list.png')
+          : badgeCount
+            ? require('../../../assets/picto-list-notif.png')
+            : require('../../../assets/picto-list.png')
         }
       />
     </TouchableOpacity>
@@ -53,4 +56,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FacebookTabBar
+const mapStateToProps = (state) => {
+  const badgeCount = getBadgeCount(state)
+  return {
+    badgeCount
+  }
+}
+
+export default connect(mapStateToProps)(FacebookTabBar)

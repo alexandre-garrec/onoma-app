@@ -1,5 +1,5 @@
 import { select, takeEvery } from 'redux-saga/effects'
-import { USER_LOGIN_SUCCESS } from '../actions'
+import { USER_LOGIN_SUCCESS, USER_CLEAR_BADGE } from '../actions'
 import { FCMEvent } from 'react-native-fcm'
 import { getCurrentId } from '../selectors/user'
 import notification from '../utils/notification'
@@ -26,8 +26,19 @@ function* watchNotification() {
   }
 }
 
+function* clearBadge() {
+  try {
+    console.log('clearBadge')
+    const state = yield select()
+    const userId = getCurrentId(state)
+    notification.removeAllDeliveredNotifications()
+    yield update({ [`user/${userId}/badge`]: 0 })
+  } catch (e) { }
+}
+
 function* flow() {
   yield [
+    takeEvery(USER_CLEAR_BADGE, clearBadge),
     takeEvery(USER_LOGIN_SUCCESS, watchNotification)
   ]
 }
