@@ -41,15 +41,16 @@ class Channel extends Component {
     }
     return (
       <Container>
-        {channel.users.map(id => <Text key={id}>{id}</Text>)}
-        <RkButton onPress={() => onClick(channel.dynamicLink)} rkType='default' >
-          <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
-          Inviter votre partenaire
-        </RkButton>
+        <RkText rkType='info'>Vous avez déjà un partenaire sur l'application</RkText>
       </Container>
     )
   }
 }
+//  {channel.users.map(id => <Text key={id}>{id}</Text>)}
+//<RkButton onPress={() => onClick(channel.dynamicLink)} rkType='default' >
+//  <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
+//  Inviter votre partenaire
+//        </RkButton>
 
 import { connect } from 'react-redux'
 import { getChannel } from '../selectors/channel'

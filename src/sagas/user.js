@@ -6,6 +6,7 @@ import { get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getC
 import { getFilters } from '../selectors/name'
 import { getOrigins } from '../selectors/origin'
 import { getCurrentId } from '../selectors/user'
+import notification from '../utils/notification'
 
 function* onSetFilter() {
   try {
@@ -106,7 +107,9 @@ function* watchUpdateBadge() {
   const state = yield select()
   const userId = getCurrentId(state)
   yield addListenerOnRef(`user/${userId}/badge`, function* (snapshot) {
-    yield put({ type: USER_UPDATE_BADGE, payload: snapshot.val() })
+    const number = snapshot.val()
+    notification.setBadgeNumber(number)
+    yield put({ type: USER_UPDATE_BADGE, payload: number })
   })
 }
 

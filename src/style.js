@@ -27,6 +27,13 @@ export const initRk = () => {
     color: COLOR_PINK,
     textAlign: 'center'
   })
+  RkConfig.setType('text', 'error', {
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center'
+  })
   RkConfig.setType('text', 'title', {
     marginTop: 20,
     marginBottom: 20,

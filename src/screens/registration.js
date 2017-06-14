@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten';
+import { RkButton, RkText, RkConfig } from 'react-native-ui-kitten';
 import { Hoshi } from 'react-native-textinput-effects'
 import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
+
+const validateEmail = (email = '') => {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
+const validatePassword = (password = '') => {
+  return password.length < 6
+}
 
 class Registration extends Component {
   static navigatorStyle = {
@@ -14,7 +23,8 @@ class Registration extends Component {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: false
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -32,7 +42,7 @@ class Registration extends Component {
         <View style={styles.section}>
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
-              <Text>{error}</Text>
+              <RkText rkType='error'>{error}</RkText>
               <Hoshi
                 labelStyle={{ color: '#fff' }}
                 inputStyle={{ color: '#fff' }}
@@ -53,7 +63,15 @@ class Registration extends Component {
                 clearButtonMode='always'
                 borderColor={'transparent'}
               />
-              <RkButton rkType='default' onPress={() => register({ username, password })}>Suivant</RkButton>
+              <RkButton rkType='default' onPress={() => {
+                if (!validateEmail(username)) {
+                  return this.setState({ error: `Votre email n'est pas valide` })
+                }
+                else if (validatePassword(password)) {
+                  return this.setState({ error: `Votre mot de passe doit contenir au moins 6 caractères` })
+                }
+                register({ username, password })
+              }}>Suivant</RkButton>
               <RkButton rkType='default' onPress={() => navigator.pop()}>Retour</RkButton>
               <KeyboardSpace />
             </View>

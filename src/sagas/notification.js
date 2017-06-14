@@ -31,6 +31,7 @@ function* clearBadge() {
     const state = yield select()
     const userId = getCurrentId(state)
     notification.removeAllDeliveredNotifications()
+    notification.setBadgeNumber(0)
     yield update({ [`user/${userId}/badge`]: 0 })
   } catch (e) { }
 }
