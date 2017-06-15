@@ -5,7 +5,7 @@ const initialState = {
   items: {},
   list: [],
   gui: {
-    loading: true,
+    loading: false,
     error: false
   }
 }

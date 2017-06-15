@@ -6,11 +6,12 @@ import {
   Image
 } from 'react-native'
 
-import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten';
-import { Hoshi } from 'react-native-textinput-effects'
+import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
+import { TextField } from 'react-native-material-textfield'
+import { validateEmail, validatePassword } from '../utils/validator'
 
 const onClick = (router) => {
   router.push({
@@ -28,16 +29,57 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
-      password: ''
+      secureTextEntry: true,
+      username: { value: '', error: '' },
+      password: { value: '', error: '' }
     }
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.current) nextProps.navigator.pop()
   }
+
+  onTextChange(key, value) {
+    const { error } = this.state[key]
+    this.setState({ [key]: { error, value } })
+  }
+
+  setError(key, error) {
+    const { value } = this.state[key]
+    this.setState({ [key]: { error, value } })
+  }
+
+  onAccessoryPress() {
+    this.setState(({ secureTextEntry }) => ({ secureTextEntry: !secureTextEntry }))
+  }
+
+  renderPasswordAccessory() {
+    const { secureTextEntry } = this.state
+
+    const name = secureTextEntry ?
+      'md-eye' :
+      'md-eye-off';
+
+    return (
+      <Icon
+        size={24}
+        name={name}
+        color={'#fff'}
+        onPress={() => this.onAccessoryPress()}
+        suppressHighlighting
+      />
+    )
+  }
+
+
+  onSubmit() {
+    const { password: { value: password }, username: { value: username } } = this.state
+    this.setError('username', validateEmail(username) ? '' : `Email non valide`)
+    this.setError('password', validatePassword(password) ? '' : `Minimum 6 caractères `)
+  }
+
   render() {
     const { navigator, login, error, loginFb } = this.props
-    const { username, password } = this.state
+    const { username, password, secureTextEntry } = this.state
     return (
       <View style={styles.wrapper}>
         <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
@@ -45,27 +87,40 @@ class Login extends Component {
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
               <Text>{error}</Text>
-              <Hoshi
-                labelStyle={{ color: '#fff' }}
-                inputStyle={{ color: '#fff' }}
-                label={'Adresse email'}
-                borderColor={'transparent'}
-                clearButtonMode='always'
-                onChangeText={text => this.setState({ username: text })}
-                autoCapitalize={'none'}
+              <TextField
+                label='Adresse email'
+                autoCapitalize='none'
                 autoCorrect={false}
+                enablesReturnKeyAutomatically={true}
+                clearButtonMode='never'
+                onChangeText={username => this.onTextChange('username', username)}
+                onSubmitEditing={() => this.refs.password.focus()}
+                error={username.error}
+                returnKeyType='next'
+                tintColor='#fff'
+                textColor='#fff'
+                baseColor='#fff'
               />
-              <Hoshi
-                labelStyle={{ color: '#fff' }}
-                inputStyle={{ color: '#fff' }}
-                label={'Mot de passe'}
-                onChangeText={text => this.setState({ password: text })}
-                secureTextEntry={true}
-                style={{ marginTop: 10 }}
-                clearButtonMode='always'
-                borderColor={'transparent'}
+              <TextField
+                ref='password'
+                baseColor='#fff'
+                tintColor='#fff'
+                textColor='#fff'
+                label='Mot de passe'
+                autoCorrect={false}
+                autoCapitalize='none'
+                onChangeText={text => this.onTextChange('password', text)}
+                onSubmitEditing={() => {
+                  this.refs.password.blur()
+                  this.onSubmit()
+                }}
+                returnKeyType='done'
+                error={password.error}
+                secureTextEntry={secureTextEntry}
+                clearButtonMode='never'
+                renderAccessory={() => this.renderPasswordAccessory()}
               />
-              <RkButton rkType='default' onPress={() => login({ username, password })}>Connexion</RkButton>
+              <RkButton rkType='default' onPress={() => login({ username: username.value, password: password.value })}>Connexion</RkButton>
               <RkButton rkType='default' onPress={() => onClick(navigator)}>Inscription</RkButton>
               <RkButton rkType='default facebook' onPress={() => loginFb()}>
                 <Icon style={{ marginRight: 10 }} name={'logo-facebook'} />

@@ -1,19 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { RkButton, RkText, RkConfig } from 'react-native-ui-kitten';
-import { Hoshi } from 'react-native-textinput-effects'
+import { RkButton, RkText, RkConfig } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
-
-const validateEmail = (email = '') => {
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-
-const validatePassword = (password = '') => {
-  return password.length < 6
-}
+import { TextField } from 'react-native-material-textfield'
+import { validateEmail, validatePassword } from '../utils/validator'
 
 class Registration extends Component {
   static navigatorStyle = {
@@ -43,25 +35,22 @@ class Registration extends Component {
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
               <RkText rkType='error'>{error}</RkText>
-              <Hoshi
-                labelStyle={{ color: '#fff' }}
-                inputStyle={{ color: '#fff' }}
-                label={'Adresse email'}
-                borderColor={'transparent'}
-                clearButtonMode='always'
-                onChangeText={text => this.setState({ username: text })}
+              <TextField
+                label='Adresse email'
+                onChangeText={(username) => this.setState({ username })}
                 autoCapitalize={'none'}
                 autoCorrect={false}
+                clearButtonMode='always'
+                tintColor='#fff'
+                textColor='#fff'
               />
-              <Hoshi
-                labelStyle={{ color: '#fff' }}
-                inputStyle={{ color: '#fff' }}
-                label={'Mot de passe'}
+              <TextField
+                tintColor='#fff'
+                textColor='#fff'
+                label='Mot de passe'
                 onChangeText={text => this.setState({ password: text })}
                 secureTextEntry={true}
-                style={{ marginTop: 10 }}
                 clearButtonMode='always'
-                borderColor={'transparent'}
               />
               <RkButton rkType='default' onPress={() => {
                 if (!validateEmail(username)) {
