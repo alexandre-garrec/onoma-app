@@ -24,7 +24,7 @@ class Registration extends Component {
         <View style={styles.section}>
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
-              <EmailPasswordForm submitText='Suivant' onSubmit={(username, password) => {
+              <EmailPasswordForm submitText='Suivant' onSubmit={({ username, password }) => {
                 register({ username, password })
               }} />
               <RkButton rkType='default' onPress={() => navigator.pop()}>Retour</RkButton>
