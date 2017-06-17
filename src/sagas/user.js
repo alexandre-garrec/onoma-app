@@ -51,8 +51,8 @@ function* login({ payload: { username, password } }) {
   try {
     const user = yield firebaseAuth(username, password)
     yield onUserLogin(user)
-  } catch ({ message }) {
-    yield put({ type: USER_LOGIN_ERROR, payload: message })
+  } catch (e) {
+    yield put({ type: USER_LOGIN_ERROR, payload: `Email ou mot de passe incorrect` })
   }
 }
 
