@@ -14,8 +14,8 @@ import { COLOR_PINK } from '../style'
 
 const onClick = () => {
   Share.share({
-    message: 'BAM: we\'re helping your business with awesome React Native apps',
-    url: 'http://bam.tech',
+    message: 'Comment trouve tu le prénom: ',
+    url: 'https://ono.ma',
     title: 'Wow, did you see that?'
   })
 }
@@ -37,7 +37,7 @@ class Name extends Component {
               animated: true
             })
           }} />
-          <RoundButton icon='md-share' onPress={onClick} />
+          {/*<RoundButton icon='md-share' onPress={onClick} />*/}
         </Group>
       </Container>
     )
