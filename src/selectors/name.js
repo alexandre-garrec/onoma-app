@@ -1,4 +1,4 @@
-import { shuffle, difference } from '../utils'
+import { difference } from '../utils'
 import { createSelector } from 'reselect'
 import { getCurrentUser } from './user'
 

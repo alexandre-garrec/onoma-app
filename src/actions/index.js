@@ -36,6 +36,8 @@ export const USER_LOGOUT_SUCCESS = 'user.logout.success'
 export const USER_LOGOUT_ERROR = 'user.logout.error'
 export const USER_UPDATE_BADGE = 'user.update.badge'
 
+export const USER_SET_DYNAMICLINK = 'user.set.dynamiclink'
+
 export const USER_CLEAR_BADGE = 'user.clear.badge'
 
 export const SET_LINK = 'set.link'

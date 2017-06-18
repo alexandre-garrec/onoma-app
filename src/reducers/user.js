@@ -1,5 +1,5 @@
 import reducer from '../utils/reducer'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS, GET_CHANNEL_SUCCESS, USER_UPDATE_BADGE } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS, GET_CHANNEL_SUCCESS, USER_UPDATE_BADGE, USER_SET_DYNAMICLINK } from '../actions'
 
 const initialState = {
   current: false,
@@ -8,11 +8,19 @@ const initialState = {
     loading: false,
     error: false,
     displayLogin: true,
-    badge: 0
+    badge: 0,
+    dynamiclink: false
   }
 }
 
 const user = reducer(initialState, {
+  [USER_SET_DYNAMICLINK]: (state, payload) => ({
+    ...state,
+    gui: {
+      ...state.gui,
+      dynamiclink: payload
+    }
+  }),
   [USER_UPDATE_BADGE]: (state, payload) => ({
     ...state,
     gui: {

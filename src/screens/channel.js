@@ -27,15 +27,15 @@ class Channel extends Component {
     navBarButtonColor: '#d8dce5'
   }
   render() {
-    const { channel, user } = this.props
+    const { channel, user, link } = this.props
     if (!channel) {
       return (
         <Container>
           <RkText rkType='info'>Vous n'avez pas encore de partenaire sur l'application</RkText>
-          <RkButton onPress={() => onClick(user.link.shortLink)} rkType='default' >
+          <RkButton onPress={() => onClick(link)} rkType='default' >
             <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
             Inviter votre partenaire
-        </RkButton>
+          </RkButton>
         </Container>
       )
     }
@@ -54,14 +54,16 @@ class Channel extends Component {
 
 import { connect } from 'react-redux'
 import { getChannel } from '../selectors/channel'
-import { getCurrentUser } from '../selectors/user'
+import { getCurrentUser, getDynamiclink } from '../selectors/user'
 
 const mapStateToProps = (state) => {
   const channel = getChannel(state)[0]
   const user = getCurrentUser(state)
+  const link = getDynamiclink(state)
   return {
     channel,
-    user
+    user,
+    link
   }
 }
 

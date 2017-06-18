@@ -1,10 +1,10 @@
 import { fork, takeEvery, select, put } from 'redux-saga/effects'
 import { onLink } from '../utils/deepLink'
 import { extractParams } from '../utils'
-import { update } from '../api'
+import { update, addListenerOnRef } from '../api'
 import { getCurrentId } from '../selectors/user'
 import { getLink } from '../selectors/gui'
-import { SET_LINK, USER_LOGIN_SUCCESS, USER_SET_CHANNEL_SUCCESS } from '../actions'
+import { SET_LINK, USER_LOGIN_SUCCESS, USER_SET_CHANNEL_SUCCESS, USER_SET_DYNAMICLINK } from '../actions'
 
 const BASE_URL = 'https://ono.ma/'
 
@@ -38,9 +38,24 @@ function* watchLink() {
   } catch (e) { }
 }
 
+function* watchUserDinamiclink() {
+  try {
+    const state = yield select()
+    const userId = getCurrentId(state)
+    yield addListenerOnRef(`user/${userId}/link`, function* (snapshot) {
+      const val = snapshot.val()
+      if (val) {
+        const { shortLink } = val
+        yield put({ type: USER_SET_DYNAMICLINK, payload: shortLink })
+      }
+    })
+  } catch (error) { }
+}
+
 function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, linkUser),
+    takeEvery(USER_LOGIN_SUCCESS, watchUserDinamiclink),
     fork(watchLink)
   ]
 }
