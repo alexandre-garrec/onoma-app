@@ -28,7 +28,7 @@ const configureStore = (initialState = {}) => {
 
   persistStore(store, {
     storage: AsyncStorage,
-    whitelist: ['match', 'origin', 'filter', 'name', 'card']
+    whitelist: ['match', 'origin', 'filter', 'name', 'card', 'user']
   })// .purge()
 
   // Extensions

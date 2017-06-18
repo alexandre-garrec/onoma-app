@@ -5,17 +5,13 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
 import EmailPasswordForm from '../component/form/EmailPassword'
+import { COLOR_PINK } from '../style'
 
 class Registration extends Component {
   static navigatorStyle = {
-    navBarHidden: true
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.current) nextProps.navigator.push({
-      screen: 'example.FirstTabScreen',
-      animated: true,
-      backButtonTitle: '',
-    })
+    //navBarHidden: true,
+    navBarTextColor: COLOR_PINK,
+    navBarButtonColor: '#d8dce5'
   }
   render() {
     const { navigator, register } = this.props
@@ -27,7 +23,6 @@ class Registration extends Component {
               <EmailPasswordForm submitText='Suivant' onSubmit={({ username, password }) => {
                 register({ username, password })
               }} />
-              <RkButton rkType='default' onPress={() => navigator.pop()}>Retour</RkButton>
               <KeyboardSpace />
             </View>
           </View>

@@ -7,7 +7,7 @@ const initialState = {
   gui: {
     loading: false,
     error: false,
-    displayLogin: false,
+    displayLogin: true,
     badge: 0
   }
 }

@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import { connect } from 'react-redux'
-import { displayLogin } from '../../selectors/user'
 import { displayLinkModal } from '../../selectors/gui'
 
 const onClick = router =>
@@ -28,9 +27,6 @@ const openModal = router =>
 
 class Container extends Component {
   componentWillReceiveProps(nextProps) {
-    if (this.props.router && nextProps.displayLogin) {
-      onClick(this.props.router)
-    }
     if (this.props.router && nextProps.displayLinkModal) {
       openModal(this.props.router)
     }
@@ -47,7 +43,6 @@ class Container extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  displayLogin: displayLogin(state),
   displayLinkModal: displayLinkModal(state)
 })
 

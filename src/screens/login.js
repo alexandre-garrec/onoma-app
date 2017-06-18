@@ -17,17 +17,13 @@ const onClick = (router) => {
     screen: 'example.registration',
     animated: true,
     backButtonTitle: '',
-    title: 'Filtre'
+    title: 'Inscription'
   })
 }
 
 class Login extends Component {
   static navigatorStyle = {
     navBarHidden: true
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.current) nextProps.navigator.pop()
   }
 
   render() {
@@ -59,14 +55,12 @@ class Login extends Component {
 
 import { connect } from 'react-redux'
 import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
-import { getError, getCurrentId } from '../selectors/user'
+import { getError } from '../selectors/user'
 
 const mapStateToProps = (state) => {
   const error = getError(state)
-  const current = getCurrentId(state)
   return {
     error,
-    current
   }
 }
 
