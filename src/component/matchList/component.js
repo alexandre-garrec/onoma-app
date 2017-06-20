@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-native'
+import { StyleSheet, FlatList, Text, View, TouchableHighlight } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR_BLUE, COLOR_PINK } from '../../style'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
+import { RkText, RkButton } from 'react-native-ui-kitten'
 
 import { connect } from 'react-redux'
 import { getNameById } from '../../selectors/name'
@@ -17,6 +18,32 @@ const onClick = (router, id, firstname) => {
     title: firstname
   })
 }
+
+const openModal = router =>
+  router.push({
+    screen: 'example.channel',
+    animated: true,
+    backButtonTitle: 'Retour',
+    title: 'Filtre'
+  })
+
+const Invite = ({ router, filters }) =>
+  <View style={{
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 40
+  }}>
+    <RkText rkType='info'>{filters
+      ? 'Changer vos filtes pour avoir des nouveaux prénom'
+      : 'Sélectionner vos filtes avant de commencer'
+    }</RkText>
+    <RkButton onPress={() => openModal(router)} rkType='default' >
+      <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
+      Filtre
+    </RkButton>
+  </View>
 
 const Name = ({ id, name: { name = '', isFemale = false }, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
@@ -46,13 +73,12 @@ const NameConnected = connect(makeMapStateToProps)(Name)
 
 const MatchList = ({ matchsId, router, deleteItem, loading }) => {
   if (loading) return <View />
-  const dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(matchsId)
+  // if (matchsId.length === 0) return <Invite router={router} />
   return (
-    <ListView
+    <FlatList
       style={styles.container}
-      dataSource={dataSource}
-      enableEmptySections={true}
-      renderRow={id => <NameConnected key={id} router={router} id={id} />}
+      data={matchsId}
+      renderItem={({ item }) => <NameConnected key={item} router={router} id={item} />}
     />
   )
 }
