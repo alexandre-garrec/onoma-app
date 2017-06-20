@@ -1,62 +1,105 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
-import Loading from '../loading'
-import Card from '../card'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import RoundButton, { Group } from '../common/roundButton'
 import SwipeCards from '../common/swipeCard'
+import { COLOR_BLUE, COLOR_PINK } from '../../style'
+import { CARD_HANDLE_NEXT, ADD_MATCH, CARD_HANDLE_BACK } from '../../actions'
+import { getCurrentCard, getNextCard, getCardNumber, getFilters, getNameLoadingStatus } from '../../selectors/name'
+import { RkText, RkButton } from 'react-native-ui-kitten'
+import Icon from 'react-native-vector-icons/Ionicons'
+import { connect } from 'react-redux'
 
-const onClick = router =>
-  router.showLightBox({
-    screen: "example.ModalScreenFilter", // unique ID registered with Navigation.registerScreen
-    passProps: {}, // simple serializable object that will pass as props to the modal (optional)
-    navigatorStyle: {}, // override the navigator style for the screen, see "Styling the navigator" below (optional)
-    style: {
-      backgroundBlur: "none", // 'dark' / 'light' / 'xlight' / 'none' - the type of blur on the background
-      backgroundColor: "#ffffff90" // tint color for the background, you can specify alpha here (optional)
-   }
+const openModal = router =>
+  router.push({
+    screen: 'example.filter',
+    animated: true,
+    backButtonTitle: 'Retour',
+    title: 'Filtre'
   })
 
-const SwipeCard = ({ onRight, handleNext, current, next, router }) =>
+const ChangeFiter = ({ router, filters }) =>
+  <View style={{
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 40
+  }}>
+    <RkText rkType='info'>{filters
+      ? 'Changer vos filtes pour avoir des nouveaux prénom'
+      : 'Sélectionner vos filtes avant de commencer'
+    }</RkText>
+    <RkButton onPress={() => openModal(router)} rkType='default' >
+      <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
+      Filtre
+    </RkButton>
+  </View>
+
+const Loading = () =>
+  <View style={{
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 40
+  }}>
+    <RkText rkType='info'>Chargement ...</RkText>
+  </View>
+
+const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router, number, filters, loading }) =>
   <View style={styles.container}>
-    <SwipeCards onRight={onRight} handleNext={handleNext} current={current} next={next} />
-     <Group>
-      <RoundButton icon={'md-close'} color='#505aac' onPress={handleNext} />
-      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={() => ({})} />
-      <RoundButton icon={'ios-options'} size='small' color='#bb56cb' onPress={() => onClick(router)} />
-      <RoundButton icon={'md-heart'} color='#f0568a' onPress={() => {
-        onRight()
+    <View style={{
+      flexGrow: 1
+    }}>
+      {loading
+        ? <Loading />
+        : number === 0
+          ? <ChangeFiter router={router} filters={filters} />
+          : <SwipeCards onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
+      }
+    </View>
+    <Group>
+      <RoundButton icon={'md-close'} color={COLOR_BLUE} onPress={() => {
+        onLeft()
+        handleNext()
+      }} />
+      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={onBack} />
+      <RoundButton icon={'md-heart'} color={COLOR_PINK} onPress={() => {
+        onRight(current)
         handleNext()
       }} />
     </Group>
   </View>
 
-import { connect } from 'react-redux'
-import { CARD_HANDLE_NEXT, ADD_MATCH } from '../../actions'
-import { getCurrentCard, getNextCard, getNamesId } from '../../selectors/name'
-
 const mapStateToProps = (state) => {
   const current = getCurrentCard(state)
   const next = getNextCard(state)
+  const number = getCardNumber(state)
+  const filters = !!Object.keys(getFilters(state)).length
+  const loading = getNameLoadingStatus(state)
   return {
     current,
-    next
+    number,
+    next,
+    filters,
+    loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
-  onRight: id => dispatch({ type: ADD_MATCH, payload: id })
+  onRight: id => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
+  onLeft: id => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
+  onBack: id => dispatch({ type: CARD_HANDLE_BACK })
 })
-
-export default connect(mapStateToProps, mapDispatchToProps)(SwipeCard)
-
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
-  cardWrapper : {
-    backgroundColor: 'transparent',
+  cardWrapper: {
+    backgroundColor: 'transparent'
   }
 })
+
+export default connect(mapStateToProps, mapDispatchToProps)(SwipeCard)

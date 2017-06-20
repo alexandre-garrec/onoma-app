@@ -6,85 +6,61 @@ import {
   Image
 } from 'react-native'
 
-import { RkButton, RkTextInput, RkConfig } from 'react-native-ui-kitten';
-import { Hoshi } from 'react-native-textinput-effects'
+import { RkButton, RkTextInput, RkConfig, RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
-import RoundButton, { Group } from '../component/common/roundButton'
-const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton,
-  AccessToken
-} = FBSDK;
-
 import LinearGradient from 'react-native-linear-gradient'
+import KeyboardSpace from 'react-native-keyboard-space'
+import EmailPasswordForm from '../component/form/EmailPassword'
+
+const onClick = (router) => {
+  router.push({
+    screen: 'example.registration',
+    animated: true,
+    backButtonTitle: '',
+    title: 'Inscription'
+  })
+}
 
 class Login extends Component {
   static navigatorStyle = {
-     navBarHidden: true
+    navBarHidden: true
   }
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      password: ''
-    }
-  }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.current) nextProps.navigator.pop()
-  }
+
   render() {
     const { navigator, login, error, loginFb } = this.props
-    const { username, password } = this.state
     return (
-      <LinearGradient
-        end={{x: 0.0, y: 0}}
-        start={{x: 1, y: 0}}
-        locations={[0.3,0.7]} colors={['#F8BBD0', '#C5CAE9']} style={styles.wrapper}>
-        <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')}/>
+      <View style={styles.wrapper}>
+        <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
         <View style={styles.section}>
-          <Text style={styles.titleText}>Connexion</Text>
           <View style={styles.rowContainer}>
-            <View style={{flex: 1}}>
-            <Text>{error}</Text>
-            <Hoshi
-              label={'Adresse email'}
-              // this is used as active and passive border color
-              borderColor={'#9b537a'}
-              clearButtonMode='always'
-              onChangeText={text => this.setState({username: text})}
-            />
-            <Hoshi
-              label={'Mot de passe'}
-              onChangeText={text => this.setState({password: text})}
-              secureTextEntry={true}
-              style={{marginTop: 10}}
-              clearButtonMode='always'
-              // this is used as active and passive border color
-              borderColor={'#9b537a'}
-            />
-            <RkButton style={{marginTop: 10}} rkType='basic medium' onPress={() => login({username, password})}>Connexion</RkButton>
-            <RkButton style={{marginTop: 10}} rkType='medium outline' onPress={() => loginFb()}>
-              <Icon style={{marginRight: 5, fontSize: 18}} name={'logo-facebook'}/>
-              Connexion avec Facebook
+            <View style={{ flex: 1 }}>
+              <RkText rkType='error'>{error}</RkText>
+              <EmailPasswordForm
+                submitText='Connexion'
+                onSubmit={({ username, password }) => login({ username, password })}
+              />
+              <RkButton rkType='default' onPress={() => onClick(navigator)}>Inscription</RkButton>
+              <RkButton rkType='default facebook' onPress={() => loginFb()}>
+                <Icon style={{ marginRight: 10 }} name={'logo-facebook'} />
+                Connexion avec Facebook
             </RkButton>
+              <KeyboardSpace />
+            </View>
+          </View>
         </View>
-        </View>
-        </View>
-      </LinearGradient>
+      </View>
     )
   }
 }
 
 import { connect } from 'react-redux'
 import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
-import { getError, getCurrentId } from '../selectors/user'
+import { getError } from '../selectors/user'
 
 const mapStateToProps = (state) => {
   const error = getError(state)
-  const current = getCurrentId(state)
   return {
     error,
-    current
   }
 }
 
@@ -99,15 +75,12 @@ var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#f06292'
   },
   image: {
-    width: 200,
-    marginBottom: 30
-  },
-  titleText: {
-    fontSize: 20,
-    textAlign: 'center'
+    width: 170,
+    marginBottom: 0
   },
   rowContainer: {
     marginTop: 5,
@@ -116,19 +89,9 @@ var styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap'
   },
-   section: {
+  section: {
     paddingHorizontal: 25,
     paddingVertical: 15,
     width: 300,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    borderColor: '#d8dce5',
-    borderWidth: 1,
-    shadowOffset:{
-      width: 0,
-      height: 2,
-    },
-    shadowColor: 'black',
-    shadowOpacity: 0.1,
   },
 })

@@ -21,7 +21,7 @@ class SwipeCard extends Component {
     ],
     alertAreas: [
       { id: 'right', influenceArea: { left: 100 } },
-      { id: 'left', influenceArea:  { right: -50 } }
+      { id: 'left', influenceArea: { right: -50 } }
     ]
   }
 
@@ -34,18 +34,32 @@ class SwipeCard extends Component {
       current: false
     }
     this._deltaX = new Animated.Value(0)
+    this._onMove = this.onMove.bind(this)
   }
 
-  onDrag () {
-    const drag = !this.state.drag
-    if (!drag && ( this.state.right || this.state.left )) {
-      this.setState({
-        drag,
-        right: false,
-        left: false
-      })
+  componentDidMount() {
+    this._deltaX.addListener(this._onMove)
+  }
+
+  componentWillUnmount() {
+    this._deltaX.removeAllListeners()
+  }
+
+
+  onMove(event) {
+    const { left, right, drag } = this.state
+    if (!drag && Math.abs(event.value) > width && (left || right)) {
+      const { onRight, onLeft, current, handleNext } = this.props
+      if (right && onRight) onRight(current)
+      else if (left && onLeft) onLeft(current)
+      handleNext()
+      this._deltaX.setValue(0)
+      this.setState({ right: false, left: false })
     }
-    else this.setState({ drag })
+  }
+  onDrag() {
+    const drag = !this.state.drag
+    this.setState({ drag })
   }
 
   onAlert(event) {
@@ -55,24 +69,12 @@ class SwipeCard extends Component {
     }
   }
 
-  onSnap(event) {
-    const { onRight, onLeft, current } = this.props
-    const snapPointId = event.nativeEvent.id
-    if (!this.state.drag && ['right', 'left'].includes(snapPointId)) {
-      if (snapPointId === 'right' && onRight) onRight(current)
-      else if (snapPointId === 'left' && onLeft) onLeft(current)
-
-      this._deltaX.setValue(0)
-      this.props.handleNext()
-    }
-  }
-
   render() {
-    const { handleNext, next, snapPoints, alertAreas, current } = this.props
+    const { next, snapPoints, alertAreas, current } = this.props
     const { left, right } = this.state
     return (
       <View style={styles.wrapper}>
-        { current ?
+        {current ?
           <View>
             <Interactable.View
               key={current}
@@ -81,29 +83,37 @@ class SwipeCard extends Component {
               alertAreas={alertAreas}
               onAlert={this.onAlert.bind(this)}
               onDrag={this.onDrag.bind(this)}
-              onSnap={this.onSnap.bind(this)}
               animatedValueX={this._deltaX} >
               <Animated.View style={[styles.card, {
-                  transform: [{
-                    rotate: this._deltaX.interpolate({
-                      inputRange: [-250, 0, 250],
-                      outputRange: ['10deg', '0deg', '-10deg']
-                    })
-                  }]
-                }]}>
+                transform: [{
+                  rotate: this._deltaX.interpolate({
+                    inputRange: [-250, 0, 250],
+                    outputRange: ['10deg', '0deg', '-10deg']
+                  })
+                }]
+              }]}>
                 <Card id={current} />
+                <Animated.View style={[styles.info, {
+                  opacity: this._deltaX.interpolate({
+                    inputRange: [-350, -100, 0, 100, 350],
+                    outputRange: [1, 0, 0, 0, 1]
+                  })
+                }, { backgroundColor: (right || left) ? right ? '#F06292' : '#7986CB' : '#fff' }]}>
+                  <Text style={styles.text}>{(right || left) ? right ? 'OUI' : 'NON' : ''}</Text>
+                </Animated.View>
               </Animated.View>
-          </Interactable.View>
-          <Card style={styles.next} id={next} />
-          <View style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            <Text style={{ opacity: left ? 1 : 0 }}>left</Text>
-            <Text style={{ opacity: right ? 1 : 0 }}>right</Text>
-          </View>
-        </View>: <Text style={styles.text}>Loading ...</Text> }
+            </Interactable.View>
+            <Animated.View style={[styles.next, {
+              transform: [{
+                scale: this._deltaX.interpolate({
+                  inputRange: [-(width + 50), 0, width + 50],
+                  outputRange: [1, 0.90, 1]
+                })
+              }]
+            }]}>
+              <Card id={next} />
+            </Animated.View>
+          </View> : <Text style={styles.text}>Loading ...</Text>}
       </View>
     )
   }
@@ -115,13 +125,26 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
+    position: 'relative'
   },
   next: {
     position: 'absolute',
     zIndex: -1
   },
   text: {
-    color: '#000'
+    color: '#fff',
+    fontSize: 40
+  },
+  info: {
+    borderRadius: 10,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 })
 

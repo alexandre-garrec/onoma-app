@@ -10,18 +10,20 @@ import {
 import RoundButton, { Group } from '../component/common/roundButton'
 import Container from '../component/common/container'
 import Card from '../component/card'
+import { COLOR_PINK } from '../style'
 
 const onClick = () => {
   Share.share({
-    message: 'BAM: we\'re helping your business with awesome React Native apps',
-    url: 'http://bam.tech',
+    message: 'Comment trouve tu le prénom: ',
+    url: 'https://ono.ma',
     title: 'Wow, did you see that?'
   })
 }
 
 class Name extends Component {
   static navigatorStyle = {
-    navBarBackgroundColor: '#3b5998'
+    navBarTextColor: COLOR_PINK,
+    navBarButtonColor: '#d8dce5'
   }
   render() {
     const { id, deleteItem, navigator } = this.props
@@ -29,11 +31,16 @@ class Name extends Component {
       <Container router={navigator}>
         <Card id={id} />
         <Group>
-          <RoundButton icon='md-trash' onPress={deleteItem} />
-          <RoundButton icon='md-share' onPress={onClick} />
+          <RoundButton icon='md-trash' onPress={() => {
+            deleteItem()
+            navigator.pop({
+              animated: true
+            })
+          }} />
+          {/*<RoundButton icon='md-share' onPress={onClick} />*/}
         </Group>
       </Container>
-     )
+    )
   }
 }
 

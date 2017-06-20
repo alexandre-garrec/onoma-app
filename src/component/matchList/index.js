@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
 import Component from './component'
-import { getMatchs, getNameById } from '../../selectors/name'
+import { getMatchs, getMatchList } from '../../selectors/name'
 
-const mapStateToProps = (state) => {
-  const matchsId = getMatchs(state)
-  const matchs = matchsId.map(id => getNameById(state, id))
+const mapStateToProps = (state, { personal = false }) => {
+  const matchsId = personal ? getMatchs(state) : getMatchList(state)
   return {
-    matchs
+    loading: false,
+    matchsId
   }
 }
 

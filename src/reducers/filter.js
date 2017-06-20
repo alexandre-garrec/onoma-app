@@ -3,7 +3,7 @@ import { SET_FILTER } from '../actions'
 
 const initialState = {}
 
-const filter =  reducer(initialState, {
+const filter = reducer(initialState, {
   [SET_FILTER]: (state, payload) => ({
     ...state,
     ...payload

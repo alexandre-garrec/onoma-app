@@ -1,5 +1,5 @@
 import reducer from '../utils/reducer'
-import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS } from '../actions'
+import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_NEED_LOGIN, USER_LOGOUT_SUCCESS, GET_CHANNEL_SUCCESS, USER_UPDATE_BADGE, USER_SET_DYNAMICLINK } from '../actions'
 
 const initialState = {
   current: false,
@@ -7,12 +7,38 @@ const initialState = {
   gui: {
     loading: false,
     error: false,
-    displayLogin: false
+    displayLogin: true,
+    badge: 0,
+    dynamiclink: false
   }
 }
 
-const user =  reducer(initialState, {
-   [USER_NEED_LOGIN]: (state, payload) => ({
+const user = reducer(initialState, {
+  [USER_SET_DYNAMICLINK]: (state, payload) => ({
+    ...state,
+    gui: {
+      ...state.gui,
+      dynamiclink: payload
+    }
+  }),
+  [USER_UPDATE_BADGE]: (state, payload) => ({
+    ...state,
+    gui: {
+      ...state.gui,
+      badge: payload
+    }
+  }),
+  [GET_CHANNEL_SUCCESS]: (state, payload) => ({
+    ...state,
+    users: {
+      ...state.users,
+      [state.current]: {
+        ...state.users[state.current],
+        channels: Object.keys(payload)
+      }
+    }
+  }),
+  [USER_NEED_LOGIN]: (state, payload) => ({
     ...state,
     gui: {
       ...state.gui,
@@ -27,7 +53,7 @@ const user =  reducer(initialState, {
       error: false
     }
   }),
-  [USER_LOGOUT_SUCCESS] : (state, payload) => ({
+  [USER_LOGOUT_SUCCESS]: (state, payload) => ({
     ...state,
     current: false,
     gui: {
@@ -40,7 +66,7 @@ const user =  reducer(initialState, {
     current: payload.id,
     users: {
       ...state.users,
-      [ payload.id]: payload
+      [payload.id]: payload
     },
     gui: {
       ...state.gui,

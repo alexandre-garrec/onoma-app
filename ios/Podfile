@@ -7,6 +7,7 @@ target 'onoma' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
+  pod 'Firebase/DynamicLinks'
   # Pods for onoma
 
 end
