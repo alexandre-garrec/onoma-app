@@ -1,4 +1,21 @@
 # onoma-app
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
-![](https://ono.ma/img/screen1-1.jpg)
+<!-- TOC -->
+
+- [Installation](#installation)
+- [License](#license)
+
+<!-- /TOC -->
+
+# Installation
+
+
+```shell
+ $ git clone ...
+ $ yarn
+ $ cd ios
+ $ pod install
+```
+
+# License
