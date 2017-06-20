@@ -28,14 +28,14 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
   // DEV
   NSURL *jsCodeLocation;
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
-  
+
   //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.39:8081/index.ios.bundle?platform=ios&dev=true"];
-  
+
   // PROD
   // NSURL *jsCodeLocation;
   //      jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output iOS/main.jsbundle
-  
+
   // **********************************************
   // *** DON'T MISS: THIS IS HOW WE BOOTSTRAP *****
   // **********************************************
@@ -44,7 +44,7 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
   //[[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation];
   [[RCCManager sharedInstance] initBridgeWithBundleURL:jsCodeLocation
                                          launchOptions:launchOptions];
-  
+
   /*
    // original RN bootstrap - remove this part
    RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -65,7 +65,7 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
   // Xcode project.
   [FIROptions defaultOptions].deepLinkURLScheme = CUSTOM_URL_SCHEME;
   [FIRApp configure];
-  
+
   return YES;
 }
 
@@ -89,12 +89,12 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
  - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-  
+
   BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
                                                                 openURL:url
                                                       sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                              annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
-                  
+
                   ];
    [self application:application openURL:url sourceApplication:nil annotation:@{}];
   // Add any custom logic here.
