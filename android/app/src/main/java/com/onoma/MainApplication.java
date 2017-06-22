@@ -3,6 +3,7 @@ package com.onoma;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.react.rnspinkit.RNSpinkitPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import io.fullstack.firestack.FirestackPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSpinkitPackage(),
             new FBSDKPackage(),
             new FIRMessagingPackage(),
             new FirestackPackage(),

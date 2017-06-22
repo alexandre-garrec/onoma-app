@@ -5,7 +5,7 @@ import {
   View,
   Image
 } from 'react-native'
-
+import Spinner from 'react-native-spinkit'
 import { RkButton, RkTextInput, RkConfig, RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import LinearGradient from 'react-native-linear-gradient'
@@ -27,10 +27,13 @@ class Login extends Component {
   }
 
   render() {
-    const { navigator, login, error, loginFb } = this.props
+    const { navigator, login, error, loginFb, loading } = this.props
     return (
       <View style={styles.wrapper}>
-        <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
+        {loading
+          ? <Spinner style={{ marginBottom: 0 }} isVisible={loading} size={70} type={'Pulse'} color={'#fff'} />
+          : <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
+        }
         <View style={styles.section}>
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
@@ -55,12 +58,14 @@ class Login extends Component {
 
 import { connect } from 'react-redux'
 import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
-import { getError } from '../selectors/user'
+import { getError, getLoading } from '../selectors/user'
 
 const mapStateToProps = (state) => {
   const error = getError(state)
+  const loading = getLoading(state)
   return {
     error,
+    loading
   }
 }
 
