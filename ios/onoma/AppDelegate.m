@@ -17,6 +17,9 @@
 #import <React/RCTRootView.h>
 #import <React/RCTLinkingManager.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
 
@@ -58,6 +61,11 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
    self.window.rootViewController = rootViewController;
    [self.window makeKeyAndVisible];
    */
+  
+  // Crashlytics
+  [Fabric with:@[[Crashlytics class]]];
+
+  
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
   [[FBSDKApplicationDelegate sharedInstance] application:application
                            didFinishLaunchingWithOptions:launchOptions];

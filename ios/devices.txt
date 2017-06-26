@@ -1,0 +1,4 @@
+Device ID	Device Name
+eb5078621b8c237d8484673864b820c82376b102	Simon - iPhone 5
+b96eb92c558356218c231ce8bf129e9ee9925ff0	Julien Peltier - iPhone
+4edf3be7d6c3f4813a71b9592725ebfa303b3b87	arncet - iPhone
