@@ -4,11 +4,12 @@ import {
   Text,
   View,
   Dimensions,
-  Animated
+  Animated,
 } from 'react-native'
 
 import Interactable from 'react-native-interactable'
 import Card from '../card'
+import FlipCard from './flipCard'
 
 const { width } = Dimensions.get('window')
 
@@ -44,7 +45,6 @@ class SwipeCard extends Component {
   componentWillUnmount() {
     this._deltaX.removeAllListeners()
   }
-
 
   onMove(event) {
     const { left, right, drag } = this.state
@@ -92,15 +92,17 @@ class SwipeCard extends Component {
                   })
                 }]
               }]}>
-                <Card id={current} />
-                <Animated.View style={[styles.info, {
-                  opacity: this._deltaX.interpolate({
-                    inputRange: [-350, -100, 0, 100, 350],
-                    outputRange: [1, 0, 0, 0, 1]
-                  })
-                }, { backgroundColor: (right || left) ? right ? '#F06292' : '#7986CB' : '#fff' }]}>
-                  <Text style={styles.text}>{(right || left) ? right ? 'OUI' : 'NON' : ''}</Text>
-                </Animated.View>
+                <FlipCard>
+                  <Card id={current} />
+                  <Animated.View style={[styles.info, {
+                    opacity: this._deltaX.interpolate({
+                      inputRange: [-350, -100, 0, 100, 350],
+                      outputRange: [1, 0, 0, 0, 1]
+                    })
+                  }, { backgroundColor: (right || left) ? right ? '#F06292' : '#7986CB' : '#fff' }]}>
+                    <Text style={styles.text}>{(right || left) ? right ? 'OUI' : 'NON' : ''}</Text>
+                  </Animated.View>
+                </FlipCard>
               </Animated.View>
             </Interactable.View>
             <Animated.View style={[styles.next, {
