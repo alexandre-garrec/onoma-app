@@ -9,6 +9,7 @@ import {
 
 import Interactable from 'react-native-interactable'
 import Card from '../card'
+import { padding, margin } from '../../utils/style'
 
 const { width } = Dimensions.get('window')
 
@@ -98,8 +99,13 @@ class SwipeCard extends Component {
                     inputRange: [-350, -100, 0, 100, 350],
                     outputRange: [1, 0, 0, 0, 1]
                   })
-                }, { backgroundColor: (right || left) ? right ? '#F06292' : '#7986CB' : '#fff' }]}>
-                  <Text style={styles.text}>{(right || left) ? right ? 'OUI' : 'NON' : ''}</Text>
+                }, (right || left) ? right ? styles.right : styles.left : {}]}>
+                  {(right || left)
+                    ? right
+                      ? <Text style={[styles.text, styles.text_right]}>Oui</Text>
+                      : <Text style={[styles.text, styles.text_left]}>Non</Text>
+                    : null
+                  }
                 </Animated.View>
               </Animated.View>
             </Interactable.View>
@@ -131,20 +137,33 @@ var styles = StyleSheet.create({
     position: 'absolute',
     zIndex: -1
   },
-  text: {
-    color: '#fff',
-    fontSize: 40
-  },
   info: {
     borderRadius: 10,
     position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    borderWidth: 3,
+    margin: 20
+  },
+  right: {
+    borderColor: '#F06292',
+    transform: [{ rotate: '-30deg' }]
+  },
+  left: {
+    top: 5,
+    right: 20,
+    borderColor: '#7986CB',
+    transform: [{ rotate: '30deg' }]
+  },
+  text_right: {
+    color: '#F06292',
+  },
+  text_left: {
+    color: '#7986CB',
+  },
+  text: {
+    color: '#fff',
+    fontSize: 38,
+    borderRadius: 10,
+    ...padding(0, 7)
   }
 })
 

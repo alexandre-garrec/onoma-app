@@ -10,6 +10,7 @@ const set = (name, ...params) => {
 }
 
 export const padding = (...params) => set('padding', ...params)
+export const margin = (...params) => set('margin', ...params)
 
 export const width = percent => {
   const { width } = Dimensions.get('window')
