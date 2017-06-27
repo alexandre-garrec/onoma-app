@@ -36,8 +36,8 @@ const Invite = ({ router, filters }) =>
     padding: 40
   }}>
     <RkText rkType='info'>{filters
-      ? 'Changer vos filtes pour avoir des nouveaux prénom'
-      : 'Sélectionner vos filtes avant de commencer'
+      ? 'Changer vos filtres pour avoir des nouveaux prénom'
+      : 'Sélectionner vos filtres avant de commencer'
     }</RkText>
     <RkButton onPress={() => openModal(router)} rkType='default' >
       <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
