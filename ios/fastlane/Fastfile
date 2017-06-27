@@ -20,7 +20,7 @@ platform :ios do
 
 
     emails = values[:test_email] ? values[:test_email] : ['by-lout-chi@hotmail.fr', 'bonjour@ono.ma'] # You can list more emails here
-    groups = values[:test_email] ? nil : nil # You can define groups on the web and reference them here
+    groups = values[:test_group] ? nil : nil # You can define groups on the web and reference them here
 
     crashlytics(api_token: '66f956370ab04f9ad032c76dcd9453c2ab8145c3',
              build_secret: '25356f4dd3e5b9e04089b926690a709ac8240e40b194217f33fbad2720ea84c2',

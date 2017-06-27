@@ -3,7 +3,9 @@
 
 <!-- TOC -->
 
+- [onoma-app](#onoma-app)
 - [Installation](#installation)
+- [Deploy](#deploy)
 - [License](#license)
 
 <!-- /TOC -->
@@ -17,5 +19,13 @@
  $ cd ios
  $ pod install
 ```
+
+# Deploy
+
+
+```shell
+ $ fastlane beta
+```
+
 
 # License
