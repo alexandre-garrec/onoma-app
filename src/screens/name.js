@@ -10,7 +10,7 @@ import {
 import RoundButton, { Group } from '../component/common/roundButton'
 import Container from '../component/common/container'
 import Card from '../component/card'
-import { COLOR_PINK } from '../style'
+import { COLOR_PINK, COLOR_BLUE } from '../style'
 
 const onClick = () => {
   Share.share({
@@ -23,7 +23,7 @@ const onClick = () => {
 class Name extends Component {
   static navigatorStyle = {
     navBarTextColor: COLOR_PINK,
-    navBarButtonColor: '#d8dce5'
+    navBarButtonColor: COLOR_PINK
   }
   render() {
     const { id, deleteItem, navigator } = this.props

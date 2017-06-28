@@ -18,7 +18,7 @@ const capitalizeFirstLetter = (txt) =>
 class Filter extends Component {
   static navigatorStyle = {
     navBarTextColor: COLOR_PINK,
-    navBarButtonColor: '#d8dce5'
+    navBarButtonColor: COLOR_PINK
   }
   setOrigin(id) {
     const { setFilter, filters: { origin: origins = [] } } = this.props
