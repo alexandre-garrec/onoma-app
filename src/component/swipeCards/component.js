@@ -55,7 +55,7 @@ const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router,
         ? <Loading />
         : number === 0
           ? <ChangeFiter router={router} filters={filters} />
-          : <SwipeCards onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
+          : <SwipeCards router={router} onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
       }
     </View>
     <Group>
