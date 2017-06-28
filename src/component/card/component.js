@@ -1,20 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
 import { width, height } from '../../utils/style'
-import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
+import { COLOR_BLACK } from '../../style'
+import GenderIcon from '../common/genderIcon'
 
 const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style }) =>
   <View key={id} style={[styles.card, style]}>
     <View style={styles.iconWrapper}>
-      {isFemale || isMale ? <Icon
-        style={styles.icon}
-        name={isFemale ? 'md-female' : 'md-male'}
-        size={100}
-        color={isFemale ? COLOR_PINK : COLOR_BLUE}
-      /> : null}
+      <GenderIcon size={100} isMale={isMale} isFemale={isFemale} />
     </View>
     <Text style={styles.name}>{name}</Text>
     {origin ? <Text style={styles.origine}>Origine : prénoms {origin.name}</Text> : null}
@@ -44,8 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexGrow: 1,
     display: 'flex'
-  },
-  icon: {
   },
   name: {
     fontSize: 35,
