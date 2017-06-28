@@ -17,7 +17,7 @@ const getGenderColor = isFemale => isFemale ? COLOR_PINK : COLOR_BLUE
 
 class Profil extends Component {
   static navigatorStyle = {
-    navBarHidden: false
+    navBarButtonColor: COLOR_PINK,
   }
   render() {
     const { name: { name, isFemale, isMale }, origin, navigator } = this.props
@@ -37,12 +37,9 @@ class Profil extends Component {
           : null
         }
         <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Étymologie :</RkText>
-        <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>{'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate porro, illo unde voluptas amet laboriosam accusamus optio ratione expedita ad, laborum possimus quo similique ullam, eligendi dolorum. Debitis, incidunt, sed!'}</RkText>
-        <RkButton rkType='default' onPress={() => {
-          navigator.dismissAllModals({
-            animationType: 'slide-down'
-          })
-        }}>Fermer</RkButton>
+        <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>
+          {'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate porro, illo unde voluptas amet laboriosam accusamus optio ratione expedita ad, laborum possimus quo similique ullam, eligendi dolorum. Debitis, incidunt, sed!'}
+        </RkText>
       </ScrollView>
     )
   }
@@ -63,6 +60,6 @@ export default connect(mapStateToProps)(Profil)
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    ...padding(70, 20)
+    ...padding(20)
   }
 })

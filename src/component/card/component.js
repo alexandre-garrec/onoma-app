@@ -10,7 +10,7 @@ const openModal = (router, id) =>
   router.push({
     screen: 'example.description.modal',
     animated: true,
-    animationType: 'fade',
+    backButtonTitle: 'Retour',
     passProps: { id },
   })
 
