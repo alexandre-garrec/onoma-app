@@ -10,7 +10,6 @@ const isActive = (activeTab, index) => activeTab === index
 const FacebookTabBar = ({ goToPage, style, activeTab = 1, badgeCount = 0 }) =>
   <View style={[styles.tabs, style]}>
     <TouchableOpacity onPress={() => goToPage(0)} style={styles.tab}>
-      {console.log(activeTab)}
       <Image
         resizeMode='contain'
         style={styles.picto}
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
     height: IOS_NAV_BAR_HEIGHT,
     paddingLeft: 15,
     paddingRight: 15
-    // borderBottomWidth: 1,
   },
   image: {
     width: 137,

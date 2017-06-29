@@ -24,7 +24,7 @@ const onClick = (url) => {
 class Channel extends Component {
   static navigatorStyle = {
     navBarTextColor: COLOR_PINK,
-    navBarButtonColor: '#d8dce5'
+    navBarButtonColor: COLOR_PINK
   }
   render() {
     const { channel, user, link } = this.props

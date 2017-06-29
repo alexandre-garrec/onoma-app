@@ -1,9 +1,7 @@
 import React from 'react'
 import { StyleSheet, FlatList, Text, View, TouchableHighlight } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
-import { RkText, RkButton } from 'react-native-ui-kitten'
 import GenderIcon from '../common/genderIcon'
 
 import { connect } from 'react-redux'
@@ -18,32 +16,6 @@ const onClick = (router, id, firstname) => {
     title: firstname
   })
 }
-
-const openModal = router =>
-  router.push({
-    screen: 'example.channel',
-    animated: true,
-    backButtonTitle: 'Retour',
-    title: 'Filtre'
-  })
-
-const Invite = ({ router, filters }) =>
-  <View style={{
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 40
-  }}>
-    <RkText rkType='info'>{filters
-      ? 'Changer vos filtres pour avoir des nouveaux prénom'
-      : 'Sélectionner vos filtres avant de commencer'
-    }</RkText>
-    <RkButton onPress={() => openModal(router)} rkType='default' >
-      <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
-      Filtre
-    </RkButton>
-  </View>
 
 const Name = ({ id, name: { name = '', isFemale = false, isMale = false }, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
@@ -68,7 +40,6 @@ const NameConnected = connect(makeMapStateToProps)(Name)
 
 const MatchList = ({ matchsId, router, deleteItem, loading }) => {
   if (loading) return <View />
-  // if (matchsId.length === 0) return <Invite router={router} />
   return (
     <FlatList
       style={styles.container}
