@@ -48,7 +48,6 @@ class Profil extends Component {
 const mapStateToProps = (state, { id }) => {
   const name = getNameById(state, id) || false
   const origin = name ? getOriginById(state, name.origin) : false
-  console.log(name)
   return {
     name,
     origin

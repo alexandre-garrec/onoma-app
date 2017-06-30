@@ -7,9 +7,9 @@ import { width, height } from '../../utils/style'
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
 
 const openModal = (router, id) =>
-  router.push({
+  router.showModal({
     screen: 'example.description.modal',
-    animated: true,
+    animated: false,
     backButtonTitle: 'Retour',
     passProps: { id },
   })
