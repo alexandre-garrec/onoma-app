@@ -20,29 +20,20 @@ const onClick = () => {
   })
 }
 
-class Name extends Component {
-  static navigatorStyle = {
-    navBarTextColor: COLOR_PINK,
-    navBarButtonColor: COLOR_PINK
-  }
-  render() {
-    const { id, deleteItem, navigator } = this.props
-    return (
-      <Container router={navigator}>
-        <Card id={id} />
-        <Group>
-          <RoundButton icon='md-trash' onPress={() => {
-            deleteItem()
-            navigator.pop({
-              animated: true
-            })
-          }} />
-          {/*<RoundButton icon='md-share' onPress={onClick} />*/}
-        </Group>
-      </Container>
-    )
-  }
-}
+const Name = ({ id, deleteItem, navigator }) =>
+  <Container router={navigator}>
+    <Card id={id} />
+    <Group>
+      <RoundButton icon='md-trash' onPress={() => {
+        deleteItem()
+        navigator.pop({
+          animated: true
+        })
+      }} />
+      {/*<RoundButton icon='md-share' onPress={onClick} />*/}
+    </Group>
+  </Container>
+
 
 import { connect } from 'react-redux'
 import { DELETE_MATCH } from '../actions'

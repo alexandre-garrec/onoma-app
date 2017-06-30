@@ -10,24 +10,16 @@ import { RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Container from '../component/common/container'
 
-class Setting extends Component {
-  static navigatorStyle = {
-    navBarTextColor: '#f8bbd0',
-    navBarButtonColor: '#d8dce5'
-  }
-  render() {
-    return (
-      <Container>
-        <View style={styles.wrapper}>
-          <RkButton rkType='default warning' >
-            <Icon name='md-trash' onPress={() => onClickSetting(router)} style={{marginRight: 10, fontSize: 18}} />
-            Supprimer mon Compte
+const Setting = () =>
+  <Container>
+    <View style={styles.wrapper}>
+      <RkButton rkType='default warning' >
+        <Icon name='md-trash' onPress={() => onClickSetting(router)} style={{ marginRight: 10, fontSize: 18 }} />
+        Supprimer mon Compte
           </RkButton>
-        </View>
-      </Container>
-     )
-  }
-}
+    </View>
+  </Container>
+
 
 import { connect } from 'react-redux'
 

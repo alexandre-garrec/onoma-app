@@ -19,50 +19,39 @@ const onClick = (router) => {
   })
 }
 
-const onClickSetting = (router) => {
-  router.push({
-    screen: 'example.setting',
-    animated: true,
-    backButtonTitle: '',
-    title: 'Réglages'
-  })
-}
 
 const onClickFilter = (router) => {
   router.push({
     screen: 'example.filter',
     animated: true,
     backButtonTitle: '',
-    title: 'Filtre'
+    title: 'Filtres'
   })
 }
 
 const Profil = ({ user, logout, router }) =>
   user ?
     <View style={styles.wrapper}>
-      <View style={{ width: 300 }}>
+      <View style={{ width: 300, justifyContent: 'center', alignItems: 'center' }}>
         <View style={styles.image_wrapper}>
           <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
-          <RkText style={{ marginTop: 20, fontSize: 18, color: COLOR_BLACK }}>{user.displayName || user.email}</RkText>
+          <RkText style={{ marginTop: 20, fontSize: 22, color: '#555555' }}>{user.displayName || user.email}</RkText>
         </View>
-        <RkButton onPress={() => onClickFilter(router)} rkType='default' >
-          <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
-          Filtre
-      </RkButton>
-        <RkButton onPress={() => onClick(router)} rkType='default' >
-          <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
+        <RkButton onPress={() => onClickFilter(router)} rkType='default clean blue medium' >
+          <Icon name='ios-options' style={{ marginRight: 15, fontSize: 20 }} />
+          Filtres
+        </RkButton>
+        <RkButton onPress={() => onClick(router)} rkType='default clean purple medium' >
+          <Icon name='ios-link-outline' style={{ marginRight: 15, fontSize: 20 }} />
           Partenaire
-      </RkButton>
-        {/* <RkButton rkType='default' onPress={() => onClickSetting(router)}>
-          <Icon name='ios-flask-outline' style={{ marginRight: 10, fontSize: 18 }} />
-          Réglages
-      </RkButton> */}
-        <RkButton rkType='default facebook' onPress={logout}>
-          <Icon name='md-bicycle' style={{ marginRight: 10, fontSize: 18 }} />
+        </RkButton>
+        <RkButton rkType='default clean medium' onPress={logout}>
+          <Icon name='md-bicycle' style={{ marginRight: 15, fontSize: 20 }} />
           Déconnexion
-      </RkButton>
+        </RkButton>
       </View>
     </View> : <View />
+
 
 const mapStateToProps = (state) => {
   const user = getCurrentUser(state)

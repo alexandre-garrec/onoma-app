@@ -4,6 +4,7 @@ export const COLOR_PINK = '#f06292'
 export const COLOR_BLUE = '#7986CB'
 export const COLOR_BLACK = '#1F1F21'
 export const COLOR_LIGHT_GRAY = '#d8dce5'
+export const COLOR_PURPLE = '#b474af'
 
 export const initRk = () => {
   RkConfig.setType('text', 'menu', {
@@ -52,6 +53,19 @@ export const initRk = () => {
       fontSize: 16
     }
   })
+  RkConfig.setType('button', 'clean', {
+    container: {
+      borderWidth: 0,
+      backgroundColor: 'transparent',
+      justifyContent: 'flex-start',
+      width: 200
+    },
+    inner: {
+      color: COLOR_PINK,
+      fontSize: 16,
+      textAlign: 'left'
+    }
+  })
   RkConfig.setType('button', 'facebook', {
     container: {
       backgroundColor: '#fff'
@@ -59,6 +73,16 @@ export const initRk = () => {
     inner: {
       fontSize: 16,
       color: '#3b5998'
+    }
+  })
+  RkConfig.setType('button', 'blue', {
+    inner: {
+      color: COLOR_BLUE
+    }
+  })
+  RkConfig.setType('button', 'purple', {
+    inner: {
+      color: COLOR_PURPLE
     }
   })
   RkConfig.setType('button', 'border', {
@@ -88,6 +112,11 @@ export const initRk = () => {
     inner: {
       color: '#fff',
       fontSize: 26
+    }
+  })
+  RkConfig.setType('button', 'medium', {
+    inner: {
+      fontSize: 18
     }
   })
 }

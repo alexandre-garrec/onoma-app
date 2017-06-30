@@ -32,3 +32,6 @@ export const difference = (a1, a2) => {
   var a2Set = new Set(a2)
   return a1.filter(x => !a2Set.has(x))
 }
+
+export const capitalizeFirstLetter = txt =>
+  `${txt.charAt(0).toUpperCase()}${txt.slice(1)}`
