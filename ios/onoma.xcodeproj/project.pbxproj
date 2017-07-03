@@ -1282,7 +1282,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7D8D4C281EFC32A700ADC236 /* ShellScript */ = {
@@ -1479,7 +1479,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
-				PROVISIONING_PROFILE = "ba401dc3-5045-48ff-91a8-08629ffa1d1c";
+				PROVISIONING_PROFILE = "3e6a219a-eecd-41e2-ab52-4535f9101852";
 				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1515,7 +1515,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
-				PROVISIONING_PROFILE = "b29c706c-673b-4a10-b35b-774eb6331cb5";
+				PROVISIONING_PROFILE = "3e6a219a-eecd-41e2-ab52-4535f9101852";
 				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

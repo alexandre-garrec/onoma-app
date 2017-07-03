@@ -21,31 +21,25 @@ const onClick = (url) => {
   })
 }
 
-class Channel extends Component {
-  static navigatorStyle = {
-    navBarTextColor: COLOR_PINK,
-    navBarButtonColor: '#d8dce5'
-  }
-  render() {
-    const { channel, user, link } = this.props
-    if (!channel) {
-      return (
-        <Container>
-          <RkText rkType='info'>Vous n'avez pas encore de partenaire sur l'application</RkText>
-          <RkButton onPress={() => onClick(link)} rkType='default' >
-            <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
-            Inviter votre partenaire
-          </RkButton>
-        </Container>
-      )
-    }
+const Channel = ({ channel, user, link }) => {
+  if (!channel) {
     return (
       <Container>
-        <RkText rkType='info'>Vous avez déjà un partenaire sur l'application</RkText>
+        <RkText rkType='info'>Vous n'avez pas encore de partenaire sur l'application</RkText>
+        <RkButton onPress={() => onClick(link)} rkType='default' >
+          <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />
+          Inviter votre partenaire
+          </RkButton>
       </Container>
     )
   }
+  return (
+    <Container>
+      <RkText rkType='info'>Vous avez déjà un partenaire sur l'application</RkText>
+    </Container>
+  )
 }
+
 //  {channel.users.map(id => <Text key={id}>{id}</Text>)}
 //<RkButton onPress={() => onClick(channel.dynamicLink)} rkType='default' >
 //  <Icon name='ios-link-outline' style={{ marginRight: 10, fontSize: 18 }} />

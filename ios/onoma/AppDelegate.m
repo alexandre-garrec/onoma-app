@@ -29,14 +29,14 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // DEV
-  NSURL *jsCodeLocation;
-    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  // NSURL *jsCodeLocation;
+  //   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
   //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.39:8081/index.ios.bundle?platform=ios&dev=true"];
 
   // PROD
-  //NSURL *jsCodeLocation;
-  //      jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  NSURL *jsCodeLocation;
+        jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output iOS/main.jsbundle
 
   // **********************************************

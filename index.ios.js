@@ -4,6 +4,7 @@ import configureStore from './src/config'
 import { registerScreens } from './src/screens'
 
 import { displayLogin } from './src/selectors/user'
+import { COLOR_BLACK, COLOR_BLUE } from './src/style'
 
 const store = configureStore()
 
@@ -37,8 +38,8 @@ class App {
         navigatorStyle: {
           drawUnderNavBar: true,
           navBarBlur: true,
-          navBarTextColor: '#fff',
-          navBarButtonColor: '#fff',
+          navBarTextColor: COLOR_BLACK,
+          navBarButtonColor: COLOR_BLUE,
           // statusBarTextColorScheme: 'light',
           // navBarTransparent: true,
         }
