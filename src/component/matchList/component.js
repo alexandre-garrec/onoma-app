@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, FlatList, Text, View, TouchableHighlight } from 'react-native'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
-import GenderIcon from '../common/genderIcon'
+import { GenderImage } from '../common/genderIcon'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux'
@@ -22,7 +22,7 @@ const Name = ({ id, name: { name = '', isFemale = false, isMale = false }, route
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
       <View style={{ flexDirection: 'row' }}>
-        <GenderIcon style={styles.icon} size={20} isFemale={isFemale} isMale={isMale} />
+        <GenderImage style={styles.icon} size={20} isFemale={isFemale} isMale={isMale} />
         <Text>{name}</Text>
         <Query action={GET_NAME} id={id} />
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   icon: {
-    paddingRight: 20
+    marginRight: 20
   },
   row: {
     backgroundColor: '#fff',

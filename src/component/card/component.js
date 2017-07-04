@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
 import { width, height, padding } from '../../utils/style'
-import GenderIcon from '../common/genderIcon'
+import { GenderImage } from '../common/genderIcon'
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
 
 const ICON = {
@@ -14,7 +14,7 @@ const ICON = {
 const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style }) =>
   <View key={id} style={[styles.card, style]}>
     <View style={styles.iconWrapper}>
-      <GenderIcon size={100} isMale={isMale} isFemale={isFemale} />
+      <GenderImage size={100} isMale={isMale} isFemale={isFemale} />
     </View>
     <Text style={[styles.name, { color: isFemale ? COLOR_PINK : COLOR_BLUE }]}>{name}</Text>
     {

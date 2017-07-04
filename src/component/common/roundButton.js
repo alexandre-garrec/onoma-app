@@ -25,7 +25,6 @@ const SIZE = {
 
 const RoundButton = ({ icon = false, image = false, size = 'normal', color, onPress, style }) => {
   const genStyle = styles(size)
-  console.log(SIZE[size].image, icon)
   return (
     <TouchableOpacity style={genStyle.button} onPress={onPress}>
       {icon
