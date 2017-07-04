@@ -1,25 +1,36 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const SIZE = {
   small: {
     fontSize: 26,
     width: 50,
-    height: 50
+    height: 50,
+    image: {
+      width: 26,
+      height: 26
+    }
   },
   normal: {
     fontSize: 32,
     width: 60,
-    height: 60
+    height: 60,
+    image: {
+      width: 28,
+      height: 28
+    }
   }
 }
 
-const RoundButton = ({ icon, size = 'normal', color, onPress, style }) => {
+const RoundButton = ({ icon = false, image = false, size = 'normal', color, onPress, style }) => {
   const genStyle = styles(size)
   return (
     <TouchableOpacity style={genStyle.button} onPress={onPress}>
-      <Icon name={icon} size={SIZE[size].fontSize} color={color} style={[{ marginTop:5 }, style ]} />
+      {icon
+        ? <Icon name={icon} size={SIZE[size].fontSize} color={color} style={[{ marginTop: 5 }, style]} />
+        : <Image source={image} style={[SIZE[size].image, style]} resizeMode='contain' />
+      }
     </TouchableOpacity>
   )
 }

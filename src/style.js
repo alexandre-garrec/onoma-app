@@ -58,7 +58,6 @@ export const initRk = () => {
       borderWidth: 0,
       backgroundColor: 'transparent',
       justifyContent: 'flex-start',
-      width: 200
     },
     inner: {
       color: COLOR_PINK,

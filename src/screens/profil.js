@@ -2,7 +2,6 @@ import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux'
 import { getCurrentUser } from '../selectors/user'
@@ -29,6 +28,11 @@ const onClickFilter = (router) => {
   })
 }
 
+const ICON = {
+  resizeMode: 'contain',
+  style: { height: 24, width: 24, marginRight: 10 }
+}
+
 const Profil = ({ user, logout, router }) =>
   user ?
     <View style={styles.wrapper}>
@@ -37,18 +41,20 @@ const Profil = ({ user, logout, router }) =>
           <Image style={styles.image} source={user.picture ? { uri: user.picture } : require('../../assets/profile.jpg')} />
           <RkText style={{ marginTop: 20, fontSize: 22, color: '#555555' }}>{user.displayName || user.email}</RkText>
         </View>
-        <RkButton onPress={() => onClickFilter(router)} rkType='default clean blue medium' >
-          <Icon name='ios-options' style={{ marginRight: 15, fontSize: 20 }} />
-          Filtres
+        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+          <RkButton onPress={() => onClick(router)} rkType='default clean blue medium' >
+            <Image {...ICON} source={require('../../assets/icons/onoma-partenaire.png')} />
+            Partenaire
         </RkButton>
-        <RkButton onPress={() => onClick(router)} rkType='default clean purple medium' >
-          <Icon name='ios-link-outline' style={{ marginRight: 15, fontSize: 20 }} />
-          Partenaire
+          <RkButton onPress={() => onClickFilter(router)} rkType='default clean purple medium' >
+            <Image {...ICON} source={require('../../assets/icons/onoma-reglages.png')} />
+            Filtres
         </RkButton>
-        <RkButton rkType='default clean medium' onPress={logout}>
-          <Icon name='md-bicycle' style={{ marginRight: 15, fontSize: 20 }} />
-          Déconnexion
+          <RkButton rkType='default clean medium' onPress={logout}>
+            <Image {...ICON} source={require('../../assets/icons/onoma-deco.png')} />
+            Déconnexion
         </RkButton>
+        </View>
       </View>
     </View> : <View />
 

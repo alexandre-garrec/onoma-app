@@ -59,12 +59,12 @@ const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router,
       }
     </View>
     <Group>
-      <RoundButton icon={'md-close'} color={COLOR_BLUE} onPress={() => {
+      <RoundButton image={require('../../../assets/icons/onoma-button-close.png')} onPress={() => {
         onLeft()
         handleNext()
       }} />
-      <RoundButton icon={'md-refresh'} size='small' color='#bb56cb' onPress={onBack} />
-      <RoundButton icon={'md-heart'} color={COLOR_PINK} onPress={() => {
+      <RoundButton image={require('../../../assets/icons/onoma-button-back.png')} size='small' onPress={onBack} />
+      <RoundButton image={require('../../../assets/icons/onoma-button-heart.png')} onPress={() => {
         onRight(current)
         handleNext()
       }} />
