@@ -11,7 +11,6 @@ import RegistrationScreen from './registration'
 import JoinModal from './join.modal'
 import DescriptionModal, { DescriptionwithOutNavbar } from './description.modal'
 
-// register all screens of the app (including internal ones)
 export function registerScreens(store, provider) {
   Navigation.registerComponent('example.FirstTabScreen', () => MainTabScreen, store, provider)
   Navigation.registerComponent('example.SecondTabScreen', () => LoginTabScreen, store, provider)

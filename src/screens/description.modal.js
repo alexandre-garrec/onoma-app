@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import GenderIcon from '../component/common/genderIcon'
 import Chart from 'react-native-chart'
 
-
 import { RkText, RkButton } from 'react-native-ui-kitten'
 
 const getGenderColor = isFemale => isFemale ? COLOR_PINK : COLOR_BLUE
