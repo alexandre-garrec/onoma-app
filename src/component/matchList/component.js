@@ -3,6 +3,7 @@ import { StyleSheet, FlatList, Text, View, TouchableHighlight } from 'react-nati
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
 import GenderIcon from '../common/genderIcon'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux'
 import { getNameById } from '../../selectors/name'
@@ -20,9 +21,12 @@ const onClick = (router, id, firstname) => {
 const Name = ({ id, name: { name = '', isFemale = false, isMale = false }, router }) =>
   <TouchableHighlight onPress={() => onClick(router, id, name)} >
     <View style={styles.row}>
-      <GenderIcon style={styles.icon} size={20} isFemale={isFemale} isMale={isMale} />
-      <Text>{name}</Text>
-      <Query action={GET_NAME} id={id} />
+      <View style={{ flexDirection: 'row' }}>
+        <GenderIcon style={styles.icon} size={20} isFemale={isFemale} isMale={isMale} />
+        <Text>{name}</Text>
+        <Query action={GET_NAME} id={id} />
+      </View>
+      <Icon name='ios-arrow-forward-outline' size={20} color={'#989898'} />
     </View>
   </TouchableHighlight>
 
@@ -62,7 +66,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e5e5',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 })
 

@@ -1,20 +1,32 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
-import { width, height } from '../../utils/style'
-import { COLOR_BLACK } from '../../style'
+import { width, height, padding } from '../../utils/style'
 import GenderIcon from '../common/genderIcon'
+import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
+
+const ICON = {
+  resizeMode: 'contain',
+  style: { height: 32, width: 32 }
+}
 
 const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style }) =>
   <View key={id} style={[styles.card, style]}>
     <View style={styles.iconWrapper}>
       <GenderIcon size={100} isMale={isMale} isFemale={isFemale} />
     </View>
-    <Text style={styles.name}>{name}</Text>
-    {origin ? <Text style={styles.origine}>Origine : prénoms {origin.name}</Text> : null}
+    <Text style={[styles.name, { color: isFemale ? COLOR_PINK : COLOR_BLUE }]}>{name}</Text>
+    {
+      origin
+        ? <View style={{ marginTop: 20, flexDirection: 'row' }}>
+          <Text style={{ color: '#414141' }}>Origine : </Text>
+          <Text style={{ color: '#989898' }}>prénoms {origin.name}</Text>
+        </View>
+        : null
+    }
     <Query action={GET_NAME} id={defaultId} />
-  </View>
+  </View >
 
 const styles = StyleSheet.create({
   card: {
@@ -42,7 +54,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 35,
-    color: COLOR_BLACK,
     textAlign: 'center'
   },
   origine: {
