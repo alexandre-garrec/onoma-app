@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, ScrollView, Switch, View, Text } from 'react-native'
 import { RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
-import GenderIcon from '../component/common/genderIcon'
+import { GenderImage } from '../component/common/genderIcon'
 import { ButtonWrapper, Button } from '../component/common/inlineButton'
 
 import { COLOR_PINK, COLOR_BLACK, COLOR_BLUE } from '../style'
@@ -19,7 +19,7 @@ const GenderButton = ({ isMale = false, isFemale = false, isActive = false, onPr
   const color = isActive ? {} : { color: '#e5e5e5' }
   return (
     <Button onPress={onPress} style={{ flex: 1 }} isActive={isActive}>
-      <GenderIcon size={35} style={[{ margin: 10 }, color]} isMale={isMale} isFemale={isFemale} />
+      <GenderImage size={35} style={[{ margin: 10 }, color]} isMale={isMale} isFemale={isFemale} />
       <Text style={color} >{isMale ? 'Garçon' : 'Fille'}</Text>
     </Button>
   )
