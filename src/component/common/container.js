@@ -4,14 +4,15 @@ import { StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 
 import { connect } from 'react-redux'
-import { displayLinkModal } from '../../selectors/gui'
+import { displayLinkModal, displayMatchModal } from '../../selectors/gui'
 
-const onClick = router =>
-  router.push({
-    screen: 'example.login',
+const openMatchModal = router =>
+  router.showLightBox({
+    screen: 'example.match.modal',
+    animationType: 'slide-up',
     style: {
-      backgroundBlur: 'dark',
-      backgroundColor: '#ffffff90'
+      backgroundBlur: 'light',
+      backgroundColor: '#b474af80'
     }
   })
 
@@ -30,6 +31,9 @@ class Container extends Component {
     if (this.props.router && nextProps.displayLinkModal) {
       openModal(this.props.router)
     }
+    if (this.props.router && nextProps.displayMatchModal) {
+      openMatchModal(this.props.router)
+    }
   }
   render() {
     const { children } = this.props
@@ -43,7 +47,8 @@ class Container extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  displayLinkModal: displayLinkModal(state)
+  displayLinkModal: displayLinkModal(state),
+  displayMatchModal: displayMatchModal(state)
 })
 
 const styles = StyleSheet.create({
