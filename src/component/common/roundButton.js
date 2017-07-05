@@ -35,12 +35,12 @@ const RoundButton = ({ icon = false, image = false, size = 'normal', color, onPr
   )
 }
 
-export const Group = ({ children }) =>
-  <View style={{
+export const Group = ({ children, style }) =>
+  <View style={[{
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
-  }}>
+  }, style]}>
     {children}
   </View>
 

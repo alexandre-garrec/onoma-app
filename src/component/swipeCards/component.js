@@ -65,7 +65,7 @@ const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router,
       }} />
       <RoundButton image={require('../../../assets/icons/onoma-button-back.png')} size='small' onPress={onBack} />
       <RoundButton image={require('../../../assets/icons/onoma-button-heart.png')} onPress={() => {
-        onRight(current)
+        onRight()
         handleNext()
       }} />
     </Group>
@@ -86,11 +86,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, { id }) => ({
   handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
-  onRight: id => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
-  onLeft: id => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
-  onBack: id => dispatch({ type: CARD_HANDLE_BACK })
+  onRight: () => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
+  onLeft: () => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
+  onBack: () => dispatch({ type: CARD_HANDLE_BACK })
 })
 
 const styles = StyleSheet.create({
