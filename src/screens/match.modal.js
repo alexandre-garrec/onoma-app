@@ -6,9 +6,7 @@ import {
 } from 'react-native'
 
 import { connect } from 'react-redux'
-import { MODAL_MATCH_CLOSE } from '../actions'
 import { getUserById } from '../selectors/user'
-import { getMatchName } from '../selectors/gui'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import withOutNavbar from '../utils/withOutNavbar'
@@ -16,7 +14,7 @@ import { getChannel } from '../selectors/channel'
 
 const getPicture = (picture) => picture ? { uri: picture } : require('../../assets/profile.jpg')
 
-const Profil = ({ closeModal, navigator, name, users }) =>
+const Profil = ({ navigator, name, users }) =>
   <View style={styles.wrapper}>
     <Image style={styles.logo} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
     <View style={{ width: 200 }}>
@@ -27,26 +25,19 @@ const Profil = ({ closeModal, navigator, name, users }) =>
       <RkText rkType='error'>Vous et votre partenaire aimez ce prénom</RkText>
       <RkButton rkType='border big' onPress={() => {
         navigator.dismissLightBox()
-        closeModal()
       }}>Fermer</RkButton>
     </View>
   </View>
 
-const mapDispatchToProps = (dispatch, { id }) => ({
-  closeModal: (data) => dispatch({ type: MODAL_MATCH_CLOSE })
-})
-
 const mapStateToProps = (state) => {
-  const name = getMatchName(state)
   const [channel] = getChannel(state)
   const users = channel ? channel.users.map(id => getUserById(state, id)) : []
   return {
-    users,
-    name
+    users
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withOutNavbar(Profil))
+export default connect(mapStateToProps)(withOutNavbar(Profil))
 
 var styles = StyleSheet.create({
   logo: {

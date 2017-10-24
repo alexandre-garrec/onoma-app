@@ -4,6 +4,7 @@ import { extractParams } from '../utils'
 import { update, addListenerOnRef } from '../api'
 import { getCurrentId } from '../selectors/user'
 import { getLink } from '../selectors/gui'
+import NavigationActions from '../utils/navigationActions'
 import { SET_LINK, USER_LOGIN_SUCCESS, USER_SET_CHANNEL_SUCCESS, USER_SET_DYNAMICLINK } from '../actions'
 
 const BASE_URL = 'https://ono.ma/'
@@ -28,6 +29,15 @@ function* linkUser() {
         [`user/${invite}/channels/${channelId}`]: true
       })
       yield put({ type: USER_SET_CHANNEL_SUCCESS })
+
+      NavigationActions.showLightBox({
+        screen: 'example.join.modal',
+        animationType: 'slide-up',
+        style: {
+          backgroundBlur: 'dark',
+          backgroundColor: '#ffffff80'
+        }
+      })
     }
   } catch (e) { }
 }

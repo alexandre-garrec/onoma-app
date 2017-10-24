@@ -1,42 +1,15 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
+import NavigationActions from '../../utils/navigationActions'
 
 import LinearGradient from 'react-native-linear-gradient'
 
-import { connect } from 'react-redux'
-import { displayLinkModal, displayMatchModal } from '../../selectors/gui'
-
-const openMatchModal = router =>
-  router.showLightBox({
-    screen: 'example.match.modal',
-    animationType: 'slide-up',
-    style: {
-      backgroundBlur: 'light',
-      backgroundColor: '#b474af80'
-    }
-  })
-
-const openModal = router =>
-  router.showLightBox({
-    screen: 'example.join.modal',
-    animationType: 'slide-up',
-    style: {
-      backgroundBlur: 'dark',
-      backgroundColor: '#ffffff80'
-    }
-  })
-
 class Container extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (this.props.router && nextProps.displayLinkModal) {
-      openModal(this.props.router)
-    }
-    if (this.props.router && !this.props.displayMatchModal && nextProps.displayMatchModal) {
-      openMatchModal(this.props.router)
-    }
+  constructor(props) {
+    super(props)
+    NavigationActions.setNavigator(props.navigator)
   }
   render() {
-    openMatchModal(this.props.router)
     const { children } = this.props
     return (
       <LinearGradient
@@ -46,11 +19,6 @@ class Container extends Component {
     )
   }
 }
-
-const mapStateToProps = (state) => ({
-  displayLinkModal: displayLinkModal(state),
-  displayMatchModal: displayMatchModal(state)
-})
 
 const styles = StyleSheet.create({
   container: {
@@ -62,4 +30,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps)(Container)
+export default Container

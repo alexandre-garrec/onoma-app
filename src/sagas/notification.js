@@ -1,19 +1,29 @@
-import { select, takeEvery, put } from 'redux-saga/effects'
+import { select, takeEvery } from 'redux-saga/effects'
 import {
   USER_LOGIN_SUCCESS,
-  USER_CLEAR_BADGE,
-  MODAL_MATCH_OPEN
+  USER_CLEAR_BADGE
 } from '../actions'
 import { FCMEvent } from 'react-native-fcm'
 import { getCurrentId } from '../selectors/user'
 import notification from '../utils/notification'
 import { update } from '../api'
+import NavigationActions from '../utils/navigationActions'
 
 function* onNotification({ aps }) {
   try {
     const { alert } = aps
     const name = alert.split(' ')[4]
-    yield put({ type: MODAL_MATCH_OPEN, payload: name })
+    NavigationActions.showLightBox({
+      screen: 'example.match.modal',
+      animationType: 'slide-up',
+      style: {
+        backgroundBlur: 'light',
+        backgroundColor: '#b474af80'
+      },
+      passProps: {
+        name: name
+      }
+    })
   } catch (e) {
     console.log(e)
   }
@@ -43,7 +53,7 @@ function* clearBadge() {
     notification.removeAllDeliveredNotifications()
     notification.setBadgeNumber(0)
     yield update({ [`user/${userId}/badge`]: 0 })
-  } catch (e) {}
+  } catch (e) { }
 }
 
 function* flow() {

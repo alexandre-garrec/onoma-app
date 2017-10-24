@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View
 } from 'react-native'
 
 import { connect } from 'react-redux'
-import { MODAL_LINK_CLOSE } from '../actions'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
 
@@ -20,17 +19,12 @@ const Profil = ({ closeModal, navigator }) =>
     </View>
   </View>
 
-
 const mapStateToProps = (state) => {
   return {
   }
 }
 
-const mapDispatchToProps = (dispatch, { id }) => ({
-  closeModal: (data) => dispatch({ type: MODAL_LINK_CLOSE, payload: data })
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profil)
+export default connect(mapStateToProps)(Profil)
 
 var styles = StyleSheet.create({
   wrapper: {
