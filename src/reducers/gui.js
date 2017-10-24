@@ -4,8 +4,8 @@ import { SET_LINK, USER_SET_CHANNEL_SUCCESS, MODAL_LINK_CLOSE, MODAL_MATCH_OPEN,
 const initialState = {
   link: false,
   displayLinkModal: false,
-  displayMatchModal: false,
-  matchName: ''
+  displayMatchModal: true,
+  matchName: 'test'
 }
 
 const filter = reducer(initialState, {

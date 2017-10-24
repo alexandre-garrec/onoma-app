@@ -31,11 +31,12 @@ class Container extends Component {
     if (this.props.router && nextProps.displayLinkModal) {
       openModal(this.props.router)
     }
-    if (this.props.router && nextProps.displayMatchModal) {
+    if (this.props.router && !this.props.displayMatchModal && nextProps.displayMatchModal) {
       openMatchModal(this.props.router)
     }
   }
   render() {
+    openMatchModal(this.props.router)
     const { children } = this.props
     return (
       <LinearGradient

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -15,12 +15,10 @@ import { COLOR_BLACK, COLOR_PINK, COLOR_BLUE } from '../style'
 import Icon from 'react-native-vector-icons/Ionicons'
 import GenderIcon from '../component/common/genderIcon'
 import Chart from 'react-native-chart'
-
-import { RkText, RkButton } from 'react-native-ui-kitten'
+import RoundButton, { Group } from '../component/common/roundButton'
+import { RkText } from 'react-native-ui-kitten'
 
 const getGenderColor = isFemale => isFemale ? COLOR_PINK : COLOR_BLUE
-
-import RoundButton, { Group } from '../component/common/roundButton'
 
 const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLeft, onRight, handleNext, onBack, origin, navigator, withOutNavbar = false }) => {
 
@@ -78,8 +76,7 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
             onLeft()
             handleNext()
             navigator.dismissModal()
-          }
-          else {
+          } else {
             deleteItem()
             navigator.pop()
           }
@@ -96,7 +93,7 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
           withOutNavbar && navigator.dismissModal()
         }} /> : null}
       </Group>
-    </View >
+    </View>
   )
 }
 
@@ -127,7 +124,7 @@ var styles = StyleSheet.create({
     alignItems: 'flex-end',
     height: 55,
     paddingLeft: 15,
-    paddingRight: 15,
+    paddingRight: 15
   },
   wrapper: {
     flexGrow: 1,

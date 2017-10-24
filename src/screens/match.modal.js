@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
@@ -7,23 +7,24 @@ import {
 
 import { connect } from 'react-redux'
 import { MODAL_MATCH_CLOSE } from '../actions'
-import { getCurrentUser } from '../selectors/user'
+import { getUserById } from '../selectors/user'
 import { getMatchName } from '../selectors/gui'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
+import withOutNavbar from '../utils/withOutNavbar'
+import { getChannel } from '../selectors/channel'
 
 const getPicture = (picture) => picture ? { uri: picture } : require('../../assets/profile.jpg')
 
-const Profil = ({ closeModal, navigator, name, user: { picture } = {} }) =>
+const Profil = ({ closeModal, navigator, name, users }) =>
   <View style={styles.wrapper}>
     <Image style={styles.logo} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
     <View style={{ width: 200 }}>
+      <View style={styles.image_wrapper}>
+        {users.map(user => <Image key={user.id} style={styles.image} source={getPicture(user.picture)} />)}
+      </View>
       <RkText rkType='big'>{name}</RkText>
       <RkText rkType='error'>Vous et votre partenaire aimez ce prénom</RkText>
-      <View style={styles.image_wrapper}>
-        <Image style={styles.image} source={getPicture(picture)} />
-        <Image style={styles.image} source={require('../../assets/profile.jpg')} />
-      </View>
       <RkButton rkType='border big' onPress={() => {
         navigator.dismissLightBox()
         closeModal()
@@ -36,15 +37,16 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 })
 
 const mapStateToProps = (state) => {
-  const user = getCurrentUser(state)
   const name = getMatchName(state)
+  const [channel] = getChannel(state)
+  const users = channel ? channel.users.map(id => getUserById(state, id)) : []
   return {
-    user,
+    users,
     name
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profil)
+export default connect(mapStateToProps, mapDispatchToProps)(withOutNavbar(Profil))
 
 var styles = StyleSheet.create({
   logo: {

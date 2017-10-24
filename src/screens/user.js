@@ -103,9 +103,10 @@ function* onUserLogin(user) {
   yield put({ type: USER_LOGIN_SUCCESS, payload: userModel({ ...user, ...userBdd }) })
 }
 
+// @TODO: refacto
 export function* loadUserById(uid) {
   const userBdd = yield get(`user/${uid}`)
-  yield put({ type: USER_LOADING_SUCCESS, payload: userModel({ uid, ...userBdd }) })
+  yield put({ type: USER_LOADING_SUCCESS, payload: userModel({ ...userBdd }) })
 }
 
 function* watchUpdateBadge() {

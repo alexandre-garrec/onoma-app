@@ -1,14 +1,22 @@
 import { select, takeEvery, put } from 'redux-saga/effects'
-import { USER_LOGIN_SUCCESS, USER_CLEAR_BADGE, MODAL_MATCH_OPEN } from '../actions'
+import {
+  USER_LOGIN_SUCCESS,
+  USER_CLEAR_BADGE,
+  MODAL_MATCH_OPEN
+} from '../actions'
 import { FCMEvent } from 'react-native-fcm'
 import { getCurrentId } from '../selectors/user'
 import notification from '../utils/notification'
 import { update } from '../api'
 
-function* onNotification({ notification }) {
-  const { body } = notification
-  const name = body.replace('Vous avez le prénom ', '').replace(' en commun', '')
-  yield put({ type: MODAL_MATCH_OPEN, payload: name })
+function* onNotification({ aps }) {
+  try {
+    const { alert } = aps
+    const name = alert.split(' ')[4]
+    yield put({ type: MODAL_MATCH_OPEN, payload: name })
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 function* watchNotification() {
@@ -35,7 +43,7 @@ function* clearBadge() {
     notification.removeAllDeliveredNotifications()
     notification.setBadgeNumber(0)
     yield update({ [`user/${userId}/badge`]: 0 })
-  } catch (e) { }
+  } catch (e) {}
 }
 
 function* flow() {
