@@ -49,13 +49,11 @@ const Channel = ({ channel, user, link, users }) => {
 //  Inviter votre partenaire
 //        </RkButton>
 
-
 const mapStateToProps = (state) => {
   const [channel] = getChannel(state)
   const user = getCurrentUser(state)
   const link = getDynamiclink(state)
   const users = channel ? channel.users.map(id => getUserById(state, id)) : []
-  console.log({ users })
   return {
     channel,
     user,

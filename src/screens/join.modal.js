@@ -1,12 +1,8 @@
 import React from 'react'
-import {
-  StyleSheet,
-  View
-} from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { RkText, RkButton } from 'react-native-ui-kitten'
 
 import { connect } from 'react-redux'
-
-import { RkText, RkButton } from 'react-native-ui-kitten'
 
 const Profil = ({ closeModal, navigator }) =>
   <View style={styles.wrapper}>

@@ -4,7 +4,6 @@ import { COLOR_PINK, COLOR_BLUE } from '../../style'
 import { StyleSheet, View, Image } from 'react-native'
 
 const getSize = (size, style) => ({
-
   style: { ...style, height: size, width: size }
 })
 
@@ -23,6 +22,5 @@ export const GenderImage = ({ isFemale = false, isMale = false, style = {}, size
     ? <Image resizeMode='contain' style={[{ height: size, width: size }, style]} source={isFemale ? require('../../../assets/icons/female.png') : require('../../../assets/icons/male.png')} />
     : null
 }
-
 
 export default GenderIcon

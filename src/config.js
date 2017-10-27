@@ -5,7 +5,7 @@ import sagas from './sagas'
 import { AsyncStorage } from 'react-native'
 import { persistStore, autoRehydrate } from 'redux-persist'
 // @TODO: REMOVE
-//import { composeWithDevTools } from 'remote-redux-devtools'
+// import { composeWithDevTools } from 'remote-redux-devtools'
 import { initRk } from './style'
 
 initRk()

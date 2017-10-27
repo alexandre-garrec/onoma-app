@@ -44,7 +44,7 @@ export const logInWithReadPermissions = () =>
 export const getFacebookInfo = () => {
   return new Promise((revolve, reject) => {
     const infoRequest = new GraphRequest(
-      '/me?fields=picture',
+      '/me?fields=picture.type(large)',
       null,
       (error, result) => {
         if (error) return reject(error)
@@ -58,6 +58,9 @@ export const getFacebookInfo = () => {
 
 export const signOut = () =>
   firestack.auth.signOut().then(data => data)
+
+export const updateFirebaseUser = (data) =>
+  firestack.auth.updateUserProfile(data).then(res => res)
 
 export const createUserWithEmail = (email, password) =>
   firestack.auth.createUserWithEmail(email, password)

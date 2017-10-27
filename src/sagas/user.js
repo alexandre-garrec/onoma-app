@@ -2,7 +2,7 @@ import { put, takeEvery, takeLatest, select, call } from 'redux-saga/effects'
 import { USER_LOGIN, USER_LOGIN_SUCCESS, USER_LOGIN_ERROR, USER_LOGOUT, USER_LOGOUT_SUCCESS, USER_LOGOUT_ERROR, USER_NEED_LOGIN, USER_FACEBOOK_LOGIN, USER_REGISTER, SET_FILTER, NAME_LIST_UPDATE, GET_NAME_SUCCESS, USER_UPDATE_BADGE, USER_LOADING_SUCCESS } from '../actions'
 import userModel from '../models/user'
 import { REHYDRATE } from 'redux-persist/constants'
-import { getFacebookInfo, get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, generateFilter, addListenerOnRef } from '../api'
+import { updateFirebaseUser, getFacebookInfo, get, firebaseAuth, logInWithReadPermissions, firebaseAuthFacebook, getCurrentUser, getCurrentAccessToken, signOut, createUserWithEmail, generateFilter, addListenerOnRef } from '../api'
 import { getFilters } from '../selectors/name'
 import { getOrigins } from '../selectors/origin'
 import { getCurrentId } from '../selectors/user'
@@ -90,10 +90,6 @@ function* checkUser() {
       const facekookToken = yield getCurrentAccessToken()
       if (facekookToken) {
         const user = yield firebaseAuthFacebook(facekookToken)
-        console.log(user)
-        const info = yield call(getFacebookInfo)
-        console.log(info)
-
         yield onUserLogin(user)
       }
       yield put({ type: USER_NEED_LOGIN })
@@ -105,7 +101,15 @@ function* checkUser() {
 
 function* onUserLogin(user) {
   const userBdd = yield get(`user/${user.uid}`)
-  yield put({ type: USER_LOGIN_SUCCESS, payload: userModel({ ...user, ...userBdd }) })
+  const facekookToken = yield getCurrentAccessToken()
+  if (facekookToken) {
+    const info = yield call(getFacebookInfo)
+    if (userBdd.photoURL !== info.picture.data.url) {
+      // @TODO: J'ai honte
+      user = yield updateFirebaseUser({ photoURL: info.picture.data.url })
+    }
+  }
+  yield put({ type: USER_LOGIN_SUCCESS, payload: userModel({ ...userBdd, ...user }) })
 }
 
 export function* loadUserById(uid) {
