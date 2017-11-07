@@ -2,7 +2,8 @@ import React from 'react'
 import {
   StyleSheet,
   Image,
-  Share
+  Share,
+  View
 } from 'react-native'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
@@ -37,7 +38,9 @@ const Channel = ({ channel, user, link, users }) => {
   }
   return (
     <Container>
-      {users.map(user => <Image key={user.id} style={styles.image} source={getPicture(user.picture)} />)}
+      <View style={{ flexDirection: 'row' }}>
+        {users.map(user => <Image key={user.id} style={styles.image} source={getPicture(user.picture)} />)}
+      </View>
       <RkText rkType='info'>Vous avez déjà un partenaire sur l'application</RkText>
     </Container>
   )
@@ -72,6 +75,7 @@ var styles = StyleSheet.create({
     marginVertical: 40
   },
   image: {
+    margin: 20,
     height: 100,
     borderRadius: 50,
     width: 100

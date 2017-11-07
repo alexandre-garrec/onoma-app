@@ -46,7 +46,6 @@ class SwipeCard extends Component {
     this._deltaX.removeAllListeners()
   }
 
-
   onMove(event) {
     const { left, right, drag } = this.state
     if (!drag && Math.abs(event.value) > width && (left || right)) {

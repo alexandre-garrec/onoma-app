@@ -2,21 +2,16 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
-import { width, height, padding } from '../../utils/style'
+import { width, height } from '../../utils/style'
 import { GenderImage } from '../common/genderIcon'
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
-
-const ICON = {
-  resizeMode: 'contain',
-  style: { height: 32, width: 32 }
-}
 
 const openModal = (router, id) =>
   router.showModal({
     screen: 'example.description.modal',
     animated: false,
     backButtonTitle: 'Retour',
-    passProps: { id },
+    passProps: { id }
   })
 
 const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style, router }) =>

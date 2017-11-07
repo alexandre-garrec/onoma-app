@@ -12,7 +12,8 @@ function* onChannelUpdate(snapshot) {
 
   // @TODO: check firebase security <3
   // load channels users
-  yield channel.users.reduce((memo, uid) => uid === userId ? memo : [...memo, fork(loadUserById, uid)])
+  yield channel.users.reduce((memo, uid) => uid === userId ? memo : [...memo, fork(loadUserById, uid)]
+    , [])
 
   yield put({ type: GET_CHANNEL_SUCCESS, payload: { [snapshot.key]: channelModel(snapshot.val()) } })
 }

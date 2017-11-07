@@ -1,5 +1,5 @@
 import React, { cloneElement } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 
 export const ButtonWrapper = ({ children }) =>
   <View style={styles.genderButtonWrapper}>

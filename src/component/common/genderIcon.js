@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR_PINK, COLOR_BLUE } from '../../style'
-import { StyleSheet, View, Image } from 'react-native'
+import { Image } from 'react-native'
 
 const getSize = (size, style) => ({
   style: { ...style, height: size, width: size }
