@@ -19,6 +19,7 @@
     "react-native-fcm": "6.2.3",
     "react-native-firestack": "2.3.9",
     "react-native-interactable": "0.0.8",
+    "react-native-iphone-x-helper": "^1.0.1",
     "react-native-keyboard-space": "^1.0.1",
     "react-native-linear-gradient": "^2.0.0",
     "react-native-material-textfield": "^0.6.1",
