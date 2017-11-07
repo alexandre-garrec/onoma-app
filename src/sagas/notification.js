@@ -9,10 +9,9 @@ import notification from '../utils/notification'
 import { update } from '../api'
 import NavigationActions from '../utils/navigationActions'
 
-function* onNotification({ aps }) {
+function* onNotification({ notification }) {
   try {
-    const { alert } = aps
-    const name = alert.split(' ')[4]
+    const name = notification.body.split(' ')[4]
     NavigationActions.showLightBox({
       screen: 'example.match.modal',
       animationType: 'slide-up',
@@ -39,7 +38,6 @@ function* watchNotification() {
 
     const token = yield notification.getFCMToken()
     yield update({ [`user/${userId}/notificationToken/${token}`]: true })
-
     yield notification.on(FCMEvent.Notification, onNotification)
   } catch (error) {
     console.log(error)

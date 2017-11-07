@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient'
 class Container extends Component {
   constructor(props) {
     super(props)
-    NavigationActions.setNavigator(props.navigator)
+    NavigationActions.setNavigator(props.router)
   }
   render() {
     const { children } = this.props
