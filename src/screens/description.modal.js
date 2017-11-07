@@ -29,7 +29,7 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
 
   return (
     <View style={{ justifyContent: 'space-between', display: 'flex', flex: 1 }}>
-      {withOutNavbar ? <View style={styles.topbar}>
+      {withOutNavbar ? <View style={styles.topbar} >
         <Icon name='ios-arrow-down' color={COLOR_BLUE} size={36} onPress={() => navigator.dismissModal()} />
       </View> : null
       }
@@ -137,4 +137,5 @@ var styles = StyleSheet.create({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profil)
+
 export const DescriptionwithOutNavbar = connect(mapStateToProps, mapDispatchToProps)(withOutNavbar(Profil))
