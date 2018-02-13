@@ -132,6 +132,7 @@ var styles = StyleSheet.create({
   },
   wrapper: {
     flexGrow: 1,
+    overflow: 'visible',
     ...padding(20)
   },
   chart: {
