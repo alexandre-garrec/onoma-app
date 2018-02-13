@@ -6,6 +6,8 @@ export const getNamesId = state => state.name.list
 
 export const getNameById = (state, id) => state.name.items[id]
 
+export const getDescriptionById = (state, id) => state.description.items[id]
+
 export const getMatchs = state => Object.keys(state.match).reduce((memo, id) =>
   state.match[id]
     ? [...memo, id] : memo, [])
@@ -17,6 +19,7 @@ export const getFilters = state => state.filter
 export const getNameLoadingStatus = state => state.name.gui.loading
 
 export const getNames = state => Object.values(state.name.items)
+export const getNamesIds = state => Object.keys(state.name.items)
 
 export const getMatchList = state => {
   const user = getCurrentUser(state)

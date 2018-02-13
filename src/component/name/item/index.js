@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, FlatList, Text, View, TouchableHighlight } from 'react-native'
-import Query from '../../utils/query'
-import { GET_NAME } from '../../actions'
-import { GenderImage } from '../common/genderIcon'
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native'
+import Query from '../../../utils/query'
+import { GET_NAME } from '../../../actions'
+import { GenderImage } from '../../common/genderIcon'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { connect } from 'react-redux'
-import { getNameById } from '../../selectors/name'
+import { getNameById } from '../../../selectors/name'
 
 const onClick = (router, id, firstname) => {
   router.push({
@@ -29,34 +29,11 @@ const Name = ({ id, name: { name = '', isFemale = false, isMale = false }, route
     </View>
   </TouchableHighlight>
 
-const makeMapStateToProps = () => {
-  const mapStateToProps = (state, { id }) => {
-    const name = getNameById(state, id) || {}
-    return {
-      name
-    }
-  }
-  return mapStateToProps
-}
-
-const NameConnected = connect(makeMapStateToProps)(Name)
-
-const MatchList = ({ matchsId, router, deleteItem, loading }) => {
-  if (loading) return <View />
-  return (
-    <FlatList
-      style={styles.container}
-      data={matchsId}
-      renderItem={({ item }) => <NameConnected key={item} router={router} id={item} />}
-    />
-  )
-}
+const mapStateToProps = (state, { id }) => ({
+  name: getNameById(state, id) || {}
+})
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
-  },
   icon: {
     marginRight: 20
   },
@@ -71,4 +48,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MatchList
+export default connect(mapStateToProps)(Name)

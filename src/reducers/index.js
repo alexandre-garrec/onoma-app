@@ -7,6 +7,7 @@ import user from './user'
 import channel from './channel'
 import origin from './origin'
 import gui from './gui'
+import description from './description'
 
 const applicationReducers = {
   name,
@@ -16,7 +17,8 @@ const applicationReducers = {
   user,
   channel,
   origin,
-  gui
+  gui,
+  description
 }
 
 export default () => combineReducers(applicationReducers)

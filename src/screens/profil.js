@@ -27,6 +27,15 @@ const onClickFilter = (router) => {
   })
 }
 
+const onClickListAll = (router) => {
+  router.push({
+    screen: 'example.list.all',
+    animated: true,
+    backButtonTitle: '',
+    title: 'List'
+  })
+}
+
 const ICON = {
   resizeMode: 'contain',
   style: { height: 24, width: 24, marginRight: 10 }
@@ -49,6 +58,10 @@ const Profil = ({ user, logout, router }) =>
             <Image {...ICON} source={require('../../assets/icons/onoma-reglages.png')} />
             Filtres
         </RkButton>
+          <RkButton onPress={() => onClickListAll(router)} rkType='default clean purple medium' >
+            <Image {...ICON} source={require('../../assets/icons/onoma-reglages.png')} />
+            List all
+          </RkButton>
           <RkButton rkType='default clean medium' onPress={logout}>
             <Image {...ICON} source={require('../../assets/icons/onoma-deco.png')} />
             Déconnexion
@@ -56,7 +69,6 @@ const Profil = ({ user, logout, router }) =>
         </View>
       </View>
     </View> : <View />
-
 
 const mapStateToProps = (state) => {
   const user = getCurrentUser(state)

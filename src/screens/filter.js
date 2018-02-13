@@ -79,7 +79,7 @@ const mapStateToProps = state => {
   const origins = getOrigins(state)
   return {
     filters,
-    origins,
+    origins
   }
 }
 
@@ -92,7 +92,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Filter)
 var styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#F7F7F7',
-    flex: 1,
+    flex: 1
   },
   row: {
     display: 'flex',
@@ -109,4 +109,5 @@ var styles = StyleSheet.create({
     borderColor: '#e5e5e5',
     borderTopWidth: 1
   }
+
 })

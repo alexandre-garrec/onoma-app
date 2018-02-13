@@ -1,5 +1,5 @@
 import { put, select, takeEvery } from 'redux-saga/effects'
-import { GET_NAME, GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, USER_LOGIN_SUCCESS, UPDATE_ORIGIN } from '../actions'
+import { GET_DESCRIPTION, GET_DESCRIPTION_SUCCESS, GET_NAME, GET_NAME_SUCCESS, UPDATE_MATCH, ADD_MATCH, ADD_MATCH_ERROR, DELETE_MATCH, DELETE_MATCH_ERROR, USER_LOGIN_SUCCESS, UPDATE_ORIGIN } from '../actions'
 import { getCurrentId } from '../selectors/user'
 import { getOriginsId } from '../selectors/origin'
 import { getNameById as getNameByIdSelector } from '../selectors/name'
@@ -64,12 +64,23 @@ function* deleteMatch({ payload }) {
   }
 }
 
+function* getDescription({ payload: { id } }) {
+  try {
+    const desc = yield get(`description/${id}`)
+    yield put({ type: GET_DESCRIPTION_SUCCESS, payload: { [id]: desc } })
+  } catch (error) {
+    console.log(error)
+    // yield put({ type: DELETE_MATCH_ERROR })
+  }
+}
+
 function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, watchUserMatch),
     takeEvery(REHYDRATE, getOrigins),
     takeEvery(ADD_MATCH, saveMatch),
     takeEvery(GET_NAME, getNameById),
+    takeEvery(GET_DESCRIPTION, getDescription),
     takeEvery(DELETE_MATCH, deleteMatch)
   ]
 }
