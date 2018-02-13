@@ -3,9 +3,9 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR_PINK, COLOR_BLUE } from '../../style'
 import { Image } from 'react-native'
 
-const getSize = (size, style) => ({
-  style: { ...style, height: size, width: size }
-})
+// const getSize = (size, style) => ({
+//   style: { ...style, height: size, width: size }
+// })
 
 const GenderIcon = ({ isFemale = false, isMale = false, style = {}, size = 24 }) => {
   return isFemale || isMale

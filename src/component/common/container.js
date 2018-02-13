@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import NavigationActions from '../../utils/navigationActions'
 
 import LinearGradient from 'react-native-linear-gradient'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
+// import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 class Container extends Component {
   constructor(props) {
@@ -27,8 +27,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    paddingTop: ifIphoneX() ? 20 : 40,
-    paddingBottom: ifIphoneX() ? 0 : 30
+    // paddingTop: ifIphoneX() ? 20 : 40,
+    // paddingBottom: ifIphoneX() ? 0 : 30
+    paddingTop: 20,
+    paddingBottom: 0
   }
 })
 

@@ -2,6 +2,10 @@ export const GET_NAME = 'get.name'
 export const GET_NAME_SUCCESS = 'get.name.success'
 export const GET_NAME_ERROR = 'get.name.error'
 
+export const GET_DESCRIPTION = 'get.description'
+export const GET_DESCRIPTION_SUCCESS = 'get.description.success'
+export const GET_DESCRIPTION_ERROR = 'get.description.error'
+
 export const GET_CHANNEL_SUCCESS = 'get.channel.success'
 
 export const UPDATE_MATCH = 'update.match'

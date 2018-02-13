@@ -6,8 +6,9 @@ import {
   Share
 } from 'react-native'
 
-import { getNameById } from '../selectors/name'
+import { getNameById, getDescriptionById } from '../selectors/name'
 import { getOriginById } from '../selectors/origin'
+import { CARD_HANDLE_NEXT, ADD_MATCH, CARD_HANDLE_BACK, DELETE_MATCH, GET_DESCRIPTION } from '../actions'
 import { connect } from 'react-redux'
 import { padding } from '../utils/style'
 import withOutNavbar from '../utils/withOutNavbar'
@@ -17,10 +18,11 @@ import GenderIcon from '../component/common/genderIcon'
 import Chart from 'react-native-chart'
 import RoundButton, { Group } from '../component/common/roundButton'
 import { RkText } from 'react-native-ui-kitten'
+import Query from '../utils/query'
 
 const getGenderColor = isFemale => isFemale ? COLOR_PINK : COLOR_BLUE
 
-const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLeft, onRight, handleNext, onBack, origin, navigator, withOutNavbar = false }) => {
+const Profil = ({ description: { desc, orig, hist }, name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLeft, onRight, handleNext, onBack, origin, navigator, withOutNavbar = false }) => {
 
   const color = getGenderColor(isFemale)
   const dates = Object.keys(giveIn)
@@ -33,6 +35,7 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
         <Icon name='ios-arrow-down' color={COLOR_BLUE} size={36} onPress={() => navigator.dismissModal()} />
       </View> : null
       }
+      <Query action={GET_DESCRIPTION} id={id} />
       <ScrollView style={styles.wrapper}>
         <RkText style={{ color: color, fontSize: 38, marginBottom: 20 }}>
           {name} <GenderIcon size={38} isFemale={isFemale} isMale={isMale} />
@@ -46,7 +49,7 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
         }
         <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Étymologie :</RkText>
         <RkText style={{ color: '#989898', marginBottom: 20 }}>
-          {'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate porro, illo unde voluptas amet laboriosam accusamus optio ratione expedita ad, laborum possimus quo similique ullam, eligendi dolorum. Debitis, incidunt, sed!'}
+          {desc || orig || hist}
         </RkText>
 
         {giveIn ? <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Statistiques :</RkText> : null}
@@ -93,18 +96,19 @@ const Profil = ({ name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLe
           withOutNavbar && navigator.dismissModal()
         }} /> : null}
       </Group>
-    </View>
+    </View >
   )
 }
-
-import { CARD_HANDLE_NEXT, ADD_MATCH, CARD_HANDLE_BACK, DELETE_MATCH } from '../actions'
 
 const mapStateToProps = (state, { id }) => {
   const name = getNameById(state, id) || false
   const origin = name ? getOriginById(state, name.origin) : false
+  const description = getDescriptionById(state, id) || {}
+
   return {
     name,
-    origin
+    origin,
+    description
   }
 }
 

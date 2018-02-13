@@ -1,6 +1,6 @@
 import React from 'react'
 import { SegmentedControlIOS } from 'react-native'
-import MatchList from '../component/matchList'
+import MatchList from '../component/name/list/match'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { COLOR_BLACK, COLOR_PINK, COLOR_BLUE } from '../style'
 
