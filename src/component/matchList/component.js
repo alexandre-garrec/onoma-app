@@ -10,11 +10,10 @@ import { getNameById } from '../../selectors/name'
 
 const onClick = (router, id, firstname) => {
   router.push({
-    screen: 'example.NameScreen',
-    passProps: { id },
+    screen: 'example.description',
     animated: true,
-    backButtonTitle: 'Liste',
-    title: firstname
+    backButtonTitle: 'Retour',
+    passProps: { id }
   })
 }
 

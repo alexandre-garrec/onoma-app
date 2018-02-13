@@ -26,8 +26,8 @@ const ChangeFiter = ({ router, filters }) =>
     padding: 40
   }}>
     <RkText rkType='info'>{filters
-      ? 'Changer vos filtes pour avoir des nouveaux prénom'
-      : 'Sélectionner vos filtes avant de commencer'
+      ? 'Modifiez vos filtres pour avoir des nouveaux prénoms'
+      : 'Sélectionnez vos filtres avant de commencer'
     }</RkText>
     <RkButton onPress={() => openModal(router)} rkType='default' >
       <Icon name='ios-options' style={{ marginRight: 10, fontSize: 18 }} />
@@ -55,12 +55,12 @@ const SwipeCard = ({ onRight, onLeft, onBack, handleNext, current, next, router,
         ? <Loading />
         : number === 0
           ? <ChangeFiter router={router} filters={filters} />
-          : <SwipeCards onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
+          : <SwipeCards router={router} onLeft={onLeft} onRight={onRight} handleNext={handleNext} current={current} next={next} />
       }
     </View>
     <Group>
       <RoundButton image={require('../../../assets/icons/onoma-button-close.png')} onPress={() => {
-        onLeft()
+        onLeft(current)
         handleNext()
       }} />
       <RoundButton image={require('../../../assets/icons/onoma-button-back.png')} size='small' onPress={onBack} />
@@ -88,9 +88,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   handleNext: () => dispatch({ type: CARD_HANDLE_NEXT }),
-  onRight: id => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
-  onLeft: id => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
-  onBack: id => dispatch({ type: CARD_HANDLE_BACK })
+  onRight: (id) => dispatch({ type: ADD_MATCH, payload: { id, yes: true } }),
+  onLeft: (id) => dispatch({ type: ADD_MATCH, payload: { id, yes: false } }),
+  onBack: () => dispatch({ type: CARD_HANDLE_BACK })
 })
 
 const styles = StyleSheet.create({

@@ -1,15 +1,19 @@
-import { applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, createStore, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import createReducer from './reducers'
 import sagas from './sagas'
 import { AsyncStorage } from 'react-native'
 import { persistStore, autoRehydrate } from 'redux-persist'
-import { composeWithDevTools } from 'remote-redux-devtools'
+// @TODO: REMOVE
+// import { composeWithDevTools } from 'remote-redux-devtools'
 import { initRk } from './style'
 
 initRk()
 
 const sagaMiddleware = createSagaMiddleware()
+
+const composeEnhancers =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const configureStore = (initialState = {}) => {
   const middlewares = [
@@ -23,7 +27,8 @@ const configureStore = (initialState = {}) => {
   const store = createStore(
     createReducer(),
     initialState,
-    composeWithDevTools(...enhancers)
+    composeEnhancers(...enhancers),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 
   persistStore(store, {

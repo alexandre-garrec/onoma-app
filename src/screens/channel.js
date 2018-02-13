@@ -1,17 +1,18 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   StyleSheet,
-  Text,
-  View,
   Image,
-  Share
+  Share,
+  View
 } from 'react-native'
 
 import { RkText, RkButton } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Container from '../component/common/container'
-import { COLOR_PINK } from '../style'
 
+import { connect } from 'react-redux'
+import { getChannel } from '../selectors/channel'
+import { getCurrentUser, getDynamiclink, getUserById } from '../selectors/user'
 
 const onClick = (url) => {
   Share.share({
@@ -21,7 +22,9 @@ const onClick = (url) => {
   })
 }
 
-const Channel = ({ channel, user, link }) => {
+const getPicture = (picture) => picture ? { uri: picture } : require('../../assets/profile.jpg')
+
+const Channel = ({ channel, user, link, users }) => {
   if (!channel) {
     return (
       <Container>
@@ -35,6 +38,9 @@ const Channel = ({ channel, user, link }) => {
   }
   return (
     <Container>
+      <View style={{ flexDirection: 'row' }}>
+        {users.map(user => <Image key={user.id} style={styles.image} source={getPicture(user.picture)} />)}
+      </View>
       <RkText rkType='info'>Vous avez déjà un partenaire sur l'application</RkText>
     </Container>
   )
@@ -46,18 +52,16 @@ const Channel = ({ channel, user, link }) => {
 //  Inviter votre partenaire
 //        </RkButton>
 
-import { connect } from 'react-redux'
-import { getChannel } from '../selectors/channel'
-import { getCurrentUser, getDynamiclink } from '../selectors/user'
-
 const mapStateToProps = (state) => {
-  const channel = getChannel(state)[0]
+  const [channel] = getChannel(state)
   const user = getCurrentUser(state)
   const link = getDynamiclink(state)
+  const users = channel ? channel.users.map(id => getUserById(state, id)) : []
   return {
     channel,
     user,
-    link
+    link,
+    users
   }
 }
 
@@ -71,6 +75,7 @@ var styles = StyleSheet.create({
     marginVertical: 40
   },
   image: {
+    margin: 20,
     height: 100,
     borderRadius: 50,
     width: 100

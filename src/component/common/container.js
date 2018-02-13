@@ -1,35 +1,14 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
+import NavigationActions from '../../utils/navigationActions'
 
 import LinearGradient from 'react-native-linear-gradient'
-
-import { connect } from 'react-redux'
-import { displayLinkModal } from '../../selectors/gui'
-
-const onClick = router =>
-  router.push({
-    screen: 'example.login',
-    style: {
-      backgroundBlur: 'dark',
-      backgroundColor: '#ffffff90'
-    }
-  })
-
-const openModal = router =>
-  router.showLightBox({
-    screen: 'example.join.modal',
-    animationType: 'slide-up',
-    style: {
-      backgroundBlur: 'dark',
-      backgroundColor: '#ffffff80'
-    }
-  })
+import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 class Container extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (this.props.router && nextProps.displayLinkModal) {
-      openModal(this.props.router)
-    }
+  constructor(props) {
+    super(props)
+    NavigationActions.setNavigator(props.router)
   }
   render() {
     const { children } = this.props
@@ -42,18 +21,15 @@ class Container extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  displayLinkModal: displayLinkModal(state)
-})
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent',
-    paddingTop: 20
+    paddingTop: ifIphoneX() ? 20 : 40,
+    paddingBottom: ifIphoneX() ? 0 : 30
   }
 })
 
-export default connect(mapStateToProps)(Container)
+export default Container

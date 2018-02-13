@@ -46,7 +46,6 @@ class SwipeCard extends Component {
     this._deltaX.removeAllListeners()
   }
 
-
   onMove(event) {
     const { left, right, drag } = this.state
     if (!drag && Math.abs(event.value) > width && (left || right)) {
@@ -71,7 +70,7 @@ class SwipeCard extends Component {
   }
 
   render() {
-    const { next, snapPoints, alertAreas, current } = this.props
+    const { next, snapPoints, alertAreas, current, ...props } = this.props
     const { left, right } = this.state
     return (
       <View style={styles.wrapper}>
@@ -93,7 +92,7 @@ class SwipeCard extends Component {
                   })
                 }]
               }]}>
-                <Card id={current} />
+                <Card id={current} {...props} />
                 <Animated.View style={[styles.info, {
                   opacity: this._deltaX.interpolate({
                     inputRange: [-350, -100, 0, 100, 350],
@@ -117,7 +116,7 @@ class SwipeCard extends Component {
                 })
               }]
             }]}>
-              <Card id={next} />
+              <Card id={next} {...props} />
             </Animated.View>
           </View> : <Text style={styles.text}>Loading ...</Text>}
       </View>

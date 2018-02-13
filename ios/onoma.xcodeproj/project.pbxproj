@@ -46,6 +46,7 @@
 		67C0367D363748D2B356B4C8 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D132F9EFC74FC1883D2A7E /* libRNFIRMessaging.a */; };
 		6871553D9E924279B3750390 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBD51EB1CE224DBDBD15792D /* FontAwesome.ttf */; };
 		7453B74723394B588F7A9E87 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36032FC3EC44712B50D870A /* libRNVectorIcons.a */; };
+		7D097B871F0BC5B9001ADB1E /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D097B861F0BC5A5001ADB1E /* libART.a */; };
 		7D4C7DAF1EC3344F00BCA372 /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */; };
 		7D6C33701ECF684E00D1DF0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D6C336F1ECF684E00D1DF0F /* GoogleService-Info.plist */; };
 		7FCD063514D94B41A320FA31 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 197CE1617F714C5A832E08C3 /* libBVLinearGradient.a */; };
@@ -242,6 +243,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
+		7D097B851F0BC5A5001ADB1E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D097B811F0BC5A5001ADB1E /* ART.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = ART;
+		};
 		7D4BCCAB1EC11C45002C43C4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F28D7D5B49E14846BBD559AF /* Firestack.xcodeproj */;
@@ -350,6 +358,7 @@
 		78FE1819F9C94C6596191FB7 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		7AF613D0C45B45C9AFEBE61A /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		7C63ACE175914BEBA6B8DCB4 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		7D097B811F0BC5A5001ADB1E /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		7D4C7D341EC123F500BCA372 /* onoma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = onoma.entitlements; path = onoma/onoma.entitlements; sourceTree = "<group>"; };
 		7D4C7DAD1EC3344F00BCA372 /* DeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeepLink.h; path = onoma/DeepLink.h; sourceTree = "<group>"; };
 		7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeepLink.m; path = onoma/DeepLink.m; sourceTree = "<group>"; };
@@ -387,6 +396,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D097B871F0BC5B9001ADB1E /* libART.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -580,6 +590,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7D097B821F0BC5A5001ADB1E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D097B861F0BC5A5001ADB1E /* libART.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7D4BCCA41EC11C45002C43C4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -636,6 +654,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7D4C597A1F9FA2D900171751 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				B068989BA7F748C8870DBD87 /* libRCTFBSDK.a */,
+				09D132F9EFC74FC1883D2A7E /* libRNFIRMessaging.a */,
+				9E38E5CABE8440F09B8DF232 /* libFirestack.a */,
+				A0BAFCC0526249A982DD9AA1 /* libInteractable.a */,
+				197CE1617F714C5A832E08C3 /* libBVLinearGradient.a */,
+				ACC0EF84C3844E85A6587E63 /* libReactNativeNavigation.a */,
+				B36032FC3EC44712B50D870A /* libRNVectorIcons.a */,
+				25A586A882A34813BD7A4D4B /* libRNSpinkit.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		7D8D4BED1EF96AC600ADC236 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -665,6 +698,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7D097B811F0BC5A5001ADB1E /* ART.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -707,6 +741,7 @@
 				7E0DBCB35EE7430D99C3892D /* Resources */,
 				27F7AC4D0D167F4D8AF9959A /* Pods */,
 				2BAB9460692616C34A75F58F /* Frameworks */,
+				7D4C597A1F9FA2D900171751 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -818,7 +853,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = FP2TKK255J;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -853,6 +888,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 7D097B821F0BC5A5001ADB1E /* Products */;
+					ProjectRef = 7D097B811F0BC5A5001ADB1E /* ART.xcodeproj */;
+				},
 				{
 					ProductGroup = 7D4BCCDE1EC11C84002C43C4 /* Products */;
 					ProjectRef = 60A4A215B45048CB9C6B892D /* BVLinearGradient.xcodeproj */;
@@ -1109,6 +1148,13 @@
 			remoteRef = 78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7D097B861F0BC5A5001ADB1E /* libART.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libART.a;
+			remoteRef = 7D097B851F0BC5A5001ADB1E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		7D4BCCAC1EC11C45002C43C4 /* libFirestack.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1239,7 +1285,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=/Users/alexandregarrec/n/bin/node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1276,13 +1322,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-onoma-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7D8D4C281EFC32A700ADC236 /* ShellScript */ = {
@@ -1304,9 +1353,24 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-onoma/Pods-onoma-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1453,12 +1517,14 @@
 			baseConfigurationReference = 6761554E679BD6426476F14F /* Pods-onoma.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+        ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = onoma/onoma.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = FP2TKK255J;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
@@ -1479,8 +1545,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
-				PROVISIONING_PROFILE = "3e6a219a-eecd-41e2-ab52-4535f9101852";
-				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1490,11 +1556,13 @@
 			baseConfigurationReference = F918C6DC2587464D6D804AD8 /* Pods-onoma.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+        ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = onoma/onoma.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = FP2TKK255J;
+				DEVELOPMENT_TEAM = "";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
@@ -1515,8 +1583,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = fr.alex.onoma;
 				PRODUCT_NAME = onoma;
-				PROVISIONING_PROFILE = "3e6a219a-eecd-41e2-ab52-4535f9101852";
-				PROVISIONING_PROFILE_SPECIFIER = "Onoma Dev manual";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

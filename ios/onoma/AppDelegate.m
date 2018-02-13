@@ -4,7 +4,8 @@
  *
  * This source code is licensed under the BSD-style license found in the
  * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
+ * of patent rights can be found in the PATENTS file in the same
+ .
  */
 @import Firebase;
 
@@ -29,14 +30,23 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   // DEV
-  // NSURL *jsCodeLocation;
+  //NSURL *jsCodeLocation;
   //   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 
   //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.39:8081/index.ios.bundle?platform=ios&dev=true"];
 
   // PROD
+  //NSURL *jsCodeLocation;
+  //      jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
   NSURL *jsCodeLocation;
-        jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
+  #ifdef DEBUG
+    jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  #else
+    jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  #endif
+  
   // react-native bundle --platform ios --dev false --entry-file index.ios.js --bundle-output iOS/main.jsbundle
 
   // **********************************************

@@ -36,6 +36,8 @@ export const USER_LOGOUT_SUCCESS = 'user.logout.success'
 export const USER_LOGOUT_ERROR = 'user.logout.error'
 export const USER_UPDATE_BADGE = 'user.update.badge'
 
+export const USER_LOADING_SUCCESS = 'user.loading.success'
+
 export const USER_SET_DYNAMICLINK = 'user.set.dynamiclink'
 
 export const USER_CLEAR_BADGE = 'user.clear.badge'
@@ -43,6 +45,5 @@ export const USER_CLEAR_BADGE = 'user.clear.badge'
 export const SET_LINK = 'set.link'
 
 export const USER_SET_CHANNEL_SUCCESS = 'user.set.channel.success'
-export const MODAL_LINK_CLOSE = 'modal.link.close'
 
 export const NAME_LIST_UPDATE = 'name.list.update'

@@ -1,5 +1,5 @@
 import Firestack from 'react-native-firestack'
-import { AccessToken, LoginManager } from 'react-native-fbsdk'
+import { AccessToken, LoginManager, GraphRequest, GraphRequestManager } from 'react-native-fbsdk'
 import createChannel from './utils/channel'
 import { call, fork } from 'redux-saga/effects'
 
@@ -37,12 +37,30 @@ export const getCurrentUser = () =>
   firestack.auth.getCurrentUser().then(user => user).catch(() => ({ authenticated: false }))
 
 export const logInWithReadPermissions = () =>
-  LoginManager.logInWithReadPermissions().then(result => {
+  LoginManager.logInWithReadPermissions(['public_profile']).then(result => {
     return result.accessToken ? result.accessToken.toString() : false
   })
 
+export const getFacebookInfo = () => {
+  return new Promise((revolve, reject) => {
+    const infoRequest = new GraphRequest(
+      '/me?fields=picture.type(large)',
+      null,
+      (error, result) => {
+        if (error) return reject(error)
+        return revolve(result)
+      }
+    )
+    // Start the graph request.
+    new GraphRequestManager().addRequest(infoRequest).start()
+  })
+}
+
 export const signOut = () =>
   firestack.auth.signOut().then(data => data)
+
+export const updateFirebaseUser = (data) =>
+  firestack.auth.updateUserProfile(data).then(res => res)
 
 export const createUserWithEmail = (email, password) =>
   firestack.auth.createUserWithEmail(email, password)

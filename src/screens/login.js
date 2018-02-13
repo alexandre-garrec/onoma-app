@@ -12,6 +12,10 @@ import LinearGradient from 'react-native-linear-gradient'
 import KeyboardSpace from 'react-native-keyboard-space'
 import EmailPasswordForm from '../component/form/EmailPassword'
 
+import { connect } from 'react-redux'
+import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
+import { getError, getLoading } from '../selectors/user'
+
 const onClick = (router) => {
   router.push({
     screen: 'example.registration',
@@ -55,10 +59,6 @@ class Login extends Component {
     )
   }
 }
-
-import { connect } from 'react-redux'
-import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
-import { getError, getLoading } from '../selectors/user'
 
 const mapStateToProps = (state) => {
   const error = getError(state)

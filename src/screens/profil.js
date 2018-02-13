@@ -18,7 +18,6 @@ const onClick = (router) => {
   })
 }
 
-
 const onClickFilter = (router) => {
   router.push({
     screen: 'example.filter',

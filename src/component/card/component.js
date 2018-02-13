@@ -1,19 +1,22 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import Query from '../../utils/query'
 import { GET_NAME } from '../../actions'
-import { width, height, padding } from '../../utils/style'
+import { width, height } from '../../utils/style'
 import { GenderImage } from '../common/genderIcon'
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from '../../style'
 
-const ICON = {
-  resizeMode: 'contain',
-  style: { height: 32, width: 32 }
-}
+const openModal = (router, id) =>
+  router.showModal({
+    screen: 'example.description.modal',
+    animated: false,
+    backButtonTitle: 'Retour',
+    passProps: { id }
+  })
 
-const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style }) =>
-  <View key={id} style={[styles.card, style]}>
-    <View style={styles.iconWrapper}>
+const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, style, router }) =>
+  <TouchableOpacity activeOpacity={1} onPress={() => openModal(router, id)} key={id} style={[styles.card, style]}>
+    <View style={styles.iconWrapper} >
       <GenderImage size={100} isMale={isMale} isFemale={isFemale} />
     </View>
     <Text style={[styles.name, { color: isFemale ? COLOR_PINK : COLOR_BLUE }]}>{name}</Text>
@@ -26,7 +29,7 @@ const Card = ({ id: defaultId, name: { name, id, isFemale, isMale }, origin, sty
         : null
     }
     <Query action={GET_NAME} id={defaultId} />
-  </View >
+  </TouchableOpacity>
 
 const styles = StyleSheet.create({
   card: {
