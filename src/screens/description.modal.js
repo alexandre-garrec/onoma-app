@@ -37,7 +37,7 @@ const Profil = ({ description: { desc, orig, hist }, name: { id, name, isFemale,
       }
       <Query action={GET_DESCRIPTION} id={id} />
       <ScrollView style={styles.wrapper}>
-        <RkText style={{ color: color, fontSize: 38, marginBottom: 20 }}>
+        <RkText style={{ color: color, fontSize: 38, paddindBottom: 20 }}>
           {name} <GenderIcon size={38} isFemale={isFemale} isMale={isMale} />
         </RkText>
         {origin
@@ -49,7 +49,7 @@ const Profil = ({ description: { desc, orig, hist }, name: { id, name, isFemale,
         }
         <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Étymologie :</RkText>
         <RkText style={{ color: '#989898', marginBottom: 20 }}>
-          {desc || orig || hist}
+          {desc || orig || hist || 'NC'}
         </RkText>
 
         {giveIn ? <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Statistiques :</RkText> : null}
