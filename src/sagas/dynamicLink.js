@@ -1,5 +1,5 @@
 import { fork, takeEvery, select, put } from 'redux-saga/effects'
-import { onLink } from '../utils/deepLink'
+import FirebaseLink from '../utils/FirebaseLink'
 import { extractParams } from '../utils'
 import { update, addListenerOnRef } from '../api'
 import { getCurrentId } from '../selectors/user'
@@ -9,7 +9,7 @@ import { SET_LINK, USER_LOGIN_SUCCESS, USER_SET_CHANNEL_SUCCESS, USER_SET_DYNAMI
 
 const BASE_URL = 'https://ono.ma/'
 
-function* onDynamicLink({ url }) {
+function* onDynamicLink({ payload: url }) {
   yield put({ type: SET_LINK, payload: url })
   yield linkUser()
 }
@@ -42,10 +42,16 @@ function* linkUser() {
   } catch (e) { }
 }
 
-function* watchLink() {
+function* initDeepLink() {
   try {
-    yield onLink(onDynamicLink)
-  } catch (e) { }
+    const initialLink = yield FirebaseLink.getInitialLink()
+    if (initialLink) {
+      yield fork(onDynamicLink, { payload: initialLink })
+    }
+    yield FirebaseLink.onLink(onDynamicLink)
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function* watchUserDinamiclink() {
@@ -66,7 +72,7 @@ function* flow() {
   yield [
     takeEvery(USER_LOGIN_SUCCESS, linkUser),
     takeEvery(USER_LOGIN_SUCCESS, watchUserDinamiclink),
-    fork(watchLink)
+    fork(initDeepLink)
   ]
 }
 

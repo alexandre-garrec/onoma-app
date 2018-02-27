@@ -12,7 +12,8 @@
 #import "AppDelegate.h"
 #import "RCCManager.h"
 #import "RNFIRMessaging.h"
-#import "DeepLink.h"
+#import <FirebaseDynamicLinks/FirebaseDynamicLinks.h>
+#import "FirebaseLinks.h"
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -131,15 +132,19 @@ static NSString *const CUSTOM_URL_SCHEME = @"fr.alex.onoma";
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(NSUserActivity *)userActivity
  restorationHandler:(void (^)(NSArray *))restorationHandler {
-  return [DeepLink application:application
-                   continueUserActivity:userActivity
-                     restorationHandler:restorationHandler];
+  return [FirebaseLinks application:application
+               continueUserActivity:userActivity
+                 restorationHandler:restorationHandler];
 }
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-  return [DeepLink application:application openURL:url
-                      sourceApplication:sourceApplication annotation:annotation];}
+  return [FirebaseLinks application:application
+                            openURL:url
+                  sourceApplication:sourceApplication
+                         annotation:annotation];
+  
+}
 @end

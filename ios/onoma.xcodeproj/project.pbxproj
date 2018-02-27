@@ -47,7 +47,7 @@
 		6871553D9E924279B3750390 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBD51EB1CE224DBDBD15792D /* FontAwesome.ttf */; };
 		7453B74723394B588F7A9E87 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36032FC3EC44712B50D870A /* libRNVectorIcons.a */; };
 		7D097B871F0BC5B9001ADB1E /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D097B861F0BC5A5001ADB1E /* libART.a */; };
-		7D4C7DAF1EC3344F00BCA372 /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */; };
+		7D4C7DAF1EC3344F00BCA372 /* FirebaseLinks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D4C7DAE1EC3344F00BCA372 /* FirebaseLinks.m */; };
 		7D6C33701ECF684E00D1DF0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7D6C336F1ECF684E00D1DF0F /* GoogleService-Info.plist */; };
 		7FCD063514D94B41A320FA31 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 197CE1617F714C5A832E08C3 /* libBVLinearGradient.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -360,8 +360,8 @@
 		7C63ACE175914BEBA6B8DCB4 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		7D097B811F0BC5A5001ADB1E /* ART.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ART.xcodeproj; path = "../node_modules/react-native/Libraries/ART/ART.xcodeproj"; sourceTree = "<group>"; };
 		7D4C7D341EC123F500BCA372 /* onoma.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = onoma.entitlements; path = onoma/onoma.entitlements; sourceTree = "<group>"; };
-		7D4C7DAD1EC3344F00BCA372 /* DeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeepLink.h; path = onoma/DeepLink.h; sourceTree = "<group>"; };
-		7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeepLink.m; path = onoma/DeepLink.m; sourceTree = "<group>"; };
+		7D4C7DAD1EC3344F00BCA372 /* FirebaseLinks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FirebaseLinks.h; path = onoma/FirebaseLinks.h; sourceTree = "<group>"; };
+		7D4C7DAE1EC3344F00BCA372 /* FirebaseLinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FirebaseLinks.m; path = onoma/FirebaseLinks.m; sourceTree = "<group>"; };
 		7D6C336F1ECF684E00D1DF0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		82E2D74CDCDD4D2A8A7DFC66 /* RNSpinkit.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSpinkit.xcodeproj; path = "../node_modules/react-native-spinkit/ios/RNSpinkit.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -526,8 +526,8 @@
 			isa = PBXGroup;
 			children = (
 				7D6C336F1ECF684E00D1DF0F /* GoogleService-Info.plist */,
-				7D4C7DAD1EC3344F00BCA372 /* DeepLink.h */,
-				7D4C7DAE1EC3344F00BCA372 /* DeepLink.m */,
+				7D4C7DAD1EC3344F00BCA372 /* FirebaseLinks.h */,
+				7D4C7DAE1EC3344F00BCA372 /* FirebaseLinks.m */,
 				7D4C7D341EC123F500BCA372 /* onoma.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1393,7 +1393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				7D4C7DAF1EC3344F00BCA372 /* DeepLink.m in Sources */,
+				7D4C7DAF1EC3344F00BCA372 /* FirebaseLinks.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
