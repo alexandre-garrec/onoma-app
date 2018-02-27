@@ -4,20 +4,25 @@ import { RkText, RkButton } from 'react-native-ui-kitten'
 
 import { connect } from 'react-redux'
 
-const Profil = ({ closeModal, navigator }) =>
+const Profil = ({ closeModal, navigator }) => (
   <View style={styles.wrapper}>
     <View style={{ width: 300 }}>
       <RkText rkType='big'>Vous étes maintenant lier a votre partenaire</RkText>
-      <RkButton rkType='border big' onPress={() => {
-        navigator.dismissLightBox()
-        closeModal()
-      }}>Fermer</RkButton>
+      <RkButton
+        rkType='border big'
+        onPress={() => {
+          navigator.dismissLightBox()
+          closeModal()
+        }}
+      >
+        Fermer
+      </RkButton>
     </View>
   </View>
+)
 
-const mapStateToProps = (state) => {
-  return {
-  }
+const mapStateToProps = state => {
+  return {}
 }
 
 export default connect(mapStateToProps)(Profil)

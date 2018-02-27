@@ -1,102 +1,131 @@
 import React from 'react'
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Share
-} from 'react-native'
+import { StyleSheet, ScrollView, View, Share } from 'react-native'
 
 import { getNameById, getDescriptionById } from '../selectors/name'
 import { getOriginById } from '../selectors/origin'
-import { CARD_HANDLE_NEXT, ADD_MATCH, CARD_HANDLE_BACK, DELETE_MATCH, GET_DESCRIPTION } from '../actions'
+import {
+  CARD_HANDLE_NEXT,
+  ADD_MATCH,
+  CARD_HANDLE_BACK,
+  DELETE_MATCH,
+  GET_DESCRIPTION
+} from '../actions'
 import { connect } from 'react-redux'
 import { padding } from '../utils/style'
 import withOutNavbar from '../utils/withOutNavbar'
-import { COLOR_BLACK, COLOR_PINK, COLOR_BLUE } from '../style'
+import { COLOR_PINK, COLOR_BLUE } from '../style'
+import { H1, H2, P } from '../styles/text'
 import Icon from 'react-native-vector-icons/Ionicons'
 import GenderIcon from '../component/common/genderIcon'
 import Chart from 'react-native-chart'
 import RoundButton, { Group } from '../component/common/roundButton'
-import { RkText } from 'react-native-ui-kitten'
 import Query from '../utils/query'
 
-const getGenderColor = isFemale => isFemale ? COLOR_PINK : COLOR_BLUE
+const getGenderColor = isFemale => (isFemale ? COLOR_PINK : COLOR_BLUE)
 
-const Profil = ({ description: { desc, orig, hist }, name: { id, name, isFemale, isMale, giveIn }, deleteItem, onLeft, onRight, handleNext, onBack, origin, navigator, withOutNavbar = false }) => {
-
+const Profil = ({
+  description: { desc, orig, hist },
+  name: { id, name, isFemale, isMale, giveIn },
+  deleteItem,
+  onLeft,
+  onRight,
+  handleNext,
+  onBack,
+  origin,
+  navigator,
+  withOutNavbar = false
+}) => {
   const color = getGenderColor(isFemale)
   const dates = Object.keys(giveIn)
-  const data = giveIn ? dates.reduce((memo, key) =>
-    ([...memo, [key, giveIn[key]]]), []) : []
+  const data = giveIn
+    ? dates.reduce((memo, key) => [...memo, [key, giveIn[key]]], [])
+    : []
 
   return (
     <View style={{ justifyContent: 'space-between', display: 'flex', flex: 1 }}>
-      {withOutNavbar ? <View style={styles.topbar} >
-        <Icon name='ios-arrow-down' color={COLOR_BLUE} size={36} onPress={() => navigator.dismissModal()} />
-      </View> : null
-      }
+      {withOutNavbar ? (
+        <View style={styles.topbar}>
+          <Icon
+            name='ios-arrow-down'
+            color={COLOR_BLUE}
+            size={36}
+            onPress={() => navigator.dismissModal()}
+          />
+        </View>
+      ) : null}
       <Query action={GET_DESCRIPTION} id={id} />
       <ScrollView style={styles.wrapper}>
-        <RkText style={{ color: color, fontSize: 38, paddindBottom: 20 }}>
-          {name} <GenderIcon size={38} isFemale={isFemale} isMale={isMale} />
-        </RkText>
-        {origin
-          ? <View style={{ marginBottom: 20, flexDirection: 'row' }}>
-            <RkText style={{ color: COLOR_BLACK }}>Origine : </RkText>
-            <RkText style={{ color: '#989898' }}>prénoms {origin.name}</RkText>
+        <H1 style={{ color: color, marginBottom: 20 }}>
+          {name} <GenderIcon isFemale={isFemale} isMale={isMale} />
+        </H1>
+        {origin ? (
+          <View style={{ marginBottom: 20 }}>
+            <H2 style={{ marginBottom: 20 }}>Origine</H2>
+            <P>prénoms {origin.name}</P>
           </View>
-          : null
-        }
-        <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Étymologie :</RkText>
-        <RkText style={{ color: '#989898', marginBottom: 20 }}>
-          {desc || orig || hist || 'NC'}
-        </RkText>
+        ) : null}
+        <H2 style={{ marginBottom: 20 }}>Étymologie</H2>
+        <P style={{ marginBottom: 20 }}>{desc || orig || hist || 'NC'}</P>
 
-        {giveIn ? <RkText style={{ color: COLOR_BLACK, marginBottom: 20 }}>Statistiques :</RkText> : null}
-        {giveIn ? <RkText style={{ color: '#989898', marginBottom: 5 }}>En milliers</RkText> : null}
-        {giveIn ? <Chart
-          style={styles.chart}
-          data={data}
-          type='line'
-          cornerRadius={5}
-          lineWidth={2}
-          dataPointRadius={0}
-          axisColor='#989898'
-          axisLabelColor='#989898'
-          showGrid={false}
-          xAxisTransform={(val) => {
-            const index = dates.indexOf(val)
-            if (index % 2) return ''
-            return val
-          }}
-          showDataPoint={true}
-          color={COLOR_PINK}
-        /> : null}
+        {giveIn ? <H2 style={{ marginBottom: 20 }}>Statistiques</H2> : null}
+        {giveIn ? <P style={{ marginBottom: 5 }}>En milliers</P> : null}
+        {giveIn ? (
+          <Chart
+            style={styles.chart}
+            data={data}
+            type='line'
+            cornerRadius={5}
+            lineWidth={2}
+            dataPointRadius={0}
+            axisColor='#989898'
+            axisLabelColor='#989898'
+            showGrid={false}
+            xAxisTransform={val => {
+              const index = dates.indexOf(val)
+              if (index % 2) return ''
+              return val
+            }}
+            showDataPoint
+            color={COLOR_PINK}
+          />
+        ) : null}
       </ScrollView>
       <Group>
-        <RoundButton image={require('../../assets/icons/onoma-button-close.png')} onPress={() => {
-          if (withOutNavbar) {
-            onLeft()
-            handleNext()
-            navigator.dismissModal()
-          } else {
-            deleteItem()
-            navigator.pop()
-          }
-        }} />
-        <RoundButton image={require('../../assets/icons/onoma-share.png')} size={withOutNavbar ? 'small' : 'normal'} onPress={() => {
-          Share.share({
-            message: 'Rejoignez votre partenaire sur onoma',
-            title: 'Onoma invite'
-          })
-        }} />
-        {withOutNavbar ? <RoundButton image={require('../../assets/icons/onoma-button-heart.png')} onPress={() => {
-          onRight()
-          handleNext()
-          withOutNavbar && navigator.dismissModal()
-        }} /> : null}
+        <RoundButton
+          image={require('../../assets/icons/onoma-button-close.png')}
+          onPress={() => {
+            if (withOutNavbar) {
+              onLeft()
+              handleNext()
+              navigator.dismissModal()
+            } else {
+              deleteItem()
+              navigator.pop()
+            }
+          }}
+        />
+        <RoundButton
+          image={require('../../assets/icons/onoma-share.png')}
+          size={withOutNavbar ? 'small' : 'normal'}
+          onPress={() => {
+            Share.share({
+              message: 'Rejoignez votre partenaire sur onoma',
+              title: 'Onoma invite'
+            })
+          }}
+        />
+        {withOutNavbar ? (
+          <RoundButton
+            image={require('../../assets/icons/onoma-button-heart.png')}
+            onPress={() => {
+              onRight()
+              handleNext()
+              withOutNavbar && navigator.dismissModal()
+            }}
+          />
+        ) : null}
       </Group>
-    </View >
+    </View>
   )
 }
 
@@ -122,13 +151,15 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 
 var styles = StyleSheet.create({
   topbar: {
+    zIndex: 1,
     borderTopWidth: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     height: 55,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    backgroundColor: 'transparent'
   },
   wrapper: {
     flexGrow: 1,
@@ -143,4 +174,7 @@ var styles = StyleSheet.create({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profil)
 
-export const DescriptionwithOutNavbar = connect(mapStateToProps, mapDispatchToProps)(withOutNavbar(Profil))
+export const DescriptionwithOutNavbar = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withOutNavbar(Profil))

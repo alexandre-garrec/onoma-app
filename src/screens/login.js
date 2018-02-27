@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image
-} from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import Spinner from 'react-native-spinkit'
 import { RkButton, RkTextInput, RkConfig, RkText } from 'react-native-ui-kitten'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -16,7 +11,7 @@ import { connect } from 'react-redux'
 import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
 import { getError, getLoading } from '../selectors/user'
 
-const onClick = (router) => {
+const onClick = router => {
   router.push({
     screen: 'example.registration',
     animated: true,
@@ -34,23 +29,38 @@ class Login extends Component {
     const { navigator, login, error, loginFb, loading } = this.props
     return (
       <View style={styles.wrapper}>
-        {loading
-          ? <Spinner style={{ marginBottom: 0 }} isVisible={loading} size={70} type={'Pulse'} color={'#fff'} />
-          : <Image style={styles.image} resizeMode='contain' source={require('../../assets/onoma-png-logo-blanc.png')} />
-        }
+        {loading ? (
+          <Spinner
+            style={{ marginBottom: 0 }}
+            isVisible={loading}
+            size={70}
+            type={'Pulse'}
+            color={'#fff'}
+          />
+        ) : (
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={require('../../assets/onoma-png-logo-blanc.png')}
+          />
+        )}
         <View style={styles.section}>
           <View style={styles.rowContainer}>
             <View style={{ flex: 1 }}>
-              <RkText rkType='error'>{error}</RkText>
+              <RkText rkType="error">{error}</RkText>
               <EmailPasswordForm
-                submitText='Connexion'
-                onSubmit={({ username, password }) => login({ username, password })}
+                submitText="Connexion"
+                onSubmit={({ username, password }) =>
+                  login({ username, password })
+                }
               />
-              <RkButton rkType='default' onPress={() => onClick(navigator)}>Inscription</RkButton>
-              <RkButton rkType='default facebook' onPress={() => loginFb()}>
+              <RkButton rkType="default" onPress={() => onClick(navigator)}>
+                Inscription
+              </RkButton>
+              <RkButton rkType="default facebook" onPress={() => loginFb()}>
                 <Icon style={{ marginRight: 10 }} name={'logo-facebook'} />
                 Connexion avec Facebook
-            </RkButton>
+              </RkButton>
               <KeyboardSpace />
             </View>
           </View>
@@ -60,7 +70,7 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const error = getError(state)
   const loading = getLoading(state)
   return {
@@ -69,9 +79,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch({ type: USER_LOGIN, payload: data }),
-  loginFb: (data) => dispatch({ type: USER_FACEBOOK_LOGIN })
+const mapDispatchToProps = dispatch => ({
+  login: data => dispatch({ type: USER_LOGIN, payload: data }),
+  loginFb: data => dispatch({ type: USER_FACEBOOK_LOGIN })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
@@ -97,6 +107,6 @@ var styles = StyleSheet.create({
   section: {
     paddingHorizontal: 25,
     paddingVertical: 15,
-    width: 300,
-  },
+    width: 300
+  }
 })

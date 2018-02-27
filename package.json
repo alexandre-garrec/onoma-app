@@ -8,6 +8,9 @@
     "build:icon": "yo rn-toolbox:assets --icon ./icon.jpg",
     "build:splash": "yo rn-toolbox:assets --splash ./splash.jpg --ios"
   },
+  "rnpm": {
+    "assets": ["./assets/fonts/"]
+  },
   "dependencies": {
     "firebase": "^3.8.0",
     "install": "^0.10.1",

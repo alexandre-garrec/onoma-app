@@ -50,7 +50,7 @@ function* initDeepLink() {
     }
     yield FirebaseLink.onLink(onDynamicLink)
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
 }
 
