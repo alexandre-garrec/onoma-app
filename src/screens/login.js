@@ -1,32 +1,37 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
-import Spinner from 'react-native-spinkit'
-import { RkButton, RkTextInput, RkConfig, RkText } from 'react-native-ui-kitten'
-import Icon from 'react-native-vector-icons/Ionicons'
-import LinearGradient from 'react-native-linear-gradient'
-import KeyboardSpace from 'react-native-keyboard-space'
-import EmailPasswordForm from '../component/form/EmailPassword'
+import React, { Component } from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import Spinner from "react-native-spinkit";
+import {
+  RkButton,
+  RkTextInput,
+  RkConfig,
+  RkText
+} from "react-native-ui-kitten";
+import Icon from "react-native-vector-icons/Ionicons";
+import LinearGradient from "react-native-linear-gradient";
+import KeyboardSpace from "react-native-keyboard-space";
+import EmailPasswordForm from "../component/form/EmailPassword";
 
-import { connect } from 'react-redux'
-import { USER_LOGIN, USER_FACEBOOK_LOGIN } from '../actions'
-import { getError, getLoading } from '../selectors/user'
+import { connect } from "react-redux";
+import { USER_LOGIN, USER_FACEBOOK_LOGIN } from "../actions";
+import { getError, getLoading } from "../selectors/user";
 
 const onClick = router => {
   router.push({
-    screen: 'example.registration',
+    screen: "example.registration",
     animated: true,
-    backButtonTitle: '',
-    title: 'Inscription'
-  })
-}
+    backButtonTitle: "",
+    title: "Inscription"
+  });
+};
 
 class Login extends Component {
   static navigatorStyle = {
     navBarHidden: true
-  }
+  };
 
   render() {
-    const { navigator, login, error, loginFb, loading } = this.props
+    const { navigator, login, error, loginFb, loading } = this.props;
     return (
       <View style={styles.wrapper}>
         {loading ? (
@@ -34,14 +39,14 @@ class Login extends Component {
             style={{ marginBottom: 0 }}
             isVisible={loading}
             size={70}
-            type={'Pulse'}
-            color={'#fff'}
+            type={"Pulse"}
+            color={"#fff"}
           />
         ) : (
           <Image
             style={styles.image}
             resizeMode="contain"
-            source={require('../../assets/onoma-png-logo-blanc.png')}
+            source={require("../../assets/onoma-logo-topbar-active.png")}
           />
         )}
         <View style={styles.section}>
@@ -54,11 +59,14 @@ class Login extends Component {
                   login({ username, password })
                 }
               />
-              <RkButton rkType="default" onPress={() => onClick(navigator)}>
+              <RkButton
+                rkType="default border"
+                onPress={() => onClick(navigator)}
+              >
                 Inscription
               </RkButton>
               <RkButton rkType="default facebook" onPress={() => loginFb()}>
-                <Icon style={{ marginRight: 10 }} name={'logo-facebook'} />
+                <Icon style={{ marginRight: 10 }} name={"logo-facebook"} />
                 Connexion avec Facebook
               </RkButton>
               <KeyboardSpace />
@@ -66,47 +74,48 @@ class Login extends Component {
           </View>
         </View>
       </View>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  const error = getError(state)
-  const loading = getLoading(state)
+  const error = getError(state);
+  const loading = getLoading(state);
   return {
     error,
     loading
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   login: data => dispatch({ type: USER_LOGIN, payload: data }),
   loginFb: data => dispatch({ type: USER_FACEBOOK_LOGIN })
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f06292'
+    alignItems: "center",
+    justifyContent: "center"
+    // backgroundColor: '#f06292'
   },
   image: {
     width: 170,
+    height: 100,
     marginBottom: 0
   },
   rowContainer: {
     marginTop: 5,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    flexWrap: 'wrap'
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexWrap: "wrap"
   },
   section: {
     paddingHorizontal: 25,
     paddingVertical: 15,
     width: 300
   }
-})
+});

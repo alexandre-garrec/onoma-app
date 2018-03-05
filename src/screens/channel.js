@@ -40,7 +40,7 @@ const Channel = ({ channel, user, link, users }) => {
   }
   return (
     <Container>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginBottom: 20 }}>
         {users.map(user => (
           <Image
             key={user.id}
@@ -49,14 +49,20 @@ const Channel = ({ channel, user, link, users }) => {
           />
         ))}
       </View>
-      <H2>Vous et Jean-Alexandreavez une liste commune</H2>
-      <P>Pour changer de partenaire,tapez pour copier le lien</P>
+      <View style={{ width: 300, textAlign: 'center' }}>
+        <H2 style={{ textAlign: 'center', marginBottom: 20 }}>
+          Vous et Jean-Alexandre avez une liste commune
+        </H2>
+        <P style={{ textAlign: 'center' }}>
+          Pour changer de partenaire, tapez pour copier le lien
+        </P>
+      </View>
       <RkButton onPress={() => onClick(link)} rkType='default'>
         <Icon
           name='ios-link-outline'
           style={{ marginRight: 10, fontSize: 18 }}
         />
-        Inviter votre partenaire
+        Changer de partenaire
       </RkButton>
     </Container>
   )
