@@ -49,19 +49,19 @@ const styles = StyleSheet.create({
   },
   p: {
     fontFamily: REGULAR,
-    fontSize: em(0.75), // 12
+    fontSize: em(0.8125), // 13
     lineHeight: em(1.375), // 22
     color: LIGHT_GREY
   },
   text: {
     fontFamily: REGULAR,
-    fontSize: em(0.75), // 12
+    fontSize: em(0.8125), // 13
     lineHeight: em(1.125), // 18
     color: LIGHT_GREY
   },
   b: {
     fontFamily: SEMI_BOLD,
-    fontSize: em(0.75),
+    fontSize: em(0.8125), // 13
     lineHeight: em(1.375), // 22
     color: BLACK
   }
