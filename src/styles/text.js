@@ -1,27 +1,29 @@
-import React from 'react'
-import { Text, StyleSheet } from 'react-native'
-import { em, extractStyle } from './utils'
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+import { em, extractStyle } from "./utils";
 
-import { BLACK, LIGHT_GREY } from './colors'
-import { BOLD, SEMI_BOLD, REGULAR } from './font'
+import { BLACK, LIGHT_GREY } from "./colors";
+import { BOLD, SEMI_BOLD, REGULAR } from "./font";
 
-const text = (defaultStyle, { style = {}, children }) => (
-  <Text style={[defaultStyle, ...extractStyle(style)]}>{children}</Text>
-)
+const text = (defaultStyle, { style = {}, children, ...props }) => (
+  <Text {...props} style={[defaultStyle, ...extractStyle(style)]}>
+    {children}
+  </Text>
+);
 
-export const H1 = props => text(styles.h1, props)
+export const H1 = props => text(styles.h1, props);
 
-export const H2 = props => text(styles.h2, props)
+export const H2 = props => text(styles.h2, props);
 
-export const H3 = props => text(styles.h3, props)
+export const H3 = props => text(styles.h3, props);
 
-export const H4 = props => text(styles.h4, props)
+export const H4 = props => text(styles.h4, props);
 
-export const Subtitle = props => text(styles.subtitle, props)
+export const Subtitle = props => text(styles.subtitle, props);
 
-export const P = props => text(styles.p, props)
+export const P = props => text(styles.p, props);
 
-export const B = props => text(styles.b, props)
+export const B = props => text(styles.b, props);
 
 const styles = StyleSheet.create({
   h1: {
@@ -65,4 +67,4 @@ const styles = StyleSheet.create({
     lineHeight: em(1.375), // 22
     color: BLACK
   }
-})
+});
