@@ -94,6 +94,9 @@
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
+		<string>Onoma-Bold.ttf</string>
+		<string>Onoma-Book.ttf</string>
+		<string>Onoma-Light.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

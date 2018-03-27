@@ -1,3 +1,3 @@
-export const BOLD = 'Montserrat-Bold'
-export const SEMI_BOLD = 'Montserrat-SemiBold'
-export const REGULAR = 'Montserrat-Regular'
+export const BOLD = "Onoma-Bold";
+export const REGULAR = "Onoma-Book";
+export const SEMI_BOLD = "Onoma-Book";

@@ -72,31 +72,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
-// const Topbar = ({ goToPage, activeTab }) => (
-//   <SegmentedControlIOS
-//     style={{
-//       margin: 20
-//     }}
-//     tintColor={COLOR_PINK}
-//     selectedIndex={activeTab}
-//     onChange={event => goToPage(event.nativeEvent.selectedSegmentIndex)}
-//     values={['Liste des matchs', 'Liste personnelle']}
-//   />
-// )
-
-// const List = ({ router }) => (
-//   <ScrollableTabView
-//     tabBarInactiveTextColor={COLOR_BLACK}
-//     tabBarTextStyle={{ fontWeight: 'normal' }}
-//     tabBarActiveTextColor={COLOR_PINK}
-//     tabBarUnderlineStyle={{ height: 2, backgroundColor: COLOR_BLUE }}
-//     renderTabBar={() => <Topbar />}
-//     locked
-//   >
-//     <MatchList router={router} />
-//     <MatchList personal router={router} />
-//   </ScrollableTabView>
-// )
-
-// export default List

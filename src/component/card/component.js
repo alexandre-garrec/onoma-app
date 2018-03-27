@@ -22,6 +22,7 @@ const capital = (str = "") => {
 };
 
 const openModal = (router, id) =>
+  router &&
   router.showModal({
     screen: "example.description.modal",
     animated: false,
@@ -39,7 +40,7 @@ const Card = ({
   id: defaultId,
   name: { name, id, isFemale, isMale },
   origin,
-  style,
+  style = {},
   router
 }) => (
   <TouchableOpacity
@@ -54,7 +55,7 @@ const Card = ({
     <H1
       style={[
         {
-          width: width(80) - 10,
+          width: style.width ? style.width - 10 : width(80) - 10,
           textAlign: "center",
           height: 40,
           color: isFemale ? COLOR_PINK : COLOR_BLUE
