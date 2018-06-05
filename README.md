@@ -1,17 +1,18 @@
 # onoma-app
+
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 <!-- TOC -->
 
-- [onoma-app](#onoma-app)
-- [Installation](#installation)
-- [Deploy](#deploy)
-- [License](#license)
+* [onoma-app](#onoma-app)
+* [Installation](#installation)
+* [Deploy](#deploy)
+* [TODO](#todo)
+* [License](#license)
 
 <!-- /TOC -->
 
 # Installation
-
 
 ```shell
  $ git clone ...
@@ -22,10 +23,14 @@
 
 # Deploy
 
-
 ```shell
  $ fastlane beta
 ```
 
+# TODO
+
+* []
+* []
+* []
 
 # License

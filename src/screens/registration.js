@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { RkButton, RkText, RkConfig } from "react-native-ui-kitten";
-import Icon from "react-native-vector-icons/Ionicons";
-import LinearGradient from "react-native-linear-gradient";
 import KeyboardSpace from "react-native-keyboard-space";
 import EmailPasswordForm from "../component/form/EmailPassword";
 import { COLOR_PINK } from "../style";
 
 class Registration extends Component {
   static navigatorStyle = {
-    //navBarHidden: true,
     navBarTextColor: COLOR_PINK,
     navBarButtonColor: "#d8dce5"
   };
@@ -52,7 +48,10 @@ const mapDispatchToProps = dispatch => ({
   register: data => dispatch({ type: USER_REGISTER, payload: data })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Registration);
 
 var styles = StyleSheet.create({
   wrapper: {

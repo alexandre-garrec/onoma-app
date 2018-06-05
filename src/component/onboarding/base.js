@@ -5,7 +5,7 @@ import FacebookButton from "../common/button/facebook";
 import TextButton from "../common/button/text";
 import Card from "../card/component";
 
-import { H1, H3, H4, P } from "../../styles/text";
+import { H1, H2, H4, P } from "../../styles/text";
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from "../../style";
 import { padding, margin } from "../../utils/style";
 
@@ -20,7 +20,7 @@ const onClick = router => {
 
 const Base = ({ text, children, router }) => (
   <View style={{ flex: 1 }}>
-    <H3 style={{ textAlign: "center", ...margin(50, 30, 0, 30) }}>{text}</H3>
+    <H2 style={{ textAlign: "center", ...margin(50, 30, 0, 30) }}>{text}</H2>
     <View style={styles.main}>{children}</View>
     <View style={{ ...padding(30, 30, 0, 30) }}>
       <FacebookButton />

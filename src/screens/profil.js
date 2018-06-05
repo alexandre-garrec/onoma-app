@@ -1,51 +1,51 @@
-import React from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import React from "react";
+import { StyleSheet, View, Image } from "react-native";
 
-import { RkText, RkButton } from 'react-native-ui-kitten'
+import { RkButton } from "react-native-ui-kitten";
 
-import { connect } from 'react-redux'
-import { getCurrentUser } from '../selectors/user'
-import { USER_LOGOUT } from '../actions'
+import { connect } from "react-redux";
+import { getCurrentUser } from "../selectors/user";
+import { USER_LOGOUT } from "../actions";
 
-import { H1 } from '../styles/text'
+import { H1 } from "../styles/text";
 
 const onClick = router => {
   router.push({
-    screen: 'example.channel',
+    screen: "example.channel",
     animated: true,
-    backButtonTitle: '',
-    title: 'Partenaire'
-  })
-}
+    backButtonTitle: "",
+    title: "Partenaire"
+  });
+};
 
 const onClickFilter = router => {
   router.push({
-    screen: 'example.filter',
+    screen: "example.filter",
     animated: true,
-    backButtonTitle: '',
-    title: 'Filtres'
-  })
-}
+    backButtonTitle: "",
+    title: "Filtres"
+  });
+};
 
 const onClickListAll = router => {
   router.push({
-    screen: 'example.list.all',
+    screen: "example.list.all",
     animated: true,
-    backButtonTitle: '',
-    title: 'List'
-  })
-}
+    backButtonTitle: "",
+    title: "List"
+  });
+};
 
 const ICON = {
-  resizeMode: 'contain',
+  resizeMode: "contain",
   style: { height: 24, width: 24, marginRight: 10 }
-}
+};
 
 const Profil = ({ user, logout, router }) =>
   user ? (
     <View style={styles.wrapper}>
       <View
-        style={{ width: 300, justifyContent: 'center', alignItems: 'center' }}
+        style={{ width: 300, justifyContent: "center", alignItems: "center" }}
       >
         <View style={styles.image_wrapper}>
           <Image
@@ -53,31 +53,31 @@ const Profil = ({ user, logout, router }) =>
             source={
               user.picture
                 ? { uri: user.picture }
-                : require('../../assets/profile.jpg')
+                : require("../../assets/profile.jpg")
             }
           />
-          <H1 style={{ marginTop: 20, fontSize: 22, color: '#555555' }}>
+          <H1 style={{ marginTop: 20, fontSize: 22, color: "#555555" }}>
             {user.displayName || user.email}
           </H1>
         </View>
-        <View style={{ justifyContent: 'center', alignItems: 'flex-start' }}>
+        <View style={{ justifyContent: "center", alignItems: "flex-start" }}>
           <RkButton
             onPress={() => onClick(router)}
-            rkType='default clean blue medium'
+            rkType="default clean blue medium"
           >
             <Image
               {...ICON}
-              source={require('../../assets/icons/onoma-partenaire.png')}
+              source={require("../../assets/icons/onoma-partenaire.png")}
             />
             Partenaire
           </RkButton>
           <RkButton
             onPress={() => onClickFilter(router)}
-            rkType='default clean purple medium'
+            rkType="default clean purple medium"
           >
             <Image
               {...ICON}
-              source={require('../../assets/icons/onoma-reglages.png')}
+              source={require("../../assets/icons/onoma-reglages.png")}
             />
             Filtres
           </RkButton>
@@ -91,10 +91,10 @@ const Profil = ({ user, logout, router }) =>
             />
             List all
           </RkButton> */}
-          <RkButton rkType='default clean medium' onPress={logout}>
+          <RkButton rkType="default clean medium" onPress={logout}>
             <Image
               {...ICON}
-              source={require('../../assets/icons/onoma-deco.png')}
+              source={require("../../assets/icons/onoma-deco.png")}
             />
             Déconnexion
           </RkButton>
@@ -103,31 +103,34 @@ const Profil = ({ user, logout, router }) =>
     </View>
   ) : (
     <View />
-  )
+  );
 
 const mapStateToProps = state => {
-  const user = getCurrentUser(state)
+  const user = getCurrentUser(state);
   return {
     user
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   logout: () => dispatch({ type: USER_LOGOUT })
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profil)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profil);
 
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'transparent'
+    alignItems: "center",
+    backgroundColor: "transparent"
   },
   image_wrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "transparent",
     marginVertical: 40
   },
   image: {
@@ -135,4 +138,4 @@ var styles = StyleSheet.create({
     borderRadius: 50,
     width: 100
   }
-})
+});

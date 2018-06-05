@@ -1,25 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, Text, View, Image } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import Spinner from "react-native-spinkit";
-import {
-  RkButton,
-  RkTextInput,
-  RkConfig,
-  RkText
-} from "react-native-ui-kitten";
+import { RkButton, RkText } from "react-native-ui-kitten";
 import Icon from "react-native-vector-icons/Ionicons";
-import LinearGradient from "react-native-linear-gradient";
 import KeyboardSpace from "react-native-keyboard-space";
 import EmailPasswordForm from "../component/form/EmailPassword";
 
 import FacebookButton from "../component/common/button/facebook";
-import TextButton from "../component/common/button/text";
 
-import Onboarding from "react-native-onboarding-swiper";
-import { H1, H3, H4, P } from "../styles/text";
-import Card from "../component/card/component";
-import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from "../style";
-import { padding, margin } from "../utils/style";
 import Onboarding2 from "../component/onboarding";
 import { connect } from "react-redux";
 import { USER_LOGIN, USER_FACEBOOK_LOGIN } from "../actions";
@@ -53,7 +41,7 @@ class Login extends Component {
       // onDone={() => {
       //   this.setState({ showOnboarding: false });
       // }}
-      return <Onboarding2 router={navigator} />;
+      // return <Onboarding2 router={navigator} />;
     }
 
     return (
@@ -89,6 +77,7 @@ class Login extends Component {
               >
                 Inscription
               </RkButton>
+              {false && <FacebookButton />}
               <RkButton rkType="default facebook" onPress={() => loginFb()}>
                 <Icon style={{ marginRight: 10 }} name={"logo-facebook"} />
                 Connexion avec Facebook
@@ -116,7 +105,10 @@ const mapDispatchToProps = dispatch => ({
   loginFb: data => dispatch({ type: USER_FACEBOOK_LOGIN })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
 
 var styles = StyleSheet.create({
   wrapper: {

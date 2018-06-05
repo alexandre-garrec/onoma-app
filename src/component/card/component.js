@@ -7,19 +7,18 @@ import { GenderImage } from "../common/genderIcon";
 import { COLOR_PINK, COLOR_BLUE, COLOR_BLACK } from "../../style";
 import { H1, B, P } from "../../styles/text";
 
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
-const capital = (str = "") => {
-  return str
+const capital = (str = "") =>
+  str
     .toLowerCase()
     .split("-")
     .map(text => toTitleCase(text))
     .join("-");
-};
+
+const toTitleCase = str =>
+  str.replace(
+    /\w\S*/g,
+    txt => `${txt.charAt(0).toUpperCase()}${txt.substr(1).toLowerCase()}`
+  );
 
 const openModal = (router, id) =>
   router &&
@@ -29,12 +28,6 @@ const openModal = (router, id) =>
     backButtonTitle: "Retour",
     passProps: { id }
   });
-
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
 
 const Card = ({
   id: defaultId,

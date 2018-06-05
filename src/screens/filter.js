@@ -1,19 +1,18 @@
-import React, { Component } from 'react'
-import { StyleSheet, ScrollView, Switch, View, Text } from 'react-native'
-import { RkText } from 'react-native-ui-kitten'
-import Icon from 'react-native-vector-icons/Ionicons'
-import GenderIcon from '../component/common/genderIcon'
-import { ButtonWrapper, Button } from '../component/common/inlineButton'
+import React, { Component } from "react";
+import { StyleSheet, ScrollView, Switch, View, Text } from "react-native";
+import { RkText } from "react-native-ui-kitten";
+import GenderIcon from "../component/common/genderIcon";
+import { ButtonWrapper, Button } from "../component/common/inlineButton";
 
-import { COLOR_PINK, COLOR_BLACK, COLOR_BLUE } from '../style'
+import { COLOR_PINK } from "../style";
 
-import { padding } from '../utils/style'
-import { capitalizeFirstLetter } from '../utils'
+import { padding } from "../utils/style";
+import { capitalizeFirstLetter } from "../utils";
 
-import { connect } from 'react-redux'
-import { SET_FILTER } from '../actions'
-import { getFilters } from '../selectors/name'
-import { getOrigins } from '../selectors/origin'
+import { connect } from "react-redux";
+import { SET_FILTER } from "../actions";
+import { getFilters } from "../selectors/name";
+import { getOrigins } from "../selectors/origin";
 
 const GenderButton = ({
   isMale = false,
@@ -21,7 +20,7 @@ const GenderButton = ({
   isActive = false,
   onPress
 }) => {
-  const color = isActive ? {} : { color: '#e5e5e5' }
+  const color = isActive ? {} : { color: "#e5e5e5" };
   return (
     <Button onPress={onPress} style={{ flex: 1 }} isActive={isActive}>
       <GenderIcon
@@ -30,26 +29,29 @@ const GenderButton = ({
         isMale={isMale}
         isFemale={isFemale}
       />
-      <Text style={color}>{isMale ? 'Garçon' : 'Fille'}</Text>
+      <Text style={color}>{isMale ? "Garçon" : "Fille"}</Text>
     </Button>
-  )
-}
+  );
+};
 
 class Filter extends Component {
   setOrigin(id) {
-    const { setFilter, filters: { origin: origins = [] } } = this.props
+    const {
+      setFilter,
+      filters: { origin: origins = [] }
+    } = this.props;
     const origin = (() => {
-      if (origins.includes(id)) return [...origins].filter(o => o !== id)
-      else return [...origins, id]
-    })()
+      if (origins.includes(id)) return [...origins].filter(o => o !== id);
+      else return [...origins, id];
+    })();
 
-    setFilter({ origin: origin })
+    setFilter({ origin: origin });
   }
   render() {
-    const { navigator, setFilter, filters, origins } = this.props
+    const { navigator, setFilter, filters, origins } = this.props;
     return (
       <ScrollView style={styles.wrapper}>
-        <RkText rkType='menu'>Sexe</RkText>
+        <RkText rkType="menu">Sexe</RkText>
         <ButtonWrapper>
           <GenderButton
             isMale
@@ -63,7 +65,7 @@ class Filter extends Component {
           />
         </ButtonWrapper>
 
-        <RkText rkType='menu'>Prénoms</RkText>
+        <RkText rkType="menu">Prénoms</RkText>
         <View style={styles.rowContainer}>
           {origins.map(origin => (
             <View key={origin.id} style={styles.row}>
@@ -73,50 +75,53 @@ class Filter extends Component {
               <Switch
                 onValueChange={() => this.setOrigin(origin.id)}
                 value={filters.origin && filters.origin.includes(origin.id)}
-                tintColor={'#e5e5e5'}
+                tintColor={"#e5e5e5"}
                 onTintColor={COLOR_PINK}
               />
             </View>
           ))}
         </View>
       </ScrollView>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => {
-  const filters = getFilters(state)
-  const origins = getOrigins(state)
+  const filters = getFilters(state);
+  const origins = getOrigins(state);
   return {
     filters,
     origins
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   setFilter: filter => dispatch({ type: SET_FILTER, payload: filter })
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Filter);
 
 var styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#F7F7F7',
+    backgroundColor: "#F7F7F7",
     flex: 1
   },
   row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
     borderBottomWidth: 1,
-    alignItems: 'center',
-    borderColor: '#e5e5e5',
+    alignItems: "center",
+    borderColor: "#e5e5e5",
     ...padding(10, 20)
   },
   rowText: {},
   rowContainer: {
-    borderColor: '#e5e5e5',
+    borderColor: "#e5e5e5",
     borderTopWidth: 1
   }
-})
+});

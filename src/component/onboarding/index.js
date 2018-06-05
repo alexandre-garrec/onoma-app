@@ -6,7 +6,7 @@ import { View, Image, Text, StyleSheet, Dimensions } from "react-native";
 import { TabViewAnimated, TabBar, SceneMap } from "react-native-tab-view";
 
 import { COLOR_PINK } from "../../style";
-import { H1, H4 } from "../../styles/text";
+import { H1, H3, H4 } from "../../styles/text";
 
 import { padding, margin } from "../../utils/style";
 
@@ -41,7 +41,7 @@ export default class TabViewExample extends React.Component {
           text="Trouver le prénom de votre bébé devient un jeu d’enfant !"
         >
           <Card
-            style={{ width: 250, height: 300 }}
+            style={{ width: 230, height: 280 }}
             id={1}
             name={name}
             origin={origin}
@@ -79,7 +79,7 @@ export default class TabViewExample extends React.Component {
               </Text>
             </View>
             <Card
-              style={{ width: 250, height: 300, position: "absolute" }}
+              style={{ width: 230, height: 280, position: "absolute" }}
               id={1}
               name={{
                 name: "Camille",
@@ -91,8 +91,8 @@ export default class TabViewExample extends React.Component {
             />
             <Card
               style={{
-                width: 250,
-                height: 300,
+                width: 230,
+                height: 280,
                 marginLeft: 23,
                 transform: [{ rotate: "10deg" }]
               }}
@@ -118,14 +118,15 @@ export default class TabViewExample extends React.Component {
             <H1
               style={{
                 color: COLOR_PINK,
-                textAlign: "center"
+                textAlign: "center",
+                fontSize: 40
               }}
             >
               Camille
             </H1>
-            <H4 style={{ textAlign: "center" }}>
+            <H3 style={{ textAlign: "center" }}>
               Vous et votre partenaire avez indiqué que ce prénom vous plaisez.
-            </H4>
+            </H3>
             <View
               style={{
                 flexDirection: "row",

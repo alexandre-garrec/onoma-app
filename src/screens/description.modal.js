@@ -61,19 +61,21 @@ const Profil = ({
         style={styles.wrapper}
         linearGradientColors={["rgba(255, 255, 255, 0)", "#ffffff"]}
       >
-        <H1 style={{ color: color, marginBottom: 20 }}>
+        <H1 style={{ color: color, marginBottom: 10 }}>
           {name} <GenderIcon isFemale={isFemale} isMale={isMale} />
         </H1>
         {origin ? (
-          <View style={{ marginBottom: 20 }}>
-            <H2 style={{ marginBottom: 20 }}>Origine</H2>
+          <View style={{ marginBottom: 10 }}>
+            <H2 style={{ marginBottom: 10 }}>Origine</H2>
             <P>prénoms {origin.name}</P>
           </View>
         ) : null}
-        <H2 style={{ marginBottom: 20 }}>Étymologie</H2>
-        <P style={{ marginBottom: 20 }}>{desc || orig || hist || "NC"}</P>
+        {!!(desc || orig || hist) && (
+          <H2 style={{ marginBottom: 10 }}>Description</H2>
+        )}
+        <P style={{ marginBottom: 10 }}>{desc || orig || hist}</P>
 
-        {giveIn ? <H2 style={{ marginBottom: 20 }}>Statistiques</H2> : null}
+        {giveIn ? <H2 style={{ marginBottom: 10 }}>Statistiques</H2> : null}
         {giveIn ? <P style={{ marginBottom: 5 }}>En milliers</P> : null}
         {giveIn ? (
           <Chart
@@ -178,7 +180,10 @@ var styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profil);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profil);
 
 export const DescriptionwithOutNavbar = connect(
   mapStateToProps,

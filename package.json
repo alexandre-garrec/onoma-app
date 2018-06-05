@@ -9,9 +9,7 @@
     "build:splash": "yo rn-toolbox:assets --splash ./splash.jpg --ios"
   },
   "rnpm": {
-    "assets": [
-      "./assets/fonts/"
-    ]
+    "assets": ["./assets/fonts/"]
   },
   "dependencies": {
     "@inteach/react-native-scroll-indicator": "0.0.4",
